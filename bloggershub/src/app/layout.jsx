@@ -1,5 +1,6 @@
-import Header from "@/components/header/header";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+import Header from "@/components/header/header";
 
 export const metadata = {
   title: "Blogger's Hub",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         {children}
+        <Toaster />
       </body>
     </html>
   );

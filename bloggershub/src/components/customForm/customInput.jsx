@@ -25,7 +25,7 @@ const CustomInput = ({
           <FormControl>
             <Input
               type={
-                name === "password" || "confirmPassword" ? "password" : "text"
+                name === ("password" || "confirmPassword") ? "password" : "text"
               }
               placeholder={placeholder}
               className={inputStyle}
