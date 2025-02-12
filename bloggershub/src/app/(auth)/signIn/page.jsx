@@ -1,13 +1,15 @@
 "use client";
 
-import CustomButton from "@/components/customForm/customButton";
-import CustomInput from "@/components/customForm/customInput";
+import CustomButton from "@/components/customFormElements/customButton";
+import CustomInput from "@/components/customFormElements/customInput";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { signInSchema } from "@/validations/signInSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
   const { toast } = useToast();
@@ -40,37 +42,39 @@ const SignIn = () => {
         <h1 className="p-4 font-semibold text-2xl text-center">Sign In</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="p-2">
+            <div className="relative p-3 emailBox">
               <CustomInput
                 control={form.control}
                 label="Email"
                 name="email"
-                placeholder="Enter your email..."
-                inputStyle="w-full"
-                labelStyle="text-md"
+                placeholder=""
               />
             </div>
-            <div className="p-2">
+            <div className="relative p-3">
               <CustomInput
                 control={form.control}
                 label="Password"
                 name="password"
-                placeholder="Enter your password..."
-                inputStyle="w-full"
-                labelStyle="text-md"
+                placeholder=""
               />
             </div>
-            <div className="p-2">
+            <div className="p-3">
               <CustomButton
                 type="submit"
                 buttonText="Sign In"
-                buttonStyle="w-full bg-blue-400 hover:bg-blue-600"
+                buttonStyle="w-full bg-blue-400 hover:bg-blue-600 text-white shadow-md"
                 disabled={false}
               />
             </div>
           </form>
         </Form>
-        <div className="p-1 text-sm text-center">
+        <div className="p-3">
+          <Button className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black">
+            <FcGoogle />
+            <span>Continue with Google</span>
+          </Button>
+        </div>
+        <div className="p-2 text-sm text-center">
           <Link
             className="font-semibold hover:text-blue-600 hover:underline"
             href="/signUp"
@@ -78,7 +82,7 @@ const SignIn = () => {
             Forgot password?
           </Link>
         </div>
-        <div className="p-1 text-sm text-center">
+        <div className="p-2 text-sm text-center">
           Don't have an account?
           <Link
             className="ml-2 font-semibold hover:text-blue-600 hover:underline"

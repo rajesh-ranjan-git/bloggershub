@@ -72,3 +72,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.emailInput:focus + .emailLabel {
+  top: -0.5px;
+  background-color: white;
+}

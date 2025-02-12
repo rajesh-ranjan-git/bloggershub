@@ -1,13 +1,15 @@
 "use client";
 
-import CustomButton from "@/components/customForm/customButton";
-import CustomInput from "@/components/customForm/customInput";
+import CustomButton from "@/components/customFormElements/customButton";
+import CustomInput from "@/components/customFormElements/customInput";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
 import { signUpSchema } from "@/validations/signUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
   const form = useForm({
@@ -38,37 +40,31 @@ const SignUp = () => {
         <h1 className="p-4 font-semibold text-2xl text-center">Sign Up</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="p-2">
+            <div className="relative p-3">
               <CustomInput
                 control={form.control}
                 label="Email"
                 name="email"
-                placeholder="Enter your email..."
-                inputStyle="w-full"
-                labelStyle="text-md"
+                placeholder=""
               />
             </div>
-            <div className="p-2">
+            <div className="relative p-3">
               <CustomInput
                 control={form.control}
                 label="Password"
                 name="password"
-                placeholder="Enter your password..."
-                inputStyle="w-full outline-blue-400 focus:outline-blue-400"
-                labelStyle="text-md"
+                placeholder=""
               />
             </div>
-            <div className="p-2">
+            <div className="relative p-3">
               <CustomInput
                 control={form.control}
                 label="Confirm Password"
                 name="confirmPassword"
-                placeholder="Confirm your password..."
-                inputStyle="w-full outline-blue-400 focus:outline-blue-400"
-                labelStyle="text-md"
+                placeholder=""
               />
             </div>
-            <div className="p-2">
+            <div className="relative p-3">
               <CustomButton
                 type="submit"
                 buttonText="Sign Up"
@@ -78,7 +74,13 @@ const SignUp = () => {
             </div>
           </form>
         </Form>
-        <div className="p-1 text-sm text-center">
+        <div className="p-3">
+          <Button className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black">
+            <FcGoogle />
+            <span>Continue with Google</span>
+          </Button>
+        </div>
+        <div className="p-2 text-sm text-center">
           Already have an account?
           <Link
             className="ml-2 font-semibold hover:text-blue-600 hover:underline"
