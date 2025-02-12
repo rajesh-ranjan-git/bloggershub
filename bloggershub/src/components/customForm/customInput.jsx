@@ -24,7 +24,9 @@ const CustomInput = ({
           <FormLabel className={labelStyle}>{label}</FormLabel>
           <FormControl>
             <Input
-              type={name === "password" ? "password" : "text"}
+              type={
+                name === "password" || "confirmPassword" ? "password" : "text"
+              }
               placeholder={placeholder}
               className={inputStyle}
               {...field}
