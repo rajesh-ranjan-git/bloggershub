@@ -1,9 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const BlogCard = () => {
   return (
     <div className="bg-white shadow-sm hover:shadow-md border border-gray-200 rounded-lg max-w-sm">
-      <img className="rounded-t-lg" src="/images/blog.jpg" alt="blogImage" />
+      <Image
+        className="rounded-t-lg w-full h-auto"
+        src="/images/blog.jpg"
+        alt="blogImage"
+        width={300}
+        height={300}
+      />
 
       <div className="p-5">
         <h5 className="mb-2 font-bold text-gray-900 text-2xl tracking-tight">
