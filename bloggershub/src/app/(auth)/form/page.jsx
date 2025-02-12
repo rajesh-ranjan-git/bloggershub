@@ -5,33 +5,37 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { toast } from "@/hooks/use-toast";
+import { Form } from "@/components/ui/form";
+import CustomInput from "@/components/customForm/customInput";
+import CustomButton from "@/components/customForm/customButton";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+const formSchema = z.object({
+  email: z.string().email({
+    message: "Invalid email address.",
   }),
+  password: z
+    .string()
+    .min(6, {
+      message: "Password should be at-least 6 characters long. ",
+    })
+    .max(20, {
+      message: "Password should be at-most 20 characters long. ",
+    }),
 });
 
 export default function InputForm() {
   const form = useForm({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
+      password: "",
     },
   });
 
-  function onSubmit(data) {
+  const onSubmit = (data) => {
+    console.log("data : ", data);
+    console.log("Submit called");
     toast({
       title: "You submitted the following values:",
       description: (
@@ -40,7 +44,7 @@ export default function InputForm() {
         </pre>
       ),
     });
-  }
+  };
 
   return (
     <Form {...form}>
@@ -48,39 +52,28 @@ export default function InputForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6 pt-20 w-2/3"
       >
-        <FormField
+        <CustomInput
           control={form.control}
+          label="Email"
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="Enter your email..."
-                  {...field}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          placeholder="Enter your email..."
+          inputStyle="w-full"
+          labelStyle="text-md"
         />
-        <FormField
+        <CustomInput
           control={form.control}
+          label="Password"
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Enter your password..."
-                  {...field}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          placeholder="Enter your password..."
+          inputStyle="w-full"
+          labelStyle="text-md"
         />
-        <Button type="submit">Submit</Button>
+        <CustomButton
+          type="submit"
+          buttonText="Sign In"
+          buttonStyle="w-full"
+          disabled={false}
+        />
       </form>
     </Form>
   );

@@ -1,63 +1,67 @@
-// import { z } from "zod";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
-// import { useForm } from "react-hook-form";
-// import { zodResolver } from "@hookform/resolvers/zod";
+"use client";
 
-// const formSchema = z.object({
-//   email: z.string().email({
-//     message: "Invalid email",
-//   }),
-//   password: z
-//     .string()
-//     .min(6, {
-//       message: "Password must be at least 6 characters.",
-//     })
-//     .max(20, {
-//       message: "Password must be at most 20 characters.",
-//     }),
-// });
-
-// export const LoginForm = () => {
-//   const form = useForm({
-//     resolver: zodResolver(formSchema),
-//     defaultValues: {
-//       email: "",
-//       password: "",
-//     },
-//   });
-// };
+import CustomButton from "@/components/customForm/customButton";
+import CustomInput from "@/components/customForm/customInput";
+import { Form } from "@/components/ui/form";
+import { toast } from "@/hooks/use-toast";
+import { signInSchema } from "@/validations/signInSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 const SignIn = () => {
+  const form = useForm({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log("data : ", data);
+    console.log("Submit called");
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="bg-slate-950 mt-2 p-4 rounded-md w-[340px]">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+  };
+
   return (
     <section className="flex justify-center items-center px-10 w-screen h-screen">
       <div className="border-2 border-black rounded-lg min-w-96 min-h-96">
-        {/* <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 pt-20"
+          >
+            <CustomInput
               control={form.control}
+              label="Email"
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              placeholder="Enter your email..."
+              inputStyle="w-full"
+              labelStyle="text-md"
             />
-            <Button type="submit">Submit</Button>
+            <CustomInput
+              control={form.control}
+              label="Password"
+              name="password"
+              placeholder="Enter your password..."
+              inputStyle="w-full"
+              labelStyle="text-md"
+            />
+            <CustomButton
+              type="submit"
+              buttonText="Sign In"
+              buttonStyle="w-full"
+              disabled={false}
+            />
           </form>
-        </Form> */}
-        Sign In Page
+        </Form>
       </div>
     </section>
   );
