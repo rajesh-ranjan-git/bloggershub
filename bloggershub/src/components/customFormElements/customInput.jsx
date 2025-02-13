@@ -27,7 +27,7 @@ const CustomInput = ({
                 name === ("password" || "confirmPassword") ? "password" : "text"
               }
               placeholder={placeholder}
-              className="shadow-md focus-visible:shadow-md focus-visible:ring-blue-400 w-full emailInput"
+              className="shadow-md focus-visible:shadow-md focus-visible:ring-blue-400 w-full focus-visible:placeholder:text-muted-foreground placeholder:text-transparent emailInput"
               {...field}
             />
           </FormControl>

@@ -20,7 +20,8 @@ const BlogItem = async ({ params }) => {
             <CardHeader>
               <CardTitle className="text-3xl">Blog Item {blogId}</CardTitle>
               <CardDescription>
-                By <span className="font-bold">Rajesh Ranjan</span> | 13/02/2025
+                Posted By : <span className="font-bold">Rajesh Ranjan</span> |
+                13/02/2025
               </CardDescription>
             </CardHeader>
           </Card>

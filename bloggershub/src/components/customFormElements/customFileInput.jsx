@@ -5,9 +5,9 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Textarea } from "../ui/textarea";
+import { Input } from "../ui/input";
 
-const CustomTextarea = ({
+const CustomFileInput = ({
   control,
   name,
   label = null,
@@ -22,7 +22,8 @@ const CustomTextarea = ({
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <Textarea
+            <Input
+              type="file"
               placeholder={placeholder}
               className="shadow-md focus-visible:shadow-md focus-visible:ring-blue-400 w-full focus-visible:placeholder:text-muted-foreground placeholder:text-transparent emailInput"
               {...field}
@@ -38,4 +39,4 @@ const CustomTextarea = ({
   );
 };
 
-export default CustomTextarea;
+export default CustomFileInput;

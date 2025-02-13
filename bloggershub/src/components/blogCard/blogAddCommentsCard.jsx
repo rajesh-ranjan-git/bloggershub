@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import CustomButton from "../customFormElements/customButton";
-import CustomTextarea from "../customFormElements/customTextarea";
+import { Textarea } from "../ui/textarea";
 
 const BlogAddCommentsCard = () => {
   return (
@@ -18,7 +18,10 @@ const BlogAddCommentsCard = () => {
         <CardDescription>Post your comment here.</CardDescription>
       </CardHeader>
       <CardContent>
-        <CustomTextarea placeholder="Type your message here..." />
+        <Textarea
+          placeholder="Type your message here..."
+          className="shadow-md focus-visible:shadow-md focus-visible:ring-blue-400 w-full"
+        />
       </CardContent>
       <CardFooter className="flex justify-between gap-4">
         <Button variant="outline" className="shadow-md">

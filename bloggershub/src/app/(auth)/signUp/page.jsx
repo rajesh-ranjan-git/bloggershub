@@ -45,7 +45,7 @@ const SignUp = () => {
                 control={form.control}
                 label="Email"
                 name="email"
-                placeholder=""
+                placeholder="Enter your email..."
               />
             </div>
             <div className="relative p-3">
@@ -53,7 +53,7 @@ const SignUp = () => {
                 control={form.control}
                 label="Password"
                 name="password"
-                placeholder=""
+                placeholder="Enter your password..."
               />
             </div>
             <div className="relative p-3">
@@ -61,7 +61,7 @@ const SignUp = () => {
                 control={form.control}
                 label="Confirm Password"
                 name="confirmPassword"
-                placeholder=""
+                placeholder="Confirm your password..."
               />
             </div>
             <div className="relative p-3">
