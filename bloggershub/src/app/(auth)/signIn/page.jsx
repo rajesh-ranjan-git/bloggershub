@@ -37,7 +37,7 @@ const SignIn = () => {
   };
 
   return (
-    <section className="flex justify-center items-center px-10 w-full h-full">
+    <section className="flex justify-center items-center px-10 w-screen h-screen">
       <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-w-96 min-h-96">
         <h1 className="p-4 font-semibold text-2xl text-center">Sign In</h1>
         <Form {...form}>

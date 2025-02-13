@@ -21,7 +21,7 @@ const BlogCard = () => {
           far, in reverse chronological order.
         </p>
         <Link
-          href="#"
+          href="/blog/1"
           className="inline-flex items-center bg-blue-400 hover:bg-blue-600 hover:shadow-md px-3 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-white text-sm text-center"
         >
           Read more

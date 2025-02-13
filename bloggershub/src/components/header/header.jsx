@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     <section
-      className={`top-0 fixed flex justify-center md:justify-between  items-center shadow-md px-10 border-b w-full z-40 h-16 ${
+      className={`top-0 fixed flex justify-center md:justify-between items-center shadow-md px-10 border-b w-full z-40 h-16 ${
         headerBackground ? "bg-white text-black" : "bg-transparent text-white"
       }`}
     >
