@@ -10,6 +10,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import CustomButton from "../customFormElements/customButton";
+import CustomTextarea from "../customFormElements/customTextarea";
 
 const BlogAddCommentsCard = () => {
   return (
@@ -19,15 +20,9 @@ const BlogAddCommentsCard = () => {
         <CardDescription>Post your comment here.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
-          <div className="items-center gap-4 grid w-full">
-            <div className="flex flex-col space-y-1.5">
-              <Textarea placeholder="Type your message here." />
-            </div>
-          </div>
-        </form>
+        <CustomTextarea placeholder="Type your message here..." />
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between gap-4">
         <Button variant="outline">Cancel</Button>
         <CustomButton
           buttonText="Add Comment"
