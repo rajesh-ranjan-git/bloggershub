@@ -12,7 +12,7 @@ import Image from "next/image";
 const BlogItem = async ({ params }) => {
   const { blogId } = await params;
   return (
-    <section className="flex justify-center py-20 w-screen">
+    <section className="flex justify-center py-20 w-full">
       <div className="flex flex-col justify-center md:justify-normal gap-4 px-10 w-full">
         <div className="min-w-96">
           <Card className="hover:shadow-md">

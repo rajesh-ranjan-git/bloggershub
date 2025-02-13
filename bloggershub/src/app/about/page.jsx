@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <section className="flex justify-center items-center px-10 w-screen h-screen">
+    <section className="flex justify-center items-center px-10 w-full h-full">
       About page
     </section>
   );

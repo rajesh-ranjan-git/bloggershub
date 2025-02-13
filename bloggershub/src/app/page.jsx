@@ -3,7 +3,7 @@ import LatestPosts from "@/components/latestPosts/latestPosts";
 
 export default function Home() {
   return (
-    <section className="w-screen h-screen">
+    <section className="w-full h-full">
       <Banner />
       <LatestPosts />
     </section>
