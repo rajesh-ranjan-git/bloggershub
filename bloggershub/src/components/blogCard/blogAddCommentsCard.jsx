@@ -7,8 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import CustomButton from "../customFormElements/customButton";
 import CustomTextarea from "../customFormElements/customTextarea";
 
@@ -23,7 +21,9 @@ const BlogAddCommentsCard = () => {
         <CustomTextarea placeholder="Type your message here..." />
       </CardContent>
       <CardFooter className="flex justify-between gap-4">
-        <Button variant="outline">Cancel</Button>
+        <Button variant="outline" className="shadow-md">
+          Cancel
+        </Button>
         <CustomButton
           buttonText="Add Comment"
           buttonStyle="w-full bg-blue-400 hover:bg-blue-600 text-white shadow-md"

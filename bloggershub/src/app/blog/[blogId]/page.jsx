@@ -1,4 +1,5 @@
 import BlogAddCommentsCard from "@/components/blogCard/blogAddCommentsCard";
+import BlogCommentsCard from "@/components/blogCard/blogCommentsCard";
 import {
   Card,
   CardContent,
@@ -66,6 +67,9 @@ const BlogItem = async ({ params }) => {
         </div>
         <div className="min-w-96">
           <BlogAddCommentsCard />
+        </div>
+        <div className="min-w-96">
+          <BlogCommentsCard />
         </div>
       </div>
     </section>
