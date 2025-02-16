@@ -13,12 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id       String   @id @default(uuid())
-  email    String   @unique
+model User {
+  id       String    @id @default(uuid())
+  email    String    @unique
   password String?
-  posts    Posts[]
+  posts    Post[]
   profile  Profile?
+  comments Comment[]
 }
 
 model Profile {
@@ -32,10 +33,10 @@ model Profile {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  user Users @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Posts {
+model Post {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -45,14 +46,14 @@ model Posts {
   published Boolean  @default(false)
   authorId  String
 
-  author Users @relation(fields: [authorId], references: [id])
-
-  tags TagsOnPosts[]
+  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  tags     TagsOnPosts[]
+  comments Comment[]
 }
 
-model Tags {
+model Tag {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   posts TagsOnPosts[]
 }
@@ -61,8 +62,25 @@ model TagsOnPosts {
   postId String
   tagId  String
 
-  post Posts @relation(fields: [postId], references: [id], onDelete: Cascade)
-  tag  Tags  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@id([postId, tagId]) // Composite primary key for uniqueness
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  parentId String?
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  Comment[] @relation("CommentReplies")
 }
