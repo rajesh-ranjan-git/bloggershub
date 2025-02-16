@@ -23,6 +23,7 @@ const authMiddleware = async (req, res, next) => {
     req.user = decodedToken;
     next();
   } catch (error) {
+    console.log("error in middleware : ", error);
     return res.json({
       status: 401,
       success: false,

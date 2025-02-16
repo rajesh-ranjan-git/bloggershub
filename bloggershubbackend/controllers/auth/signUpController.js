@@ -79,7 +79,7 @@ const signUp = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("error : ", error);
+    console.log("error while sign up : ", error);
     // Check for validation error
     if (error instanceof errors.E_VALIDATION_ERROR) {
       return res.json({

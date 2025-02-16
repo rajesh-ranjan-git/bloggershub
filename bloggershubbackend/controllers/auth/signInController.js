@@ -75,7 +75,7 @@ const signIn = async (req, res) => {
       user: user,
     });
   } catch (error) {
-    console.log("error : ", error);
+    console.log("error during sign in : ", error);
     // Check for validation error
     if (error instanceof errors.E_VALIDATION_ERROR) {
       return res.json({
