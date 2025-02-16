@@ -2,7 +2,7 @@
 const checkAuth = (req, res) => {
   const user = req.user;
 
-  return res.status(200).json({
+  return res.json({
     status: 200,
     success: true,
     message: "Authorized user!",
