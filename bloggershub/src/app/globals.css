@@ -73,7 +73,7 @@
   }
 }
 
-.emailInput:focus + .emailLabel {
+.customInput:focus + .customLabel {
   top: -0.5px;
   background-color: white;
 }
