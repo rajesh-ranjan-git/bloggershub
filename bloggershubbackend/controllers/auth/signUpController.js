@@ -39,44 +39,40 @@ const signUp = async (req, res) => {
       data: payload,
     });
 
-    // If user is registered successfully
-    if (user) {
-      // Create Profile for user
-      const profile = await prisma.profile.create({
-        data: {
-          userId: user.id,
-        },
-      });
-
-      const payloadData = {
-        id: user.id,
-        email: user.email,
-      };
-
-      // Issue token to login
-      const token = jwt.sign(payloadData, process.env.JWT_SECRET, {
-        expiresIn: "365d",
-      });
-
-      // Create cookie
-      return res
-        .cookie("token", token, { httpOnly: true, secure: false })
-        .json({
-          status: 201,
-          success: true,
-          token: token,
-          message: "User created successfully!",
-          user: user,
-        });
-    }
-
-    // Check if user is not registered
-    return res.json({
-      errors: {
+    // If user is not registered
+    if (!user) {
+      return res.json({
         status: 400,
         success: false,
         message: "Something went wrong while creating user!",
+      });
+    }
+
+    // If user is registered successfully
+    // Create Profile for user
+    await prisma.profile.create({
+      data: {
+        userId: user.id,
       },
+    });
+
+    const payloadData = {
+      id: user.id,
+      email: user.email,
+    };
+
+    // Issue token to login
+    const token = jwt.sign(payloadData, process.env.JWT_SECRET, {
+      expiresIn: "365d",
+    });
+
+    // Create cookie
+    return res.cookie("token", token, { httpOnly: true, secure: false }).json({
+      status: 201,
+      success: true,
+      token: token,
+      message: "User created successfully!",
+      user: user,
     });
   } catch (error) {
     console.log("error while sign up : ", error);
