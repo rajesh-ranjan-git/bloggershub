@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import prisma from "../../db/dbConfig.js";
 import signUpSchema from "../../validations/auth/signUpSchema.js";
 
-//Register user
+//Sign Up
 const signUp = async (req, res) => {
   try {
     const body = req.body;
@@ -13,7 +13,7 @@ const signUp = async (req, res) => {
     const validator = vine.compile(signUpSchema);
     const payload = await validator.validate(body);
 
-    const findUser = await prisma.user.findFirst({
+    const findUser = await prisma.user.findUnique({
       where: {
         email: payload.email,
       },
@@ -30,7 +30,7 @@ const signUp = async (req, res) => {
 
     // If user does not exist
 
-    // Encrypt password if user does not exist
+    // Encrypt password
     const salt = bcrypt.genSaltSync(10);
     payload.password = bcrypt.hashSync(payload.password, salt);
 
@@ -62,12 +62,11 @@ const signUp = async (req, res) => {
       return res
         .cookie("token", token, { httpOnly: true, secure: false })
         .json({
-          status: 200,
+          status: 201,
           success: true,
           token: token,
           message: "User created successfully!",
           user: user,
-          userProfile: profile,
         });
     }
 
