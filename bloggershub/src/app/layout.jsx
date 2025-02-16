@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header/header";
-import StoreProvider from "./storeProvider";
+import StoreProvider from "../store/storeProvider/storeProvider";
 
 export const metadata = {
   title: "Blogger's Hub",
