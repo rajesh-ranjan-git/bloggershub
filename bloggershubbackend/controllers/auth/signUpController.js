@@ -2,28 +2,22 @@ import vine, { errors } from "@vinejs/vine";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import prisma from "../../db/dbConfig.js";
-import { signUpSchema } from "../../validations/auth/signUpSchema.js";
+import signUpSchema from "../../validations/auth/signUpSchema.js";
 
 //Register user
 const signUp = async (req, res) => {
   try {
     const body = req.body;
 
-    console.log("body : ", body);
-
     // Validate request body
     const validator = vine.compile(signUpSchema);
     const payload = await validator.validate(body);
-
-    console.log("payload : ", payload);
 
     const findUser = await prisma.user.findFirst({
       where: {
         email: payload.email,
       },
     });
-
-    console.log("findUser : ", findUser);
 
     // If user already exists
     if (findUser) {
@@ -45,8 +39,6 @@ const signUp = async (req, res) => {
       data: payload,
     });
 
-    console.log("user : ", user);
-
     // If user is registered successfully
     if (user) {
       // Create Profile for user
@@ -56,28 +48,15 @@ const signUp = async (req, res) => {
         },
       });
 
-      console.log("profile : ", profile);
-
-      let isProfileCreated = true;
-
-      // If profile creation failed
-      if (!profile) {
-        isProfileCreated = false;
-      }
-
       const payloadData = {
         id: user.id,
         email: user.email,
       };
 
-      console.log("payloadData : ", payloadData);
-
       // Issue token to login
       const token = jwt.sign(payloadData, process.env.JWT_SECRET, {
         expiresIn: "365d",
       });
-
-      console.log("token : ", token);
 
       // Create cookie
       return res
@@ -88,7 +67,7 @@ const signUp = async (req, res) => {
           token: token,
           message: "User created successfully!",
           user: user,
-          userProfile: profile ? profile : null,
+          userProfile: profile,
         });
     }
 
