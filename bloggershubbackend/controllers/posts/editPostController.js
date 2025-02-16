@@ -8,6 +8,10 @@ const editPost = async (req, res) => {
     const body = req.body;
     const { postId } = req.params;
 
+    console.log("body : ", body);
+
+    console.log("postId : ", postId);
+
     if (!postId || postId === "") {
       return res.json({
         status: 400,
@@ -20,12 +24,16 @@ const editPost = async (req, res) => {
     const validator = vine.compile(postSchema);
     const payload = await validator.validate(body);
 
+    console.log("payload : ", payload);
+
     // Fetch post to edit
     const findPost = await prisma.post.findUnique({
       where: {
         id: postId,
       },
     });
+
+    console.log("findPost : ", findPost);
 
     // If post not found
     if (!findPost) {
@@ -57,8 +65,10 @@ const editPost = async (req, res) => {
     findPost.tags =
       payload.tags.length > 0 ? payload.tags.length : findPost.tags;
 
+    console.log("updated findPost : ", findPost);
+
     // Edit post
-    const updatedPost = await prisma.post.update({
+    const editedPost = await prisma.post.update({
       where: {
         id: postId,
       },
@@ -71,8 +81,10 @@ const editPost = async (req, res) => {
       },
     });
 
+    console.log("editedPost : ", editedPost);
+
     // If editing post was not successful
-    if (!updatedPost) {
+    if (!editedPost) {
       return res.json({
         status: 400,
         success: false,
@@ -84,12 +96,14 @@ const editPost = async (req, res) => {
     // Fetch all posts by author
     const posts = await prisma.post.findMany({});
 
+    console.log("posts : ", posts);
+
     // If fetching posts failed
     if (!posts || posts.length <= 0) {
       return res.json({
         status: 400,
         success: false,
-        updatedPost: updatedPost,
+        editedPost: editedPost,
         message:
           "Post edited successfully but something went wrong while fetching posts!",
       });
@@ -99,7 +113,7 @@ const editPost = async (req, res) => {
       return res.json({
         status: 201,
         success: true,
-        updatedPost: updatedPost,
+        editedPost: editedPost,
         posts: posts,
         message: "Post edited successfully!",
       });
@@ -112,7 +126,7 @@ const editPost = async (req, res) => {
       posts: posts,
     });
   } catch (error) {
-    console.log("error while sign up : ", error);
+    console.log("error while editing post : ", error);
     // Check for validation error
     if (error instanceof errors.E_VALIDATION_ERROR) {
       return res.json({

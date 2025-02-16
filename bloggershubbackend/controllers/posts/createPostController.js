@@ -7,15 +7,21 @@ const createPost = async (req, res) => {
   try {
     const body = req.body;
 
+    console.log("body : ", body);
+
     // Validate request body
     const validator = vine.compile(postSchema);
     const payload = await validator.validate(body);
+
+    console.log("payload : ", payload);
 
     const findAuthor = await prisma.user.findUnique({
       where: {
         userId: payload.authorId,
       },
     });
+
+    console.log("findAuthor : ", findAuthor);
 
     // If author does not exist
     if (!findAuthor) {
@@ -32,6 +38,8 @@ const createPost = async (req, res) => {
       data: payload,
     });
 
+    console.log("createdPost : ", createdPost);
+
     // If post did not get created
     if (!createdPost) {
       return res.json({
@@ -44,6 +52,8 @@ const createPost = async (req, res) => {
     // If post created successfully
     // Fetch all posts by author
     const posts = await prisma.post.findMany({});
+
+    console.log("posts : ", posts);
 
     // If fetching posts failed
     if (!posts || posts.length <= 0) {
@@ -73,7 +83,7 @@ const createPost = async (req, res) => {
       posts: posts,
     });
   } catch (error) {
-    console.log("error while sign up : ", error);
+    console.log("error while creating post : ", error);
     // Check for validation error
     if (error instanceof errors.E_VALIDATION_ERROR) {
       return res.json({
