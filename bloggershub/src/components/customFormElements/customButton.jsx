@@ -4,7 +4,7 @@ const CustomButton = ({
   type = null,
   buttonText = "Submit",
   buttonStyle,
-  disabled = true,
+  disabled = false,
 }) => {
   return (
     <Button type={type} disabled={disabled} className={buttonStyle}>
