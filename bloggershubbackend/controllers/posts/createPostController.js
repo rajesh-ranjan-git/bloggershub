@@ -7,21 +7,15 @@ const createPost = async (req, res) => {
   try {
     const body = req.body;
 
-    console.log("body : ", body);
-
     // Validate request body
     const validator = vine.compile(postSchema);
     const payload = await validator.validate(body);
-
-    console.log("payload : ", payload);
 
     const findAuthor = await prisma.user.findUnique({
       where: {
         id: payload.authorId,
       },
     });
-
-    console.log("findAuthor : ", findAuthor);
 
     // If author does not exist
     if (!findAuthor) {
@@ -52,8 +46,6 @@ const createPost = async (req, res) => {
       include: { tags: { select: { tag: { select: { name: true } } } } },
     });
 
-    console.log("createdPost : ", createdPost);
-
     // If post did not get created
     if (!createdPost) {
       return res.json({
@@ -68,8 +60,6 @@ const createPost = async (req, res) => {
     const posts = await prisma.post.findMany({
       include: { tags: { select: { tag: { select: { name: true } } } } },
     });
-
-    console.log("posts : ", posts);
 
     // If fetching posts failed
     if (!posts || posts.length <= 0) {

@@ -8,10 +8,6 @@ const editPost = async (req, res) => {
     const body = req.body;
     const { postId } = req.params;
 
-    console.log("body : ", body);
-
-    console.log("postId : ", postId);
-
     if (!postId || postId === "") {
       return res.json({
         status: 400,
@@ -24,8 +20,6 @@ const editPost = async (req, res) => {
     const validator = vine.compile(postSchema);
     const payload = await validator.validate(body);
 
-    console.log("payload : ", payload);
-
     // Fetch post to edit
     const findPost = await prisma.post.findUnique({
       where: {
@@ -33,8 +27,6 @@ const editPost = async (req, res) => {
       },
       include: { tags: { select: { tag: { select: { name: true } } } } },
     });
-
-    console.log("findPost : ", findPost);
 
     // If post not found
     if (!findPost) {
@@ -66,8 +58,6 @@ const editPost = async (req, res) => {
     findPost.published = payload.published || findPost.published;
     findPost.tags = payload.tags;
 
-    console.log("updated findPost : ", findPost);
-
     // Edit post
     const editedPost = await prisma.post.update({
       where: {
@@ -90,8 +80,6 @@ const editPost = async (req, res) => {
       include: { tags: { select: { tag: { select: { name: true } } } } },
     });
 
-    console.log("editedPost : ", editedPost);
-
     // If editing post was not successful
     if (!editedPost) {
       return res.json({
@@ -106,8 +94,6 @@ const editPost = async (req, res) => {
     const posts = await prisma.post.findMany({
       include: { tags: { select: { tag: { select: { name: true } } } } },
     });
-
-    console.log("posts : ", posts);
 
     // If fetching posts failed
     if (!posts || posts.length <= 0) {

@@ -5,15 +5,11 @@ const fetchSinglePost = async (req, res) => {
   try {
     const { postId } = req.params;
 
-    console.log("postId : ", postId);
-
     const singlePost = await prisma.post.findUnique({
       where: {
         id: postId,
       },
     });
-
-    console.log("singlePost : ", singlePost);
 
     // If post not found
     if (!singlePost) {

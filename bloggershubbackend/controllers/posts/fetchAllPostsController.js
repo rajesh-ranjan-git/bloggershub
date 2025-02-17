@@ -5,8 +5,6 @@ const fetchAllPosts = async (req, res) => {
   try {
     const allPosts = await prisma.post.findMany({});
 
-    console.log("allPosts : ", allPosts);
-
     // If posts not found
     if (!allPosts) {
       return res.json({

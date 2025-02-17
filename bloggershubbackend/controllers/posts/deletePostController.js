@@ -6,10 +6,6 @@ const deletePostController = async (req, res) => {
     const { postId } = req.params;
     const { authorId } = req.body;
 
-    console.log("postId : ", postId);
-
-    console.log("authorId : ", authorId);
-
     if (!postId || postId === "") {
       return res.json({
         status: 400,
@@ -32,8 +28,6 @@ const deletePostController = async (req, res) => {
         id: postId,
       },
     });
-
-    console.log("findPost : ", findPost);
 
     // If post not found
     if (!findPost) {
@@ -62,8 +56,6 @@ const deletePostController = async (req, res) => {
       },
     });
 
-    console.log("deletedPost : ", deletedPost);
-
     // If deleting post was not successful
     if (!deletedPost) {
       return res.json({
@@ -76,8 +68,6 @@ const deletePostController = async (req, res) => {
     // If post deleted successfully
     // Fetch all posts by author
     const posts = await prisma.post.findMany({});
-
-    console.log("posts : ", posts);
 
     // If fetching posts failed
     if (!posts) {

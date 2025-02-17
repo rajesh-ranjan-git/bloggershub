@@ -5,15 +5,11 @@ const fetchAllPostsByAuthor = async (req, res) => {
   try {
     const { authorId } = req.params;
 
-    console.log("authorId : ", authorId);
-
     const findAuthor = await prisma.user.findUnique({
       where: {
         id: authorId,
       },
     });
-
-    console.log("findAuthor : ", findAuthor);
 
     // If author does not exist
     if (!findAuthor) {
@@ -32,8 +28,6 @@ const fetchAllPostsByAuthor = async (req, res) => {
       },
     });
 
-    console.log("authorProfile : ", authorProfile);
-
     const author = authorProfile.firstName
       ? authorProfile.middleName
         ? authorProfile.lastName
@@ -46,16 +40,12 @@ const fetchAllPostsByAuthor = async (req, res) => {
         : authorProfile.firstName
       : findAuthor.email;
 
-    console.log("author : ", author);
-
     // Fetch all posts by author
     const allPostsByAuthor = await prisma.post.findMany({
       where: {
         authorId: authorId,
       },
     });
-
-    console.log("allPostsByAuthor : ", allPostsByAuthor);
 
     // If posts by selected author not found
     if (!allPostsByAuthor) {
