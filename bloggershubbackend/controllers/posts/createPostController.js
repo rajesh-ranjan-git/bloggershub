@@ -59,6 +59,11 @@ const createPost = async (req, res) => {
     // Fetch all posts by author
     const posts = await prisma.post.findMany({
       include: { tags: { select: { tag: { select: { name: true } } } } },
+      orderBy: [
+        {
+          updatedAt: "desc",
+        },
+      ],
     });
 
     // If fetching posts failed

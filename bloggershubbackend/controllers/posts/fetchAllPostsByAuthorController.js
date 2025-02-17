@@ -45,6 +45,11 @@ const fetchAllPostsByAuthor = async (req, res) => {
       where: {
         authorId: authorId,
       },
+      orderBy: [
+        {
+          updatedAt: "desc",
+        },
+      ],
     });
 
     // If posts by selected author not found

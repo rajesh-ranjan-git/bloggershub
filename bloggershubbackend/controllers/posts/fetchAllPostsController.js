@@ -3,7 +3,13 @@ import prisma from "../../db/dbConfig.js";
 // Fetch all posts
 const fetchAllPosts = async (req, res) => {
   try {
-    const allPosts = await prisma.post.findMany({});
+    const allPosts = await prisma.post.findMany({
+      orderBy: [
+        {
+          updatedAt: "desc",
+        },
+      ],
+    });
 
     // If posts not found
     if (!allPosts) {

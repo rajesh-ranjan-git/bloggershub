@@ -26,6 +26,11 @@ const editPost = async (req, res) => {
         id: postId,
       },
       include: { tags: { select: { tag: { select: { name: true } } } } },
+      orderBy: [
+        {
+          updatedAt: "desc",
+        },
+      ],
     });
 
     // If post not found
