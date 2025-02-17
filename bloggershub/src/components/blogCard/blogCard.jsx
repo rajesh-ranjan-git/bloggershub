@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 const BlogCard = () => {
   return (
@@ -22,9 +23,10 @@ const BlogCard = () => {
         </p>
         <Link
           href="/blog/1"
-          className="inline-flex items-center bg-blue-400 hover:bg-blue-600 hover:shadow-md px-3 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-white text-sm text-center"
+          className="inline-flex items-center gap-2 bg-blue-400 hover:bg-blue-600 hover:shadow-md px-3 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-white text-sm text-center"
         >
-          Read more
+          <MdOutlinePostAdd />
+          <span>Read more</span>
           <svg
             className="ms-2 w-3.5 h-3.5 rtl:rotate-180"
             aria-hidden="true"

@@ -20,6 +20,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import { FaUserShield } from "react-icons/fa";
 
 const SignIn = () => {
   const [open, setOpen] = useState(true);
@@ -67,7 +68,10 @@ const SignIn = () => {
           <DialogTitle className="hidden"></DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
           <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-w-96 min-h-96">
-            <h1 className="p-4 font-semibold text-2xl text-center">Sign In</h1>
+            <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
+              <FaUserShield />
+              <span>Sign In</span>
+            </div>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="relative p-3 emailBox">

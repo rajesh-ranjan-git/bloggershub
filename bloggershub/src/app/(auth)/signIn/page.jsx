@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { FaUserShield } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 
@@ -48,7 +49,10 @@ const SignIn = () => {
   return (
     <section className="flex justify-center items-center px-10 w-screen h-screen">
       <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-w-96 min-h-96">
-        <h1 className="p-4 font-semibold text-2xl text-center">Sign In</h1>
+        <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
+          <FaUserShield />
+          <span>Sign In</span>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="relative p-3 emailBox">

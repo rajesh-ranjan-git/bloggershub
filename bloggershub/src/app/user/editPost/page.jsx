@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { signInSchema } from "@/validations/signInSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 const EditPost = () => {
   const { toast } = useToast();
@@ -38,9 +39,10 @@ const EditPost = () => {
   return (
     <section className="flex justify-center items-center px-10 w-screen h-screen">
       <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg w-full md:w-[70vw] min-h-96">
-        <h1 className="p-4 font-semibold text-2xl text-center">
-          Edit this post
-        </h1>
+        <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
+          <MdOutlinePostAdd />
+          <span>Edit this Post</span>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="relative p-3 emailBox">

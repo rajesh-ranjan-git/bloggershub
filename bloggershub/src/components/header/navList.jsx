@@ -10,6 +10,10 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import { BsPostcard } from "react-icons/bs";
+import { MdOutlinePostAdd } from "react-icons/md";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { CircleUserRoundIcon, UserRoundIcon } from "lucide-react";
 
 const NavList = () => {
   const router = useRouter();
@@ -21,10 +25,11 @@ const NavList = () => {
           ? navListItems.map((navItem) => (
               <li key={navItem.id}>
                 <Link
-                  className="hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                  className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
                   href={navItem.path}
                 >
-                  {navItem.label}
+                  {navItem.icon}
+                  <span>{navItem.label}</span>
                 </Link>
               </li>
             ))
@@ -40,21 +45,28 @@ const NavList = () => {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuLabel>Rajesh Ranjan</DropdownMenuLabel>
+                <DropdownMenuLabel className="flex items-center gap-2">
+                  <UserRoundIcon size={15} />
+                  <span>Rajesh Ranjan</span>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push("/user/profile")}>
-                  Profile
+                  <CircleUserRoundIcon />
+                  <span>Profile</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push("/user/posts")}>
-                  Posts
+                  <BsPostcard />
+                  <span>Posts</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => router.push("/user/createPost")}
                 >
-                  Create Post
+                  <MdOutlinePostAdd />
+                  <span>Create Post</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push("/")}>
-                  Sign Out
+                  <RiLogoutCircleRLine />
+                  <span>Sign Out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
