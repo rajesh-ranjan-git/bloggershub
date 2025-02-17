@@ -29,6 +29,7 @@ import { MdOutlinePostAdd } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { navListItems } from "@/config/navListItems";
 import Link from "next/link";
+import { Separator } from "../ui/separator";
 
 const Header = () => {
   // const [headerBackground, setHeaderBackground] = useState(false);
@@ -92,7 +93,8 @@ const Header = () => {
             </SheetTitle>
             <SheetDescription className="hidden"></SheetDescription>
           </SheetHeader>
-          <div className="pt-10 h-[85vh]">
+          <Separator className="my-5" />
+          <div className="h-[75vh]">
             <ul className="flex flex-col items-center gap-2 w-full text-md">
               {navListItems && navListItems.length > 0
                 ? navListItems.map((navItem) => (
@@ -110,10 +112,11 @@ const Header = () => {
                 : null}
             </ul>
           </div>
+          <Separator className="my-5" />
           <SheetFooter>
             <DropdownMenu>
               <DropdownMenuTrigger className="outline-none">
-                <div className="flex justify-center items-center gap-4 hover:bg-blue-300/70 p-1 rounded-md text-xl cursor-pointer">
+                <div className="flex justify-center items-center gap-4 hover:bg-blue-300/70 rounded-md text-xl cursor-pointer">
                   <div>
                     <Avatar className="border-2 border-transparent hover:border-blue-400 rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
                       <AvatarImage src="https://github.com/shadcn.png" />
