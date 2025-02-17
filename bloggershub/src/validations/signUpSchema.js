@@ -13,7 +13,7 @@ export const signUpSchema = z
       .max(20, {
         message: "Password must not be more than 20 characters.",
       }),
-    confirmPassword: z
+    password_confirmation: z
       .string()
       .min(6, {
         message: "Password must be at least 6 characters long.",
@@ -22,12 +22,12 @@ export const signUpSchema = z
         message: "Password must not be more than 20 characters.",
       }),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
+  .superRefine(({ password_confirmation, password }, ctx) => {
+    if (password_confirmation !== password) {
       ctx.addIssue({
         code: "custom",
         message: "The passwords did not match",
-        path: ["confirmPassword"],
+        path: ["password_confirmation"],
       });
     }
   });

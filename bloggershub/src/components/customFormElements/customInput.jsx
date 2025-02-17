@@ -7,14 +7,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 
-const CustomInput = ({
-  control,
-  name,
-  label = null,
-  placeholder,
-  inputStyle,
-  labelStyle,
-}) => {
+const CustomInput = ({ control, name, label = null, placeholder }) => {
   return (
     <FormField
       control={control}
@@ -24,7 +17,9 @@ const CustomInput = ({
           <FormControl>
             <Input
               type={
-                name === ("password" || "confirmPassword") ? "password" : "text"
+                name === "password" || name === "password_confirmation"
+                  ? "password"
+                  : "text"
               }
               placeholder={placeholder}
               className="shadow-md focus-visible:shadow-md focus-visible:ring-blue-400 w-full focus-visible:placeholder:text-muted-foreground placeholder:text-transparent customInput"

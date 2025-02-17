@@ -5,32 +5,44 @@ import CustomInput from "@/components/customFormElements/customInput";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
+import signUpService from "@/services/auth/signUpService";
 import { signUpSchema } from "@/validations/signUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch } from "react-redux";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
+      password_confirmation: "",
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("data : ", data);
-    console.log("Submit called");
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="bg-slate-950 mt-2 p-4 rounded-md w-[340px]">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+  const onSubmit = (formData) => {
+    dispatch(signUpService(formData)).then((data) => {
+      if (data.payload.success) {
+        console.log("data.payload : ", data.payload);
+        router.push("/");
+        toast({
+          title: "Sign Up successful!",
+          description: data.payload.message,
+        });
+      } else {
+        toast({
+          title: "Sign Up failed!",
+          variant: "destructive",
+          description: data.payload.message,
+        });
+      }
     });
   };
 
@@ -60,7 +72,7 @@ const SignUp = () => {
               <CustomInput
                 control={form.control}
                 label="Confirm Password"
-                name="confirmPassword"
+                name="password_confirmation"
                 placeholder="Confirm your password..."
               />
             </div>

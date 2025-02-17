@@ -1,8 +1,7 @@
 import checkAuthService from "@/services/auth/checkAuthService";
-import googleAuthFirebaseService from "@/services/auth/googleAuthFirebaseService";
-import loginUserService from "@/services/auth/loginUserService";
+import signInService from "@/services/auth/signInService";
 import logoutUserService from "@/services/auth/logoutUserService";
-import registerUserService from "@/services/auth/registerUserService";
+import signUpService from "@/services/auth/signUpService";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -15,9 +14,7 @@ const initialState = {
 const authSlice = createSlice({
   name: "authSlice",
   initialState,
-  reducers: {
-    setUserInfo: (state, action) => {},
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(checkAuthService.pending, (state) => {
@@ -33,33 +30,33 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.isLoading = false;
       })
-      .addCase(registerUserService.pending, (state) => {
+      .addCase(signUpService.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(registerUserService.fulfilled, (state, action) => {
+      .addCase(signUpService.fulfilled, (state, action) => {
         state.user = action.payload.success ? action.payload.user : null;
         state.isAuthenticated = action.payload.success;
         state.token = action.payload.token;
         state.isLoading = false;
         localStorage.setItem("token", JSON.stringify(action.payload.token));
       })
-      .addCase(registerUserService.rejected, (state) => {
+      .addCase(signUpService.rejected, (state) => {
         state.user = null;
         state.isAuthenticated = false;
         state.isLoading = false;
         state.token = null;
       })
-      .addCase(loginUserService.pending, (state) => {
+      .addCase(signInService.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(loginUserService.fulfilled, (state, action) => {
+      .addCase(signInService.fulfilled, (state, action) => {
         state.user = action.payload.success ? action.payload.user : null;
         state.isAuthenticated = action.payload.success;
         state.token = action.payload.token;
         state.isLoading = false;
         localStorage.setItem("token", JSON.stringify(action.payload.token));
       })
-      .addCase(loginUserService.rejected, (state) => {
+      .addCase(signInService.rejected, (state) => {
         state.user = null;
         state.isAuthenticated = false;
         state.isLoading = false;
@@ -71,22 +68,6 @@ const authSlice = createSlice({
         state.token = null;
         state.isLoading = false;
         localStorage.clear();
-      })
-      .addCase(googleAuthFirebaseService.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(googleAuthFirebaseService.fulfilled, (state, action) => {
-        state.user = action.payload.success ? action.payload.user : null;
-        state.isAuthenticated = action.payload.success;
-        state.token = action.payload.token;
-        state.isLoading = false;
-        localStorage.setItem("token", JSON.stringify(action.payload.token));
-      })
-      .addCase(googleAuthFirebaseService.rejected, (state) => {
-        state.user = null;
-        state.isAuthenticated = false;
-        state.isLoading = false;
-        state.token = null;
       });
   },
 });
