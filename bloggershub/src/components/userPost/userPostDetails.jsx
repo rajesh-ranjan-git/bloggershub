@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "../ui/button";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import {
@@ -11,8 +13,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 const UserPostDetails = () => {
+  const router = useRouter();
+
   return (
     <div className="flex justify-between md:justify-around items-center p-2 w-full md:w-1/2 text-center">
       <div className="md:hidden block">
@@ -25,6 +30,7 @@ const UserPostDetails = () => {
         <Button
           variant="outline"
           className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
+          onClick={() => router.push("/user/editPost")}
         >
           <MdModeEdit />
         </Button>
