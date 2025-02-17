@@ -17,7 +17,7 @@ const createPost = async (req, res) => {
 
     const findAuthor = await prisma.user.findUnique({
       where: {
-        userId: payload.authorId,
+        id: payload.authorId,
       },
     });
 
@@ -35,7 +35,21 @@ const createPost = async (req, res) => {
     // If author exists
     // Create post
     const createdPost = await prisma.post.create({
-      data: payload,
+      data: {
+        title: payload.title,
+        content: payload.content,
+        postImage: payload.postImage,
+        published: payload.published,
+        authorId: payload.authorId,
+        tags: {
+          create: payload.tags.map((tag) => ({
+            tag: {
+              connectOrCreate: { where: { name: tag }, create: { name: tag } },
+            },
+          })),
+        },
+      },
+      include: { tags: { select: { tag: { select: { name: true } } } } },
     });
 
     console.log("createdPost : ", createdPost);
@@ -51,7 +65,9 @@ const createPost = async (req, res) => {
 
     // If post created successfully
     // Fetch all posts by author
-    const posts = await prisma.post.findMany({});
+    const posts = await prisma.post.findMany({
+      include: { tags: { select: { tag: { select: { name: true } } } } },
+    });
 
     console.log("posts : ", posts);
 

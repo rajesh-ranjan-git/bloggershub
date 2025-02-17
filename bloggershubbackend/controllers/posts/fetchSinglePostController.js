@@ -9,7 +9,7 @@ const fetchSinglePost = async (req, res) => {
 
     const singlePost = await prisma.post.findUnique({
       where: {
-        postId: postId,
+        id: postId,
       },
     });
 

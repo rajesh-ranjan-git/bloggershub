@@ -31,6 +31,7 @@ const editPost = async (req, res) => {
       where: {
         id: postId,
       },
+      include: { tags: { select: { tag: { select: { name: true } } } } },
     });
 
     console.log("findPost : ", findPost);
@@ -59,11 +60,11 @@ const editPost = async (req, res) => {
     findPost.title = payload.title !== "" ? payload.title : findPost.title;
     findPost.content =
       payload.content !== "" ? payload.content : findPost.content;
-    findPost.postImage =
-      payload.postImage !== "" ? payload.postImage : findPost.postImage;
+    findPost.postImage = payload.postImage
+      ? payload.postImage
+      : findPost.postImage;
     findPost.published = payload.published || findPost.published;
-    findPost.tags =
-      payload.tags.length > 0 ? payload.tags.length : findPost.tags;
+    findPost.tags = payload.tags;
 
     console.log("updated findPost : ", findPost);
 
@@ -77,8 +78,16 @@ const editPost = async (req, res) => {
         content: findPost.content,
         postImage: findPost.postImage,
         published: findPost.published,
-        tags: findPost.tags,
+        tags: {
+          deleteMany: {},
+          create: findPost.tags.map((tag) => ({
+            tag: {
+              connectOrCreate: { where: { name: tag }, create: { name: tag } },
+            },
+          })),
+        },
       },
+      include: { tags: { select: { tag: { select: { name: true } } } } },
     });
 
     console.log("editedPost : ", editedPost);
@@ -94,7 +103,9 @@ const editPost = async (req, res) => {
 
     // If editing post was successful
     // Fetch all posts by author
-    const posts = await prisma.post.findMany({});
+    const posts = await prisma.post.findMany({
+      include: { tags: { select: { tag: { select: { name: true } } } } },
+    });
 
     console.log("posts : ", posts);
 
@@ -111,7 +122,7 @@ const editPost = async (req, res) => {
       // If posts fetched successfully
       // Return all posts by author
       return res.json({
-        status: 201,
+        status: 200,
         success: true,
         editedPost: editedPost,
         posts: posts,

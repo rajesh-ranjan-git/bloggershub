@@ -22,12 +22,12 @@ const fetchAllPosts = async (req, res) => {
         success: false,
         message: "No posts found!",
       });
-    } else if (posts.length > 0) {
+    } else if (allPosts.length > 0) {
       // If posts found
       return res.json({
         status: 200,
         success: true,
-        posts: posts,
+        posts: allPosts,
         message: "Posts fetched successfully!",
       });
     }

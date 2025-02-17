@@ -9,7 +9,7 @@ const fetchAllPostsByAuthor = async (req, res) => {
 
     const findAuthor = await prisma.user.findUnique({
       where: {
-        userId: payload.authorId,
+        id: authorId,
       },
     });
 
@@ -29,12 +29,6 @@ const fetchAllPostsByAuthor = async (req, res) => {
     const authorProfile = await prisma.profile.findUnique({
       where: {
         userId: authorId,
-      },
-      select: {
-        firstName,
-        middleName,
-        lastName,
-        profileImage,
       },
     });
 
@@ -72,30 +66,20 @@ const fetchAllPostsByAuthor = async (req, res) => {
       });
     }
 
-    // If posts by selected author found
-    // Fetch all posts by author
-    const posts = await prisma.post.findMany({
-      where: {
-        authorId: authorId,
-      },
-    });
-
-    console.log("posts : ", posts);
-
     // If fetching posts failed
-    if (!posts || posts.length <= 0) {
+    if (!allPostsByAuthor || allPostsByAuthor.length <= 0) {
       return res.json({
         status: 400,
         success: false,
         message: `No posts found by ${author}!`,
       });
-    } else if (posts && posts.length > 0) {
+    } else if (allPostsByAuthor && allPostsByAuthor.length > 0) {
       // If posts fetched successfully
       // Return all posts by author
       return res.json({
         status: 201,
         success: true,
-        posts: posts,
+        posts: allPostsByAuthor,
         author: authorProfile,
         message: `Posts by ${author} fetched successfully!`,
       });
