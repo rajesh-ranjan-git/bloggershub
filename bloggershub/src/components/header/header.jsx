@@ -32,6 +32,7 @@ import Link from "next/link";
 
 const Header = () => {
   const [headerBackground, setHeaderBackground] = useState(true);
+  const [openNavSheet, setOpenNavSheet] = useState(false);
 
   const router = useRouter();
   const currentPath = usePathname();
@@ -71,7 +72,7 @@ const Header = () => {
     >
       <Logo />
       <HeaderRightContent />
-      <Sheet>
+      <Sheet open={openNavSheet} onOpenChange={setOpenNavSheet}>
         <SheetTrigger
           className="lg:hidden right-2 absolute hover:bg-blue-400 p-2 border-1 hover:border-white rounded-md hover:text-white text-xl transition-all ease-in-out"
           variant="outline"
@@ -81,7 +82,9 @@ const Header = () => {
         <SheetContent side="left" className="rounded-r-lg w-72 h-screen">
           <SheetHeader>
             <SheetTitle className="text-3xl">
-              <Link href="/">Blogger's Hub</Link>
+              <Link href="/" onClick={() => setOpenNavSheet(false)}>
+                Blogger's Hub
+              </Link>
             </SheetTitle>
             <SheetDescription className="hidden"></SheetDescription>
           </SheetHeader>
@@ -93,6 +96,7 @@ const Header = () => {
                       <Link
                         className="flex justify-center items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
                         href={navItem.path}
+                        onClick={() => setOpenNavSheet(false)}
                       >
                         {navItem.icon}
                         <span>{navItem.label}</span>
@@ -126,21 +130,39 @@ const Header = () => {
                   <span>Rajesh Ranjan</span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push("/user/profile")}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setOpenNavSheet(false);
+                    router.push("/user/profile");
+                  }}
+                >
                   <CircleUserRoundIcon />
                   <span>Profile</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push("/user/posts")}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setOpenNavSheet(false);
+                    router.push("/user/posts");
+                  }}
+                >
                   <BsPostcard />
                   <span>Posts</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => router.push("/user/createPost")}
+                  onClick={() => {
+                    setOpenNavSheet(false);
+                    router.push("/user/createPost");
+                  }}
                 >
                   <MdOutlinePostAdd />
                   <span>Create Post</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push("/")}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setOpenNavSheet(false);
+                    router.push("/");
+                  }}
+                >
                   <RiLogoutCircleRLine />
                   <span>Sign Out</span>
                 </DropdownMenuItem>
