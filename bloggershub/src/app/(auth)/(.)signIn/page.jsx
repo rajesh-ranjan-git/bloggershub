@@ -64,7 +64,7 @@ const SignIn = () => {
   return (
     <section className="flex justify-center items-center px-10 w-screen h-screen">
       <Dialog open={open} onOpenChange={() => handleDialogClose()}>
-        <DialogContent className="m-0 p-0 border-none">
+        <DialogContent className="m-0 p-0 border-none rounded-lg w-[90vw] md:w-auto">
           <DialogTitle className="hidden"></DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
           <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-w-96 min-h-96">
