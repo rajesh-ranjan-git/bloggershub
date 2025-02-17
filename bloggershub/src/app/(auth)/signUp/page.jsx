@@ -44,6 +44,7 @@ const SignUp = () => {
         });
       }
     });
+    router.push("/");
   };
 
   return (
