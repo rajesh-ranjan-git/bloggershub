@@ -2,7 +2,7 @@ import NavList from "./navList";
 
 const HeaderRightContent = () => {
   return (
-    <div className="hidden md:flex">
+    <div className="hidden lg:flex">
       <NavList />
     </div>
   );
