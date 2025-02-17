@@ -1,6 +1,7 @@
 import { Router } from "express";
 import fetchProfile from "../../controllers/profile/fetchProfileController.js";
 import updateProfile from "../../controllers/profile/updateProfileController.js";
+import deleteProfile from "../../controllers/auth/deleteAccountController.js";
 
 const profileRouter = Router();
 
