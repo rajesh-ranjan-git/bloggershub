@@ -31,44 +31,48 @@ import { navListItems } from "@/config/navListItems";
 import Link from "next/link";
 
 const Header = () => {
-  const [headerBackground, setHeaderBackground] = useState(true);
+  // const [headerBackground, setHeaderBackground] = useState(false);
   const [openNavSheet, setOpenNavSheet] = useState(false);
 
   const router = useRouter();
-  const currentPath = usePathname();
+  // const currentPath = usePathname();
 
-  useEffect(() => {
-    if (currentPath === "/") {
-      setHeaderBackground(false);
-    } else {
-      setHeaderBackground(true);
-    }
-  }, [currentPath]);
+  // useEffect(() => {
+  //   if (currentPath === "/") {
+  //     console.log("headerBackground : ", headerBackground);
+  //     setHeaderBackground(() => true);
+  //   } else {
+  //     console.log("headerBackground : ", headerBackground);
+  //     setHeaderBackground(() => false);
+  //   }
+  // }, [currentPath]);
 
-  useEffect(() => {
-    if (currentPath === "/") {
-      setHeaderBackground(false);
-      document.addEventListener("scroll", () => {
-        if (window.scrollY >= 700) {
-          setHeaderBackground(true);
-        } else {
-          setHeaderBackground(false);
-        }
-      });
+  // useEffect(() => {
+  //   if (currentPath === "/") {
+  // setHeaderBackground(true);
+  //     document.addEventListener("scroll", () => {
+  //       if (window.scrollY >= 700) {
+  //         console.log("headerBackground : ", headerBackground);
+  //         setHeaderBackground(() => false);
+  //       } else {
+  //         console.log("headerBackground : ", headerBackground);
+  //         setHeaderBackground(() => true);
+  //       }
+  //     });
 
-      return () => {
-        document.removeEventListener("scroll", () => {});
-      };
-    } else {
-      setHeaderBackground(true);
-    }
-  }, []);
+  //     return () => {
+  //       document.removeEventListener("scroll", () => {});
+  //     };
+  //   }
+  // }, [headerBackground, currentPath]);
 
   return (
     <section
-      className={`top-0 fixed flex justify-center lg:justify-between items-center shadow-md px-10 border-b w-full z-40 h-16 ${
-        headerBackground ? "bg-white text-black" : "bg-transparent text-white"
-      }`}
+      // className={`top-0 fixed flex justify-center lg:justify-between items-center shadow-md px-10 border-b w-full z-40 h-16 ${
+      //   headerBackground ? "bg-transparent text-white" : "bg-white text-black"
+      // }`}
+      className="top-0 fixed flex justify-center lg:justify-between items-center shadow-md px-10 border-b w-full z-40 h-16 ${
+        bg-white text-black"
     >
       <Logo />
       <HeaderRightContent />
