@@ -4,6 +4,7 @@ import editPost from "../../controllers/posts/editPostController.js";
 import deletePostController from "../../controllers/posts/deletePostController.js";
 import fetchAllPostsByAuthor from "../../controllers/posts/fetchAllPostsByAuthorController.js";
 import fetchAllPosts from "../../controllers/posts/fetchAllPostsController.js";
+import fetchLatestPosts from "../../controllers/posts/fetchLatestPostsController.js";
 import fetchSinglePost from "../../controllers/posts/fetchSinglePostController.js";
 
 const postsRouter = Router();
@@ -14,6 +15,7 @@ postsRouter.post("/editPost/:postId", editPost);
 postsRouter.post("/deletePost/:postId", deletePostController);
 postsRouter.get("/fetchAllPostsByAuthor/:authorId", fetchAllPostsByAuthor);
 postsRouter.get("/fetchAllPosts", fetchAllPosts);
+postsRouter.get("/fetchLatestPosts", fetchLatestPosts);
 postsRouter.get("/fetchSinglePost/:postId", fetchSinglePost);
 
 export default postsRouter;

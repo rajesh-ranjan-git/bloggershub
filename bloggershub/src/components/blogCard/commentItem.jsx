@@ -14,6 +14,7 @@ const CommentItem = ({
   handleCommentButtonHover,
   commentButtonsBackground,
   setCommentButtonsBackground,
+  comment,
 }) => {
   return (
     <>
@@ -24,20 +25,14 @@ const CommentItem = ({
             <AvatarFallback>RR</AvatarFallback>
           </Avatar>
           <div>
-            <h2 className="font-semibold text-lg">Rajesh Ranjan</h2>
-            <p className="text-muted-foreground text-sm">13/02/2025</p>
+            <h2 className="font-semibold text-lg">{comment?.userId}</h2>
+            <p className="text-muted-foreground text-sm">
+              {comment?.updatedAt.split("T")[0]}
+            </p>
           </div>
         </div>
         <div className="my-2 p-2 border rounded-md">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-            et voluptas, veritatis quas sed eligendi quos sit omnis nobis
-            exercitationem laboriosam suscipit totam sunt vel eius impedit
-            maiores eaque temporibus? Atque, labore? Magnam eos perferendis
-            dolor dicta numquam. Nisi omnis molestiae facilis cum numquam iusto
-            est molestias fugiat consectetur laudantium, similique cupiditate
-            eligendi error quis maiores, doloremque fugit porro vero!
-          </p>
+          <p>{comment?.content}</p>
         </div>
         <div className="flex justify-between items-center text-xl">
           <div className="flex justify-between items-center gap-4">

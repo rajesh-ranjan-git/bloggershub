@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
 import fetchSinglePostService from "@/services/posts/fetchSinglePostService";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -25,15 +26,14 @@ const BlogItem = () => {
   useEffect(() => {
     dispatch(fetchSinglePostService(postId));
   }, []);
+
   return (
     <section className="flex justify-center py-20 w-full">
       <div className="flex flex-col justify-center md:justify-normal gap-4 px-10 w-full">
         <div className="min-w-96">
           <Card className="hover:shadow-md">
             <CardHeader>
-              <CardTitle className="text-3xl line-clamp-1">
-                {post?.title}
-              </CardTitle>
+              <CardTitle className="text-3xl">{post?.title}</CardTitle>
               <CardDescription>
                 Posted By : <span className="font-bold">{post?.authorId}</span>{" "}
                 | <span>{post?.updatedAt.split("T")[0]}</span>
@@ -44,7 +44,7 @@ const BlogItem = () => {
         <div className="flex lg:flex-row flex-col gap-6 w-full text-md">
           <div className="rounded-lg w-full lg:w-1/2">
             <Image
-              className="hover:shadow-md rounded-lg w-full min-h-96"
+              className="hover:shadow-md rounded-lg w-full min-h-96 object-cover"
               src={post?.postImage || "/images/blog.jpg"}
               alt="blogImage"
               width={300}

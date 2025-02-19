@@ -10,4 +10,8 @@ export const googleAuthFirebaseServiceApi = `${baseApiUrl}/auth/googleAuthFireba
 
 // Posts APIs
 export const fetchAllPostsServiceApi = `${baseApiUrl}/posts/fetchAllPosts`;
+export const fetchLatestPostsServiceApi = `${baseApiUrl}/posts/fetchLatestPosts`;
 export const fetchSinglePostServiceApi = `${baseApiUrl}/posts/fetchSinglePost`;
+
+// Comments APIs
+export const fetchAllCommentsOnPostServiceApi = `${baseApiUrl}/comments/fetchAllCommentsOnPost`;

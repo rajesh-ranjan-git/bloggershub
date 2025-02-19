@@ -1,4 +1,5 @@
 import fetchAllPostsService from "@/services/posts/fetchAllPostsService";
+import fetchLatestPostsService from "@/services/posts/fetchLatestPostsService";
 import fetchSinglePostService from "@/services/posts/fetchSinglePostService";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -22,6 +23,18 @@ const PostsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchAllPostsService.rejected, (state) => {
+        state.posts = [];
+        state.isLoading = false;
+      })
+      .addCase(fetchLatestPostsService.pending, (state) => {
+        state.posts = [];
+        state.isLoading = false;
+      })
+      .addCase(fetchLatestPostsService.fulfilled, (state, action) => {
+        state.posts = action.payload.posts;
+        state.isLoading = false;
+      })
+      .addCase(fetchLatestPostsService.rejected, (state) => {
         state.posts = [];
         state.isLoading = false;
       })
