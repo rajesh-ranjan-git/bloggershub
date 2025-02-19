@@ -14,12 +14,14 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  email    String    @unique
-  password String?
-  posts    Post[]
-  profile  Profile?
-  comments Comment[]
+  id           String         @id @default(uuid())
+  email        String         @unique
+  password     String?
+  posts        Post[]
+  profile      Profile?
+  comments     Comment[]
+  PostLikes    PostLikes[]
+  CommentLikes CommentLikes[]
 }
 
 model Profile {
@@ -46,9 +48,10 @@ model Post {
   published Boolean  @default(false)
   authorId  String
 
-  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  tags     TagsOnPosts[]
-  comments Comment[]
+  author    User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  tags      TagsOnPosts[]
+  comments  Comment[]
+  PostLikes PostLikes[]
 }
 
 model Tag {
@@ -80,7 +83,30 @@ model Comment {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  parentId String?
-  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
-  replies  Comment[] @relation("CommentReplies")
+  parentId     String?
+  parent       Comment?       @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies      Comment[]      @relation("CommentReplies")
+  CommentLikes CommentLikes[]
+}
+
+model PostLikes {
+  id     String  @id @default(uuid())
+  liked  Boolean @default(false)
+  postId String
+  post   Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId String
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId]) // Ensure a user can like a post only once
+}
+
+model CommentLikes {
+  id        String  @id @default(uuid())
+  liked     Boolean @default(false)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, commentId]) // Ensure a user can like a comment only once
 }
