@@ -2,42 +2,41 @@
 
 import CustomButton from "@/components/customFormElements/customButton";
 import CustomInput from "@/components/customFormElements/customInput";
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
-import signInService from "@/services/auth/signInService";
-import { signInSchema } from "@/validations/signInSchema";
+import forgotPasswordService from "@/services/auth/forgotPasswordService";
+import { forgotPasswordSchema } from "@/validations/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { FaUserShield } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 
-const SignIn = () => {
+const ForgotPassword = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const form = useForm({
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: "",
       password: "",
+      password_confirmation: "",
     },
   });
 
   const onSubmit = (formData) => {
-    dispatch(signInService(formData)).then((data) => {
+    dispatch(forgotPasswordService(formData)).then((data) => {
       if (data.payload.success) {
-        router.push("/");
+        router.push("/signIn");
         toast({
-          title: "Sign In successful!",
+          title: "Password update successful!",
           description: data.payload.message,
         });
       } else {
         toast({
-          title: "Sign In failed!",
+          title: "Password update failed!",
           variant: "destructive",
           description: data.payload.message,
         });
@@ -50,7 +49,7 @@ const SignIn = () => {
       <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-w-96 min-h-96">
         <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
           <FaUserShield />
-          <span>Sign In</span>
+          <span>Forgot Password</span>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -67,33 +66,27 @@ const SignIn = () => {
                 control={form.control}
                 label="Password"
                 name="password"
-                placeholder="Enter your password..."
+                placeholder="Enter new password..."
+              />
+            </div>
+            <div className="relative p-3">
+              <CustomInput
+                control={form.control}
+                label="Confirm Password"
+                name="password_confirmation"
+                placeholder="Confirm your new password..."
               />
             </div>
             <div className="p-3">
               <CustomButton
                 type="submit"
-                buttonText="Sign In"
+                buttonText="Change Password"
                 buttonStyle="w-full bg-blue-400 hover:bg-blue-600 text-white shadow-md"
                 disabled={false}
               />
             </div>
           </form>
         </Form>
-        <div className="p-3">
-          <Button className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black">
-            <FcGoogle />
-            <span>Continue with Google</span>
-          </Button>
-        </div>
-        <div className="p-2 text-sm text-center">
-          <Link
-            className="font-semibold hover:text-blue-600 hover:underline"
-            href="/forgotPassword"
-          >
-            Forgot password?
-          </Link>
-        </div>
         <div className="p-2 text-sm text-center">
           Don't have an account?
           <Link
@@ -108,4 +101,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;

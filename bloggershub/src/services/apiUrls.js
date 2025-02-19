@@ -7,6 +7,7 @@ export const signInServiceApi = `${baseApiUrl}/auth/signIn`;
 export const logoutUserServiceApi = `${baseApiUrl}/auth/logout`;
 export const checkAuthServiceApi = `${baseApiUrl}/auth/checkAuth`;
 export const googleAuthFirebaseServiceApi = `${baseApiUrl}/auth/googleAuthFirebase`;
+export const forgotPasswordServiceApi = `${baseApiUrl}/auth/forgotPassword`;
 
 // Posts APIs
 export const fetchAllPostsServiceApi = `${baseApiUrl}/posts/fetchAllPosts`;

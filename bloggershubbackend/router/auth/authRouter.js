@@ -5,6 +5,7 @@ import signOut from "../../controllers/auth/signOutController.js";
 import checkAuth from "../../controllers/auth/checkAuthController.js";
 import authMiddleware from "../../middlewares/auth/authMiddleware.js";
 import deleteAccount from "../../controllers/auth/deleteAccountController.js";
+import forgotPassword from "../../controllers/auth/forgotPasswordController.js";
 
 const authRouter = Router();
 
@@ -14,5 +15,6 @@ authRouter.post("/signUp", signUp);
 authRouter.post("/signIn", signIn);
 authRouter.post("/signOut", signOut);
 authRouter.post("/deleteAccount/:userId", deleteAccount);
+authRouter.post("/forgotPassword", forgotPassword);
 
 export default authRouter;

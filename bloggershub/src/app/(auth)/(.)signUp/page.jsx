@@ -24,7 +24,6 @@ import { FaUserPlus } from "react-icons/fa";
 
 const SignUp = () => {
   const [open, setOpen] = useState(true);
-
   const dispatch = useDispatch();
   const router = useRouter();
 

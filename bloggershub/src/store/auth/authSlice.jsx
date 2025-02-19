@@ -3,6 +3,7 @@ import signInService from "@/services/auth/signInService";
 import logoutUserService from "@/services/auth/logoutUserService";
 import signUpService from "@/services/auth/signUpService";
 import { createSlice } from "@reduxjs/toolkit";
+import forgotPasswordService from "@/services/auth/forgotPasswordService";
 
 const initialState = {
   isAuthenticated: false,
@@ -61,6 +62,15 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.isLoading = false;
         state.token = null;
+      })
+      .addCase(forgotPasswordService.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(forgotPasswordService.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(forgotPasswordService.rejected, (state) => {
+        state.isLoading = false;
       })
       .addCase(logoutUserService.fulfilled, (state, action) => {
         state.user = null;

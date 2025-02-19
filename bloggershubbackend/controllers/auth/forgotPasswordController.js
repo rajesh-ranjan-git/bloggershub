@@ -2,15 +2,15 @@ import vine, { errors } from "@vinejs/vine";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import prisma from "../../db/dbConfig.js";
-import signUpSchema from "../../validations/auth/signUpSchema.js";
+import forgotPasswordSchema from "../../validations/auth/forgotPasswordSchema.js";
 
-//Sign Up
-const signUp = async (req, res) => {
+//Sign In
+const forgotPassword = async (req, res) => {
   try {
     const body = req.body;
 
     // Validate request body
-    const validator = vine.compile(signUpSchema);
+    const validator = vine.compile(forgotPasswordSchema);
     const payload = await validator.validate(body);
 
     const findUser = await prisma.user.findUnique({
@@ -19,62 +19,47 @@ const signUp = async (req, res) => {
       },
     });
 
-    // If user already exists
-    if (findUser) {
+    // If user not found
+    if (!findUser) {
       return res.json({
         status: 400,
         success: false,
-        message: "User already exists, please use a different email!",
+        message: "User does not exist!",
       });
     }
 
-    // If user does not exist
+    // If user found
     // Encrypt password
     const salt = bcrypt.genSaltSync(10);
     payload.password = bcrypt.hashSync(payload.password, salt);
 
-    // Register user
-    const user = await prisma.user.create({
-      data: payload,
+    // Update password
+    const user = await prisma.user.update({
+      where: {
+        email: payload.email,
+      },
+      data: {
+        password: payload.password,
+      },
     });
 
-    // If user is not registered
+    // If password did not update
     if (!user) {
       return res.json({
         status: 400,
         success: false,
-        message: "Something went wrong while creating user!",
+        message: "Something went wrong while updating password!",
       });
     }
 
-    // If user is registered successfully
-    // Create Profile for user
-    await prisma.profile.create({
-      data: {
-        userId: user.id,
-      },
-    });
-
-    const payloadData = {
-      id: user.id,
-      email: user.email,
-    };
-
-    // Issue token to login
-    const token = jwt.sign(payloadData, process.env.JWT_SECRET, {
-      expiresIn: "365d",
-    });
-
-    // Create cookie
-    return res.cookie("token", token, { httpOnly: true, secure: false }).json({
-      status: 201,
+    // If password updated
+    return res.json({
+      status: 200,
       success: true,
-      token: token,
-      message: "User created successfully!",
-      user: user,
+      message: "Password updated successfully!",
     });
   } catch (error) {
-    console.log("error while sign up : ", error);
+    console.log("error during forgot password : ", error);
     // Check for validation error
     if (error instanceof errors.E_VALIDATION_ERROR) {
       return res.json({
@@ -94,4 +79,4 @@ const signUp = async (req, res) => {
   }
 };
 
-export default signUp;
+export default forgotPassword;
