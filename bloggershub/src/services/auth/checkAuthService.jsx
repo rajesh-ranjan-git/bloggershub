@@ -1,11 +1,11 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { checkAuthApi } from "../apiUrls";
+import { checkAuthServiceApi } from "../apiUrls";
 
 // For cookies
 // const checkAuthService = createAsyncThunk("/auth/checkAuth", async () => {
 //   try {
-//     const checkAuthResponse = await axios.get(checkAuthApi, {
+//     const checkAuthResponse = await axios.get(checkAuthServiceApi, {
 //       withCredentials: true,
 //       headers: {
 //         "Cache-Control":
@@ -23,7 +23,7 @@ import { checkAuthApi } from "../apiUrls";
 // For localStorage
 const checkAuthService = createAsyncThunk("/auth/checkAuth", async (token) => {
   try {
-    const checkAuthResponse = await axios.get(checkAuthApi, {
+    const checkAuthResponse = await axios.get(checkAuthServiceApi, {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,

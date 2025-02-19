@@ -9,6 +9,10 @@ export const profileSchema = vine.object({
   lastName: vine.string().trim().minLength(2).optional(),
   bio: vine.string().trim().minLength(2).optional(),
   profileImage: vine.string().optional(),
+  designation: vine.string().optional(),
+  dob: vine.string().optional(),
+  phoneNumber: vine.string().optional(),
+  country: vine.string().optional(),
   userId: vine.string().uuid(),
 });
 

@@ -2,27 +2,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdOutlinePostAdd } from "react-icons/md";
 
-const BlogCard = () => {
+const BlogCard = ({ post }) => {
   return (
     <div className="bg-white shadow-sm hover:shadow-md border border-gray-200 rounded-lg max-w-sm">
       <Image
-        className="rounded-t-lg w-full h-auto"
-        src="/images/blog.jpg"
+        className="rounded-t-lg w-96 h-64 object-cover"
+        src={post?.postImage}
         alt="blogImage"
         width={300}
         height={300}
       />
 
       <div className="p-5">
-        <h5 className="mb-2 font-bold text-gray-900 text-2xl tracking-tight">
-          Noteworthy technology acquisitions 2021
+        <h5 className="mb-2 font-bold text-gray-900 text-2xl line-clamp-1 tracking-tight">
+          {post?.title}
         </h5>
-        <p className="mb-3 font-normal text-gray-700">
-          Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order.
+        <p className="mb-3 font-normal text-gray-700 line-clamp-3">
+          {post?.content}
         </p>
         <Link
-          href="/blog/1"
+          href={`/blog/${post?.id}`}
           className="inline-flex items-center gap-2 bg-blue-400 hover:bg-blue-600 hover:shadow-md px-3 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-white text-sm text-center"
         >
           <MdOutlinePostAdd />

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { logoutUserApi } from "../apiUrls";
+import { logoutUserServiceApi } from "../apiUrls";
 
 const logoutUserService = createAsyncThunk("/auth/logout", async () => {
   try {
     const logoutUserResponse = await axios.post(
-      logoutUserApi,
+      logoutUserServiceApi,
       {},
       {
         withCredentials: true,

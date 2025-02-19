@@ -54,7 +54,7 @@ const SignUp = () => {
         });
       }
     });
-    router.push("/");
+    // router.push("/");
   };
 
   const handleDialogClose = () => {
