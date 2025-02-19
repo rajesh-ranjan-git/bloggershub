@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HeaderRightContent from "./headerRightContent";
 import Logo from "./logo";
 import { usePathname, useRouter } from "next/navigation";
 import { CircleUserRoundIcon, Menu, UserRoundIcon } from "lucide-react";
-import { Button } from "../ui/button";
 import {
   Sheet,
   SheetContent,
@@ -32,46 +31,12 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 
 const Header = () => {
-  // const [headerBackground, setHeaderBackground] = useState(false);
   const [openNavSheet, setOpenNavSheet] = useState(false);
 
   const router = useRouter();
-  // const currentPath = usePathname();
-
-  // useEffect(() => {
-  //   if (currentPath === "/") {
-  //     console.log("headerBackground : ", headerBackground);
-  //     setHeaderBackground(() => true);
-  //   } else {
-  //     console.log("headerBackground : ", headerBackground);
-  //     setHeaderBackground(() => false);
-  //   }
-  // }, [currentPath]);
-
-  // useEffect(() => {
-  //   if (currentPath === "/") {
-  // setHeaderBackground(true);
-  //     document.addEventListener("scroll", () => {
-  //       if (window.scrollY >= 700) {
-  //         console.log("headerBackground : ", headerBackground);
-  //         setHeaderBackground(() => false);
-  //       } else {
-  //         console.log("headerBackground : ", headerBackground);
-  //         setHeaderBackground(() => true);
-  //       }
-  //     });
-
-  //     return () => {
-  //       document.removeEventListener("scroll", () => {});
-  //     };
-  //   }
-  // }, [headerBackground, currentPath]);
 
   return (
     <section
-      // className={`top-0 fixed flex justify-center lg:justify-between items-center shadow-md px-10 border-b w-full z-40 h-16 ${
-      //   headerBackground ? "bg-transparent text-white" : "bg-white text-black"
-      // }`}
       className="top-0 fixed flex justify-center lg:justify-between items-center shadow-md px-10 border-b w-full z-40 h-16 ${
         bg-white text-black"
     >

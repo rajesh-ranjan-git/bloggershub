@@ -22,9 +22,6 @@ const UpdatePost = () => {
   });
 
   const onSubmit = (data) => {
-    console.log("data : ", data);
-    console.log("Submit called");
-    console.log("toast : ", toast);
     toast({
       title: "You submitted the following values:",
       description: (

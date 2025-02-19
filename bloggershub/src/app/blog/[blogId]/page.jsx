@@ -22,10 +22,7 @@ const BlogItem = () => {
   const dispatch = useDispatch();
   const { post } = useSelector((state) => state.postReducer);
 
-  console.log("post : ", post);
-
   useEffect(() => {
-    console.log("postId : ", postId);
     dispatch(fetchSinglePostService(postId));
   }, []);
   return (
@@ -34,7 +31,9 @@ const BlogItem = () => {
         <div className="min-w-96">
           <Card className="hover:shadow-md">
             <CardHeader>
-              <CardTitle className="text-3xl">{post?.title}</CardTitle>
+              <CardTitle className="text-3xl line-clamp-1">
+                {post?.title}
+              </CardTitle>
               <CardDescription>
                 Posted By : <span className="font-bold">{post?.authorId}</span>{" "}
                 | <span>{post?.updatedAt.split("T")[0]}</span>

@@ -31,8 +31,6 @@ const PostsSlice = createSlice({
       })
       .addCase(fetchSinglePostService.fulfilled, (state, action) => {
         state.post = action.payload.post;
-        console.log("action.payload : ", action.payload);
-        console.log("state.post : ", state.post);
         state.isLoading = false;
       })
       .addCase(fetchSinglePostService.rejected, (state) => {
