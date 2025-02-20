@@ -27,7 +27,13 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  return NextResponse.next();
+  console.log(
+    "checkAuthServiceResponse.data : ",
+    checkAuthServiceResponse.data
+  );
+
+  // return NextResponse.next();
+  return checkAuthServiceResponse.data;
 }
 
 // Apply middleware only to specific paths

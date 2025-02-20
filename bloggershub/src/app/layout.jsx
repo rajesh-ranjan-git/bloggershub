@@ -14,11 +14,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <StoreProvider>
         <body>
-          {/* <CheckAuth> */}
-          <Header />
-          {children}
-          <Toaster />
-          {/* </CheckAuth> */}
+          <CheckAuth>
+            <Header />
+            {children}
+            <Toaster />
+          </CheckAuth>
         </body>
       </StoreProvider>
     </html>

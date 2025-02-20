@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 
 const NavList = () => {
   const router = useRouter();
-  const { user } = useSelector((state) => state.authReducer);
+  const { isLoading, user } = useSelector((state) => state.authReducer);
 
   return (
     <div>
@@ -38,7 +38,7 @@ const NavList = () => {
             ))
           : null}
 
-        {!user ? (
+        {isLoading ? null : !user ? (
           <>
             <li>
               <Link
