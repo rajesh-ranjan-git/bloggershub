@@ -29,11 +29,13 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import { navListItems } from "@/config/navListItems";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
+import { useSelector } from "react-redux";
+import { FaUserPlus, FaUserShield } from "react-icons/fa";
 
 const Header = () => {
   const [openNavSheet, setOpenNavSheet] = useState(false);
-
   const router = useRouter();
+  const { user } = useSelector((state) => state.authReducer);
 
   return (
     <section
@@ -44,12 +46,12 @@ const Header = () => {
       <HeaderRightContent />
       <Sheet open={openNavSheet} onOpenChange={setOpenNavSheet}>
         <SheetTrigger
-          className="lg:hidden right-2 absolute hover:bg-blue-400 p-2 border-1 hover:border-white rounded-md hover:text-white text-xl transition-all ease-in-out"
+          className="lg:hidden left-2 absolute hover:bg-blue-400 p-2 border-1 hover:border-white rounded-md hover:text-white text-xl transition-all ease-in-out"
           variant="outline"
         >
           <Menu />
         </SheetTrigger>
-        <SheetContent side="left" className="rounded-r-lg w-72 h-screen">
+        <SheetContent side="left" className="rounded-r-lg w-64 h-screen">
           <SheetHeader>
             <SheetTitle className="text-3xl">
               <Link href="/" onClick={() => setOpenNavSheet(false)}>
@@ -75,72 +77,99 @@ const Header = () => {
                     </li>
                   ))
                 : null}
+
+              {!user && (
+                <>
+                  <li>
+                    <Link
+                      className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                      href="/signIn"
+                    >
+                      <FaUserShield />
+                      <span>Sign In</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                      href="/signUp"
+                    >
+                      <FaUserPlus />
+                      <span>Sign Up</span>
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
-          <Separator className="my-5" />
-          <SheetFooter>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="outline-none">
-                <div className="flex justify-center items-center gap-4 hover:bg-blue-300/70 rounded-md text-xl cursor-pointer">
-                  <div>
-                    <Avatar className="border-2 border-transparent hover:border-blue-400 rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>RR</AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <div>
-                    <SheetTitle>
+          {user && (
+            <>
+              <Separator className="my-5" />
+              <SheetFooter>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="outline-none">
+                    <div className="flex justify-center items-center gap-4 hover:bg-blue-300/70 rounded-md text-xl cursor-pointer">
+                      <div>
+                        <Avatar className="border-2 border-transparent hover:border-blue-400 rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
+                          <AvatarImage src="https://github.com/shadcn.png" />
+                          <AvatarFallback>RR</AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <div>
+                        <SheetTitle>
+                          <span>Rajesh Ranjan</span>
+                        </SheetTitle>
+                        <SheetDescription>rajesh@gmail.com</SheetDescription>
+                      </div>
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel className="flex items-center gap-2">
+                      <UserRoundIcon size={15} />
                       <span>Rajesh Ranjan</span>
-                    </SheetTitle>
-                    <SheetDescription>rajesh@gmail.com</SheetDescription>
-                  </div>
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel className="flex items-center gap-2">
-                  <UserRoundIcon size={15} />
-                  <span>Rajesh Ranjan</span>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => {
-                    setOpenNavSheet(false);
-                    router.push("/user/profile");
-                  }}
-                >
-                  <CircleUserRoundIcon />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setOpenNavSheet(false);
-                    router.push("/user/posts");
-                  }}
-                >
-                  <BsPostcard />
-                  <span>Posts</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setOpenNavSheet(false);
-                    router.push("/user/createPost");
-                  }}
-                >
-                  <MdOutlinePostAdd />
-                  <span>Create Post</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setOpenNavSheet(false);
-                    router.push("/");
-                  }}
-                >
-                  <RiLogoutCircleRLine />
-                  <span>Sign Out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SheetFooter>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setOpenNavSheet(false);
+                        router.push("/user/profile");
+                      }}
+                    >
+                      <CircleUserRoundIcon />
+                      <span>Profile</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setOpenNavSheet(false);
+                        router.push("/user/posts");
+                      }}
+                    >
+                      <BsPostcard />
+                      <span>Posts</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setOpenNavSheet(false);
+                        router.push("/user/createPost");
+                      }}
+                    >
+                      <MdOutlinePostAdd />
+                      <span>Create Post</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setOpenNavSheet(false);
+                        router.push("/");
+                      }}
+                    >
+                      <RiLogoutCircleRLine />
+                      <span>Sign Out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </SheetFooter>
+            </>
+          )}
         </SheetContent>
       </Sheet>
     </section>

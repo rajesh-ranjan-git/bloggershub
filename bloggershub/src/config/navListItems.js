@@ -1,4 +1,4 @@
-import { FaBlog, FaInfoCircle, FaUserPlus, FaUserShield } from "react-icons/fa";
+import { FaBlog, FaInfoCircle } from "react-icons/fa";
 import { MdConnectWithoutContact } from "react-icons/md";
 
 export const navListItems = [
@@ -19,17 +19,5 @@ export const navListItems = [
     label: "Contact",
     path: "/contact",
     icon: <MdConnectWithoutContact />,
-  },
-  {
-    id: "signIn",
-    label: "Sign In",
-    path: "/signIn",
-    icon: <FaUserShield />,
-  },
-  {
-    id: "signUp",
-    label: "Sign Up",
-    path: "/signUp",
-    icon: <FaUserPlus />,
   },
 ];
