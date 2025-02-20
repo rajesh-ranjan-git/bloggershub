@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,26 +17,37 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import fetchProfileService from "@/services/profile/fetchProfileService";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserProfile = () => {
+  const dispatch = useDispatch();
+  const { isLoading, user } = useSelector((state) => state.authReducer);
+  const { userProfile } = useSelector((state) => state.profileReducer);
+
+  useEffect(() => {
+    dispatch(fetchProfileService(user?.id));
+  }, [dispatch, user]);
+
   return (
     <section className="flex justify-center pt-16 w-full">
       <div className="flex flex-col justify-center px-5 md:px-10">
         <div className="p-5 border-b-4 border-blue-400 font-semibold text-3xl text-center">
-          Rajesh's Profile
+          {userProfile?.firstName}'s Profile
         </div>
         <div className="justify-between gap-5 lg:gap-10 grid lg:grid-cols-2 py-10">
           <div className="text-center">
             <Card className="hover:shadow-md w-full">
               <CardHeader>
-                <CardTitle className="text-3xl">Rajesh Ranjan</CardTitle>
+                <CardTitle className="text-3xl">{`${userProfile?.firstName} ${userProfile?.middleName} ${userProfile?.lastName}`}</CardTitle>
                 <CardDescription className="hidden"></CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center items-center">
                 <div className="p-1 border-2 border-blue-400 rounded-full overflow-hidden">
                   <Image
-                    src="/images/latest_pic.png"
+                    src={userProfile?.profileImage || "/images/latest_pic.png"}
                     width={300}
                     height={300}
                     alt="profileImage"
@@ -43,7 +56,9 @@ const UserProfile = () => {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-center items-center pb-5">
-                <p className="text-lg text-center">Full Stack Web Developer</p>
+                <p className="text-lg text-center">
+                  {userProfile?.designation}
+                </p>
               </CardFooter>
             </Card>
           </div>
@@ -52,7 +67,7 @@ const UserProfile = () => {
               <CardHeader className="text-center">
                 <CardTitle>Profile Details</CardTitle>
                 <CardDescription className="text-md">
-                  Full Stack Web Developer
+                  {userProfile?.designation}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -62,23 +77,23 @@ const UserProfile = () => {
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">Name</TableCell>
-                      <TableCell>Rajesh Ranjan</TableCell>
+                      <TableCell>{`${userProfile?.firstName} ${userProfile?.middleName} ${userProfile?.lastName}`}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Designation</TableCell>
-                      <TableCell>Full Stack Web Developer</TableCell>
+                      <TableCell>{userProfile?.designation}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Email</TableCell>
-                      <TableCell>rajeshranjan8271@gmail.com</TableCell>
+                      <TableCell>{user?.email}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">DOB</TableCell>
-                      <TableCell>18th January, 1997</TableCell>
+                      <TableCell>{userProfile?.dob}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Ph No.</TableCell>
-                      <TableCell>+91-9999-34-0771</TableCell>
+                      <TableCell>{userProfile?.phoneNumber}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Languages</TableCell>
@@ -94,9 +109,7 @@ const UserProfile = () => {
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Bio</TableCell>
-                      <TableCell>
-                        Ambitious web developer aiming to conquer the world.
-                      </TableCell>
+                      <TableCell>{userProfile?.bio}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Posts</TableCell>

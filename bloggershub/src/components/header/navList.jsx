@@ -24,11 +24,10 @@ const NavList = () => {
   const dispatch = useDispatch();
   const { isLoading, user } = useSelector((state) => state.authReducer);
   const { userProfile } = useSelector((state) => state.profileReducer);
-  let userName = "";
 
   useEffect(() => {
     dispatch(fetchProfileService(user?.id));
-  }, [dispatch, user, userProfile]);
+  }, [dispatch, user]);
 
   return (
     <div>
