@@ -15,11 +15,20 @@ import { MdOutlinePostAdd } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { CircleUserRoundIcon, UserRoundIcon } from "lucide-react";
 import { FaUserPlus, FaUserShield } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import fetchProfileService from "@/services/profile/fetchProfileService";
 
 const NavList = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { isLoading, user } = useSelector((state) => state.authReducer);
+  const { userProfile } = useSelector((state) => state.profileReducer);
+  let userName = "";
+
+  useEffect(() => {
+    dispatch(fetchProfileService(user?.id));
+  }, [dispatch, user, userProfile]);
 
   return (
     <div>
@@ -72,7 +81,7 @@ const NavList = () => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel className="flex items-center gap-2">
                     <UserRoundIcon size={15} />
-                    <span>Rajesh Ranjan</span>
+                    <span>{`${userProfile?.firstName} ${userProfile?.middleName} ${userProfile?.lastName}`}</span>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem

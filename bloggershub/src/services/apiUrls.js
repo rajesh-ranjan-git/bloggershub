@@ -16,3 +16,6 @@ export const fetchSinglePostServiceApi = `${baseApiUrl}/posts/fetchSinglePost`;
 
 // Comments APIs
 export const fetchAllCommentsOnPostServiceApi = `${baseApiUrl}/comments/fetchAllCommentsOnPost`;
+
+// Profile APIs
+export const fetchProfileServiceApi = `${baseApiUrl}/profile/fetchProfile`;

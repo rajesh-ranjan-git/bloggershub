@@ -5,9 +5,6 @@ const authMiddleware = async (req, res, next) => {
   // Get token from cookies
   const token = req.cookies.token;
 
-  console.log("req.cookies : ", req.cookies);
-  console.log("token : ", req.cookies);
-
   // For setting header for localStorage
   // const authHeader = req.headers["authorization"];
   // const token = authHeader && authHeader.split(" ")[1];
