@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { BsPostcard } from "react-icons/bs";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
@@ -18,12 +18,20 @@ import { FaUserPlus, FaUserShield } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import fetchProfileService from "@/services/profile/fetchProfileService";
+import signOutService from "@/services/auth/signOutService";
 
 const NavList = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoading, user } = useSelector((state) => state.authReducer);
   const { userProfile } = useSelector((state) => state.profileReducer);
+
+  const handleSignOut = () => {
+    dispatch(signOutService()).then((data) => {
+      console.log("data : ", data);
+      redirect("/");
+    });
+  };
 
   useEffect(() => {
     dispatch(fetchProfileService(user?.id));
@@ -99,7 +107,7 @@ const NavList = () => {
                     <MdOutlinePostAdd />
                     <span>Create Post</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push("/")}>
+                  <DropdownMenuItem onClick={() => handleSignOut()}>
                     <RiLogoutCircleRLine />
                     <span>Sign Out</span>
                   </DropdownMenuItem>

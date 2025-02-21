@@ -1,10 +1,9 @@
 import checkAuthService from "@/services/auth/checkAuthService";
 import signInService from "@/services/auth/signInService";
-import logoutUserService from "@/services/auth/logoutUserService";
 import signUpService from "@/services/auth/signUpService";
 import { createSlice } from "@reduxjs/toolkit";
 import forgotPasswordService from "@/services/auth/forgotPasswordService";
-import { BsXLg } from "react-icons/bs";
+import signOutService from "@/services/auth/signOutService";
 
 const initialState = {
   isAuthenticated: false,
@@ -76,7 +75,7 @@ const authSlice = createSlice({
       .addCase(forgotPasswordService.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(logoutUserService.fulfilled, (state, action) => {
+      .addCase(signOutService.fulfilled, (state, action) => {
         state.user = null;
         state.isAuthenticated = false;
         state.token = null;

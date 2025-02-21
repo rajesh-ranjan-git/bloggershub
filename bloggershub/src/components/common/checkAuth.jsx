@@ -1,9 +1,10 @@
 "use client";
 
+import { toast } from "@/hooks/use-toast";
 import checkAuthService from "@/services/auth/checkAuthService";
 import { redirect, usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const CheckAuth = ({ children }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,11 @@ const CheckAuth = ({ children }) => {
     dispatch(checkAuthService()).then((data) => {
       if (!data.payload.success) {
         if (path.includes("/user")) {
+          toast({
+            title: "Unauthorized",
+            description: "Please sign in to access this page.",
+            variant: "destructive",
+          });
           redirect("/");
         }
       }

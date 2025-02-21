@@ -5,7 +5,7 @@ export const baseApiUrl = `http://localhost:${backendPORT}/api`;
 export const checkAuthServiceApi = `${baseApiUrl}/auth/checkAuth`;
 export const signUpServiceApi = `${baseApiUrl}/auth/signUp`;
 export const signInServiceApi = `${baseApiUrl}/auth/signIn`;
-export const logoutUserServiceApi = `${baseApiUrl}/auth/logout`;
+export const signOutServiceApi = `${baseApiUrl}/auth/signOut`;
 export const googleAuthFirebaseServiceApi = `${baseApiUrl}/auth/googleAuthFirebase`;
 export const forgotPasswordServiceApi = `${baseApiUrl}/auth/forgotPassword`;
 
