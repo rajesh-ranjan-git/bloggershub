@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchSinglePostServiceApi } from "../apiUrls";
 
 const fetchSinglePostService = createAsyncThunk(
-  "/posts/fetchSinglePostService",
+  "/posts/fetchSinglePost",
   async (postId) => {
     try {
       const fetchSinglePostServiceResponse = await axios.get(

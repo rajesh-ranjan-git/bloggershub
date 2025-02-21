@@ -14,18 +14,30 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
 
-const UserPostDetails = () => {
+const UserPostDetails = ({ post }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { comments } = useSelector((state) => state.commentsReducer);
+
+  useEffect(() => {
+    dispatch(fetchAllCommentsOnPostService(post?.id));
+  }, []);
 
   return (
     <div className="flex justify-between md:justify-around items-center p-2 w-full md:w-1/2 text-center">
       <div className="md:hidden block">
-        <span className="font-semibold">Posted on : </span>14/02/2024
+        <span className="font-semibold">Posted on : </span>
+        {post?.updatedAt.split("T")[0]}
       </div>
-      <div className="hidden md:block w-20">14/02/2024</div>
+      <div className="hidden md:block w-24">
+        {post?.updatedAt.split("T")[0]}
+      </div>
       <div className="hidden md:block w-20">5</div>
-      <div className="hidden md:block w-20">20</div>
+      <div className="hidden md:block w-20">{comments?.length}</div>
       <div className="flex items-center gap-2 w-20">
         <Button
           variant="outline"

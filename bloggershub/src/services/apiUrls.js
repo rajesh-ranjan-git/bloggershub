@@ -13,6 +13,7 @@ export const forgotPasswordServiceApi = `${baseApiUrl}/auth/forgotPassword`;
 export const fetchAllPostsServiceApi = `${baseApiUrl}/posts/fetchAllPosts`;
 export const fetchLatestPostsServiceApi = `${baseApiUrl}/posts/fetchLatestPosts`;
 export const fetchSinglePostServiceApi = `${baseApiUrl}/posts/fetchSinglePost`;
+export const fetchAllPostsByAuthorServiceApi = `${baseApiUrl}/posts/fetchAllPostsByAuthor`;
 
 // Comments APIs
 export const fetchAllCommentsOnPostServiceApi = `${baseApiUrl}/comments/fetchAllCommentsOnPost`;

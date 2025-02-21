@@ -11,7 +11,6 @@ const Posts = () => {
         <div className="flex flex-col gap-4 py-4">
           <UserPostHeading />
           <UserPost />
-          <UserPost />
         </div>
       </div>
     </section>

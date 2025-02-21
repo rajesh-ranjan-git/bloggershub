@@ -72,7 +72,7 @@ const fetchAllPostsByAuthor = async (req, res) => {
       // If posts fetched successfully
       // Return all posts by author
       return res.json({
-        status: 201,
+        status: 200,
         success: true,
         posts: allPostsByAuthor,
         author: authorProfile,

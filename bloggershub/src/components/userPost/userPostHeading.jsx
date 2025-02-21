@@ -6,7 +6,7 @@ const UserPostHeading = () => {
       <div className="w-1/2 font-bold text-center">Posts</div>
       <Separator orientation="vertical" />
       <div className="flex justify-around items-center w-1/2 font-semibold text-center">
-        <div className="w-20">Date</div>
+        <div className="w-24">Date</div>
         <div className="w-20">Likes</div>
         <div className="w-20">Comments</div>
         <div className="w-20">Actions</div>
