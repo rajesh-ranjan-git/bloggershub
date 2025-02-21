@@ -26,7 +26,7 @@ import {
 import { BsPostcard } from "react-icons/bs";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { navListItems } from "@/config/navListItems";
+import { navListItems } from "@/config/config";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { useSelector } from "react-redux";

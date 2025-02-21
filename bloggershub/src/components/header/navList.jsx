@@ -1,4 +1,4 @@
-import { navListItems } from "@/config/navListItems";
+import { navListItems } from "@/config/config";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -88,7 +88,11 @@ const NavList = () => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel className="flex items-center gap-2">
                     <UserRoundIcon size={15} />
-                    <span>{`${userProfile?.firstName} ${userProfile?.middleName} ${userProfile?.lastName}`}</span>
+                    <span>{`${
+                      userProfile?.firstName
+                        ? userProfile?.firstName
+                        : user?.email
+                    }`}</span>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
