@@ -40,17 +40,24 @@ server.use("/api", router);
 
 server.get("/", (req, res) => {
   return res.send(`
-    <div 
-      style=
-        "color:red;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        width:100%;
-        height:100%;
-      ">
-      <h1>Blogger's Hub server is running!</h1>
-    </div>`);
+    <html>
+      <head>
+        <title>Blogger's Hub Server</title>
+      </head>
+      <body>
+        <div 
+          style=
+            "color:red;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            width:100%;
+            height:100%;
+          ">
+          <h1>Blogger's Hub server is running!</h1>
+        </div>
+      </body>
+    </html>`);
 });
 
 // Listen to server
