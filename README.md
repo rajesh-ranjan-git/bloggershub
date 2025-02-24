@@ -1,7 +1,8 @@
 # Bloggers Hub
 
-> UI is almost done on this
+> UI is almost done
 > Backend setup is almost done as well
-> Need to integrate backend with client now, also need to integrate Firebase authentication for google
+> Backend is almost integrated with client
+> Need to integrate Firebase authentication for google
 
 ## Blogger's Hub App
