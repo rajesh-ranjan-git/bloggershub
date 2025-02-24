@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { FaUserShield } from "react-icons/fa";
+import firebaseGoogleAuth from "@/firebase/firebaseGoogleAuth";
+import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService";
 
 const SignIn = () => {
   const [open, setOpen] = useState(true);
@@ -58,6 +60,32 @@ const SignIn = () => {
   const handleDialogClose = () => {
     setOpen(false);
     router.back();
+  };
+
+  const handleFirebaseGoogleAuth = async () => {
+    const formData = await firebaseGoogleAuth();
+
+    dispatch(firebaseGoogleAuthService(formData)).then((data) => {
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+        router.push("/");
+      } else {
+        if (data?.payload?.message === "Validation Error") {
+          toast({
+            title: data?.payload?.message,
+            description: data?.payload?.errors?.email,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: data?.payload?.message || "Something went wrong!",
+            variant: "destructive",
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -100,7 +128,10 @@ const SignIn = () => {
               </form>
             </Form>
             <div className="p-3">
-              <Button className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black">
+              <Button
+                className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black"
+                onClick={() => handleFirebaseGoogleAuth()}
+              >
                 <FcGoogle />
                 <span>Continue with Google</span>
               </Button>

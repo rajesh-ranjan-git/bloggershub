@@ -78,6 +78,22 @@ const authSlice = createSlice({
         state.token = null;
         state.isLoading = false;
         localStorage.clear();
+      })
+      .addCase(firebaseGoogleAuthService.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(firebaseGoogleAuthService.rejected, (state) => {
+        state.user = action.payload.success ? action.payload.user : null;
+        state.isAuthenticated = action.payload.success;
+        state.token = action.payload.token;
+        state.isLoading = false;
+        localStorage.setItem("token", JSON.stringify(action.payload.token));
+      })
+      .addCase(firebaseGoogleAuthService.rejected, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+        state.isLoading = false;
+        state.token = null;
       });
   },
 });
