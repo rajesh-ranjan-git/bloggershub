@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import { FaUserShield } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
+import firebaseGoogleAuth from "@/firebase/firebaseGoogleAuth";
+import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -41,6 +43,32 @@ const SignIn = () => {
           variant: "destructive",
           description: data.payload.message,
         });
+      }
+    });
+  };
+
+  const handleFirebaseGoogleAuth = async () => {
+    const formData = await firebaseGoogleAuth();
+
+    dispatch(firebaseGoogleAuthService(formData)).then((data) => {
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+        router.push("/");
+      } else {
+        if (data?.payload?.message === "Validation Error") {
+          toast({
+            title: data?.payload?.message,
+            description: data?.payload?.errors?.email,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: data?.payload?.message || "Something went wrong!",
+            variant: "destructive",
+          });
+        }
       }
     });
   };
@@ -81,7 +109,10 @@ const SignIn = () => {
           </form>
         </Form>
         <div className="p-3">
-          <Button className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black">
+          <Button
+            className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black"
+            onClick={() => handleFirebaseGoogleAuth()}
+          >
             <FcGoogle />
             <span>Continue with Google</span>
           </Button>
