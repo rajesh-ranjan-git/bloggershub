@@ -12,7 +12,6 @@ const CheckAuth = ({ children }) => {
 
   useEffect(() => {
     dispatch(checkAuthService()).then((data) => {
-      console.log("error in checkAuth - data : ", data);
       if (!data?.payload?.success) {
         if (data?.error) {
           toast({
