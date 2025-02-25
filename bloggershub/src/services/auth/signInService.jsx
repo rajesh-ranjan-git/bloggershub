@@ -9,7 +9,6 @@ const signInService = createAsyncThunk("/auth/login", async (formData) => {
     });
     return signInServiceResponse.data;
   } catch (error) {
-    console.log("error during signIn : ", error);
     return error.response.data;
   }
 });

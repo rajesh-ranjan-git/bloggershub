@@ -28,7 +28,6 @@ const NavList = () => {
 
   const handleSignOut = () => {
     dispatch(signOutService()).then((data) => {
-      console.log("data : ", data);
       redirect("/");
     });
   };
