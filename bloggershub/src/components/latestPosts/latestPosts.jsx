@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import BlogCard from "../blogCard/blogCard";
 import { useDispatch, useSelector } from "react-redux";
 import fetchLatestPostsService from "@/services/posts/fetchLatestPostsService";
+import { toast } from "@/hooks/use-toast";
 
 const LatestPosts = () => {
   const dispatch = useDispatch();
