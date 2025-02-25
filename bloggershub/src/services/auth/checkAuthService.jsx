@@ -14,6 +14,7 @@ const checkAuthService = createAsyncThunk("/auth/checkAuth", async () => {
       },
     });
 
+    console.log("in checkAuthService");
     return checkAuthServiceResponse.data;
   } catch (error) {
     return error.response.data;

@@ -12,7 +12,16 @@ const CheckAuth = ({ children }) => {
 
   useEffect(() => {
     dispatch(checkAuthService()).then((data) => {
+      console.log("error in checkAuth - data : ", data);
       if (!data?.payload?.success) {
+        if (data?.error) {
+          toast({
+            title: "Server Error",
+            description: "Could not connect to server!",
+            variant: "destructive",
+          });
+        }
+
         if (path.includes("/user")) {
           toast({
             title: "Unauthorized",
