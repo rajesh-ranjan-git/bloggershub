@@ -28,7 +28,7 @@ const ForgotPassword = () => {
 
   const onSubmit = (formData) => {
     dispatch(forgotPasswordService(formData)).then((data) => {
-      if (data.payload.success) {
+      if (data?.payload?.success) {
         router.push("/signIn");
         toast({
           title: "Password update successful!",

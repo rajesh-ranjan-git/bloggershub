@@ -32,7 +32,7 @@ const SignUp = () => {
 
   const onSubmit = (formData) => {
     dispatch(signUpService(formData)).then((data) => {
-      if (data.payload.success) {
+      if (data?.payload?.success) {
         router.push("/");
         toast({
           title: "Sign Up successful!",

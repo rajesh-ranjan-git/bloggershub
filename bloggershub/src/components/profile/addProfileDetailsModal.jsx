@@ -43,7 +43,7 @@ const AddProfileDetailsModal = ({
 
   const onSubmit = (formData) => {
     dispatch(signInService(formData)).then((data) => {
-      if (data.payload.success) {
+      if (data?.payload?.success) {
         router.push("/");
         toast({
           title: "Sign In successful!",

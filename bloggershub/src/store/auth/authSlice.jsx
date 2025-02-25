@@ -4,6 +4,7 @@ import signUpService from "@/services/auth/signUpService";
 import { createSlice } from "@reduxjs/toolkit";
 import forgotPasswordService from "@/services/auth/forgotPasswordService";
 import signOutService from "@/services/auth/signOutService";
+import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService";
 
 const initialState = {
   isAuthenticated: false,
@@ -22,8 +23,8 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(checkAuthService.fulfilled, (state, action) => {
-        state.user = action.payload.success ? action.payload.user : null;
-        state.isAuthenticated = action.payload.success;
+        state.user = action.payload?.success ? action.payload?.user : null;
+        state.isAuthenticated = action.payload?.success;
         state.isLoading = false;
       })
       .addCase(checkAuthService.rejected, (state) => {
@@ -35,11 +36,11 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(signUpService.fulfilled, (state, action) => {
-        state.user = action.payload.success ? action.payload.user : null;
-        state.isAuthenticated = action.payload.success;
-        state.token = action.payload.token;
+        state.user = action.payload?.success ? action.payload?.user : null;
+        state.isAuthenticated = action.payload?.success;
+        state.token = action.payload?.token;
         state.isLoading = false;
-        localStorage.setItem("token", JSON.stringify(action.payload.token));
+        localStorage.setItem("token", JSON.stringify(action.payload?.token));
       })
       .addCase(signUpService.rejected, (state) => {
         state.user = null;
@@ -51,11 +52,11 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(signInService.fulfilled, (state, action) => {
-        state.user = action.payload.success ? action.payload.user : null;
-        state.isAuthenticated = action.payload.success;
-        state.token = action.payload.token;
+        state.user = action.payload?.success ? action.payload?.user : null;
+        state.isAuthenticated = action.payload?.success;
+        state.token = action.payload?.token;
         state.isLoading = false;
-        localStorage.setItem("token", JSON.stringify(action.payload.token));
+        localStorage.setItem("token", JSON.stringify(action.payload?.token));
       })
       .addCase(signInService.rejected, (state) => {
         state.user = null;
@@ -82,12 +83,12 @@ const authSlice = createSlice({
       .addCase(firebaseGoogleAuthService.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(firebaseGoogleAuthService.rejected, (state) => {
-        state.user = action.payload.success ? action.payload.user : null;
-        state.isAuthenticated = action.payload.success;
-        state.token = action.payload.token;
+      .addCase(firebaseGoogleAuthService.fulfilled, (state) => {
+        state.user = action.payload?.success ? action.payload?.user : null;
+        state.isAuthenticated = action.payload?.success;
+        state.token = action.payload?.token;
         state.isLoading = false;
-        localStorage.setItem("token", JSON.stringify(action.payload.token));
+        localStorage.setItem("token", JSON.stringify(action.payload?.token));
       })
       .addCase(firebaseGoogleAuthService.rejected, (state) => {
         state.user = null;

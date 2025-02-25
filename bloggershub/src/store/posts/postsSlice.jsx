@@ -21,7 +21,7 @@ const PostsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchLatestPostsService.fulfilled, (state, action) => {
-        state.posts = action.payload.posts;
+        state.posts = action.payload?.posts;
         state.isLoading = false;
       })
       .addCase(fetchLatestPostsService.rejected, (state) => {
@@ -32,7 +32,7 @@ const PostsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchAllPostsService.fulfilled, (state, action) => {
-        state.posts = action.payload.posts;
+        state.posts = action.payload?.posts;
         state.isLoading = false;
       })
       .addCase(fetchAllPostsService.rejected, (state) => {
@@ -44,7 +44,7 @@ const PostsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchSinglePostService.fulfilled, (state, action) => {
-        state.post = action.payload.post;
+        state.post = action.payload?.post;
         state.isLoading = false;
       })
       .addCase(fetchSinglePostService.rejected, (state) => {
@@ -56,7 +56,7 @@ const PostsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchAllPostsByAuthorService.fulfilled, (state, action) => {
-        state.posts = action.payload.posts;
+        state.posts = action.payload?.posts;
         state.isLoading = false;
       })
       .addCase(fetchAllPostsByAuthorService.rejected, (state) => {

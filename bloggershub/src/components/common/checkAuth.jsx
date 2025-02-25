@@ -12,7 +12,7 @@ const CheckAuth = ({ children }) => {
 
   useEffect(() => {
     dispatch(checkAuthService()).then((data) => {
-      if (!data.payload.success) {
+      if (!data?.payload?.success) {
         if (path.includes("/user")) {
           toast({
             title: "Unauthorized",
