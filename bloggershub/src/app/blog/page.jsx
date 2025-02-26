@@ -43,7 +43,7 @@ const Blog = () => {
               ))}
             </div>
           ) : (
-            <div className="flex justify-center items-center py-10 w-full h-1/2 text-2xl">
+            <div className="flex justify-center items-center py-10 w-full h-dvh text-2xl">
               No posts available to show...
             </div>
           ))}

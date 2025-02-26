@@ -86,7 +86,7 @@ const BlogItem = () => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center py-10 w-full h-1/2 text-2xl">
+          <div className="flex justify-center items-center py-10 w-full h-dvh text-2xl">
             Unable to fetch post details...
           </div>
         ))}

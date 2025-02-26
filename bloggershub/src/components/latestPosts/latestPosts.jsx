@@ -38,7 +38,7 @@ const LatestPosts = () => {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center py-10 w-full h-1/2 text-2xl">
+          <div className="flex justify-center items-center py-10 w-full min-h-40 text-2xl">
             No latest posts available to show...
           </div>
         ))}
