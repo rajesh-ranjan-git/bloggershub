@@ -97,3 +97,12 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(37, 99, 235);
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
