@@ -1,6 +1,13 @@
-import { navListItems } from "@/config/config";
+import { useEffect } from "react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useDispatch, useSelector } from "react-redux";
+import { redirect, useRouter } from "next/navigation";
+import { BsPostcard } from "react-icons/bs";
+import { MdOutlinePostAdd } from "react-icons/md";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { FaUserPlus, FaUserShield } from "react-icons/fa";
+import { CircleUserRoundIcon, UserRoundIcon } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,15 +15,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { redirect, useRouter } from "next/navigation";
-import { BsPostcard } from "react-icons/bs";
-import { MdOutlinePostAdd } from "react-icons/md";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { CircleUserRoundIcon, UserRoundIcon } from "lucide-react";
-import { FaUserPlus, FaUserShield } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+} from "@/components/ui/dropdown-menu";
+import { navListItems } from "@/config/config";
 import fetchProfileService from "@/services/profile/fetchProfileService";
 import signOutService from "@/services/auth/signOutService";
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAllPostsByAuthorServiceApi } from "../apiUrls";
+import { fetchAllPostsByAuthorServiceApi } from "@/services/apiUrls";
 
 const fetchAllPostsByAuthorService = createAsyncThunk(
   "/posts/fetchAllPostsByAuthor",

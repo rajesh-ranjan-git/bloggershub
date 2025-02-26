@@ -1,12 +1,12 @@
 "use client";
 
-import { useDispatch, useSelector } from "react-redux";
-import { Separator } from "../ui/separator";
-import UserBlogPost from "./userBlogPost";
-import UserPostDetails from "./userPostDetails";
-import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthorService";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Separator } from "@/components/ui/separator";
+import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthorService";
 import checkAuthService from "@/services/auth/checkAuthService";
+import UserBlogPost from "@/components/userPost/userBlogPost";
+import UserPostDetails from "@/components/userPost/userBlogPost";
 
 const UserPost = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { forgotPasswordServiceApi } from "../apiUrls";
+import { forgotPasswordServiceApi } from "@/services/apiUrls";
 
 const forgotPasswordService = createAsyncThunk(
   "/auth/forgotPassword",

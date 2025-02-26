@@ -1,14 +1,9 @@
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Separator } from "../ui/separator";
-import {
-  AiOutlineLike,
-  AiFillLike,
-  AiFillDislike,
-  AiFillDelete,
-} from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { BsReplyAllFill } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 
 const CommentItem = ({
   handleCommentButtonHover,

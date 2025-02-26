@@ -1,27 +1,23 @@
 "use client";
 
-import CustomButton from "@/components/customFormElements/customButton";
-import CustomInput from "@/components/customFormElements/customInput";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import { toast } from "@/hooks/use-toast";
-import signInService from "@/services/auth/signInService";
-import { signInSchema } from "@/validations/signInSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { toast } from "@/hooks/use-toast";
+import { UserRoundPen } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { FaUserShield } from "react-icons/fa";
-import { UserRoundPen } from "lucide-react";
+import { signInSchema } from "@/validations/signInSchema";
+import signInService from "@/services/auth/signInService";
+import CustomButton from "@/components/customFormElements/customButton";
+import CustomInput from "@/components/customFormElements/customInput";
 import { updateProfileItems } from "@/config/config";
 
 const AddProfileDetailsModal = ({

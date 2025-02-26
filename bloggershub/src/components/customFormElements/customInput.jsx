@@ -5,8 +5,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const CustomInput = ({ control, name, label = null, placeholder }) => {
   const [inputVal, setInputVal] = useState("");

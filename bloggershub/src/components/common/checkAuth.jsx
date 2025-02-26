@@ -1,10 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
+import { redirect, usePathname } from "next/navigation";
+import { useDispatch } from "react-redux";
 import { toast } from "@/hooks/use-toast";
 import checkAuthService from "@/services/auth/checkAuthService";
-import { redirect, usePathname } from "next/navigation";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 const CheckAuth = ({ children }) => {
   const dispatch = useDispatch();

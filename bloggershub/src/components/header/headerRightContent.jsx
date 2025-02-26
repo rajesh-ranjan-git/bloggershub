@@ -1,4 +1,4 @@
-import NavList from "./navList";
+import NavList from "@/components/header/navList";
 
 const HeaderRightContent = () => {
   return (

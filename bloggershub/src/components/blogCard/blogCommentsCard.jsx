@@ -1,19 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useEffect, useState } from "react";
-import CommentItem from "./commentItem";
-import { useDispatch, useSelector } from "react-redux";
 import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
-import { useParams } from "next/navigation";
+import CommentItem from "@/components/blogCard/commentItem";
 
 const BlogCommentsCard = () => {
   const [commentButtonsBackground, setCommentButtonsBackground] =

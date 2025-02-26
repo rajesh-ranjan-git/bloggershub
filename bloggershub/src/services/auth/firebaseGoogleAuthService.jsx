@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { firebaseGoogleAuthServiceApi } from "../apiUrls";
+import { firebaseGoogleAuthServiceApi } from "@/services/apiUrls";
 
 const firebaseGoogleAuthService = createAsyncThunk(
   "/auth/firebaseGoogleAuth",

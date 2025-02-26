@@ -1,5 +1,5 @@
-import fetchProfileService from "@/services/profile/fetchProfileService";
 import { createSlice } from "@reduxjs/toolkit";
+import fetchProfileService from "@/services/profile/fetchProfileService";
 
 const initialState = {
   isLoading: true,

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
-import { checkAuthServiceApi } from "./services/apiUrls";
+import { checkAuthServiceApi } from "@/services/apiUrls";
 
 export async function middleware(request) {
   const cookies = request.headers.get("cookie");

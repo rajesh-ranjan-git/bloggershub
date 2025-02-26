@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./auth/authSlice";
-import postsReducer from "./posts/postsSlice";
-import postReducer from "./posts/postsSlice";
-import commentsReducer from "./comments/commentsSlice";
-import profileReducer from "./profile/profileSlice";
+import authReducer from "@/store/auth/authSlice";
+import postsReducer from "@/store/posts/postsSlice";
+import postReducer from "@/store/posts/postsSlice";
+import commentsReducer from "@/store/comments/commentsSlice";
+import profileReducer from "@/store/profile/profileSlice";
 
 const store = configureStore({
   reducer: {

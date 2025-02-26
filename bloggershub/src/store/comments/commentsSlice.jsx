@@ -1,5 +1,5 @@
-import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
 import { createSlice } from "@reduxjs/toolkit";
+import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
 
 const initialState = {
   isLoading: true,

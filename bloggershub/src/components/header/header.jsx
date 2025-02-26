@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import HeaderRightContent from "./headerRightContent";
-import Logo from "./logo";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { FaUserPlus, FaUserShield } from "react-icons/fa";
+import { BsPostcard } from "react-icons/bs";
+import { MdOutlinePostAdd } from "react-icons/md";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 import { CircleUserRoundIcon, Menu, UserRoundIcon } from "lucide-react";
 import {
   Sheet,
@@ -13,8 +17,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+} from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,15 +26,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { BsPostcard } from "react-icons/bs";
-import { MdOutlinePostAdd } from "react-icons/md";
-import { RiLogoutCircleRLine } from "react-icons/ri";
+} from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import { navListItems } from "@/config/config";
-import Link from "next/link";
-import { Separator } from "../ui/separator";
-import { useSelector } from "react-redux";
-import { FaUserPlus, FaUserShield } from "react-icons/fa";
+import HeaderRightContent from "@/components/header/headerRightContent";
+import Logo from "@/components/header/logo";
 
 const Header = () => {
   const [openNavSheet, setOpenNavSheet] = useState(false);

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchProfileServiceApi } from "../apiUrls";
+import { fetchProfileServiceApi } from "@/services/apiUrls";
 
 const fetchProfileService = createAsyncThunk(
   "/posts/fetchSinglePostService",

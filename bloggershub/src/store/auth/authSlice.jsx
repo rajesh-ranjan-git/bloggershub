@@ -1,7 +1,7 @@
+import { createSlice } from "@reduxjs/toolkit";
 import checkAuthService from "@/services/auth/checkAuthService";
 import signInService from "@/services/auth/signInService";
 import signUpService from "@/services/auth/signUpService";
-import { createSlice } from "@reduxjs/toolkit";
 import forgotPasswordService from "@/services/auth/forgotPasswordService";
 import signOutService from "@/services/auth/signOutService";
 import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService";

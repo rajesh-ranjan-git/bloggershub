@@ -1,8 +1,8 @@
+import { createSlice } from "@reduxjs/toolkit";
 import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthorService";
 import fetchAllPostsService from "@/services/posts/fetchAllPostsService";
 import fetchLatestPostsService from "@/services/posts/fetchLatestPostsService";
 import fetchSinglePostService from "@/services/posts/fetchSinglePostService";
-import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: true,

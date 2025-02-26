@@ -1,7 +1,10 @@
 "use client";
 
-import { Button } from "../ui/button";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import { MdDelete, MdModeEdit } from "react-icons/md";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,9 +16,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
 
 const UserPostDetails = ({ post }) => {
