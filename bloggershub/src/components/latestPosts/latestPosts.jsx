@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import fetchLatestPostsService from "@/services/posts/fetchLatestPostsService";
 import BlogCard from "@/components/blogCard/blogCard";
-import CustomPostSkeleton from "../customLoaderComponents/customPostSkeleton";
+import CustomSinglePostLoader from "../customLoaderComponents/customSinglePostLoader";
 
 const LatestPosts = () => {
   const dispatch = useDispatch();
@@ -22,10 +22,10 @@ const LatestPosts = () => {
       {isLoading && (
         <div className="justify-center md:justify-between gap-10 grid md:grid-cols-2 xl:grid-cols-4 py-10 w-full">
           <>
-            <CustomPostSkeleton />
-            <CustomPostSkeleton />
-            <CustomPostSkeleton />
-            <CustomPostSkeleton />
+            <CustomSinglePostLoader />
+            <CustomSinglePostLoader />
+            <CustomSinglePostLoader />
+            <CustomSinglePostLoader />
           </>
         </div>
       )}

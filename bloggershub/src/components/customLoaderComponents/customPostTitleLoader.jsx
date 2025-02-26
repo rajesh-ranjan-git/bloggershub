@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-const CustomPostTitleSkeleton = () => {
+const CustomPostTitleLoader = () => {
   return (
     <CardHeader>
       <CardTitle className="text-3xl">
@@ -14,4 +14,4 @@ const CustomPostTitleSkeleton = () => {
   );
 };
 
-export default CustomPostTitleSkeleton;
+export default CustomPostTitleLoader;

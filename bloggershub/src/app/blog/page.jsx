@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import BlogCard from "@/components/blogCard/blogCard";
 import fetchAllPostsService from "@/services/posts/fetchAllPostsService";
-import CustomPostSkeleton from "@/components/customLoaderComponents/customPostSkeleton";
+import BlogCard from "@/components/blogCard/blogCard";
+import CustomSinglePostLoader from "@/components/customLoaderComponents/customSinglePostLoader";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -23,14 +23,14 @@ const Blog = () => {
         {isLoading && (
           <div className="justify-center md:justify-between gap-10 grid md:grid-cols-2 xl:grid-cols-4 py-10 w-full">
             <>
-              <CustomPostSkeleton />
-              <CustomPostSkeleton />
-              <CustomPostSkeleton />
-              <CustomPostSkeleton />
-              <CustomPostSkeleton />
-              <CustomPostSkeleton />
-              <CustomPostSkeleton />
-              <CustomPostSkeleton />
+              <CustomSinglePostLoader />
+              <CustomSinglePostLoader />
+              <CustomSinglePostLoader />
+              <CustomSinglePostLoader />
+              <CustomSinglePostLoader />
+              <CustomSinglePostLoader />
+              <CustomSinglePostLoader />
+              <CustomSinglePostLoader />
             </>
           </div>
         )}

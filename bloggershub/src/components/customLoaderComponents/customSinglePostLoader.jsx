@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const CustomPostSkeleton = () => {
+const CustomSinglePostLoader = () => {
   return (
     <div className="bg-white shadow-sm hover:shadow-md border border-gray-200 rounded-lg max-w-sm">
       <div className="flex flex-col items-center space-x-4">
@@ -15,4 +15,4 @@ const CustomPostSkeleton = () => {
   );
 };
 
-export default CustomPostSkeleton;
+export default CustomSinglePostLoader;

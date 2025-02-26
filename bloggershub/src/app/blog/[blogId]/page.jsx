@@ -13,9 +13,9 @@ import {
 import fetchSinglePostService from "@/services/posts/fetchSinglePostService";
 import BlogAddCommentsCard from "@/components/blogCard/blogAddCommentsCard";
 import BlogCommentsCard from "@/components/blogCard/blogCommentsCard";
-import CustomPostTitleSkeleton from "@/components/customLoaderComponents/customPostTitleSkeleton";
-import CustomPostImageSkeleton from "@/components/customLoaderComponents/customPostImageSkeleton";
-import CustomPostContentSkeleton from "@/components/customLoaderComponents/customPostContentSkeleton";
+import CustomPostTitleLoader from "@/components/customLoaderComponents/customPostTitleLoader";
+import CustomPostImageLoader from "@/components/customLoaderComponents/customPostImageLoader";
+import CustomPostContentLoader from "@/components/customLoaderComponents/customPostContentLoader";
 
 const BlogItem = () => {
   const { blogId } = useParams();
@@ -33,19 +33,19 @@ const BlogItem = () => {
         <div className="flex flex-col justify-center md:justify-normal gap-4 px-10 w-full">
           <div className="min-w-96">
             <Card className="hover:shadow-md">
-              <CustomPostTitleSkeleton />
+              <CustomPostTitleLoader />
             </Card>
           </div>
           <div className="flex lg:flex-row flex-col gap-6 w-full text-md">
             <div className="hover:shadow-md rounded-lg w-full lg:w-1/2">
-              <CustomPostImageSkeleton />
+              <CustomPostImageLoader />
             </div>
             <Card className="hover:shadow-md p-4 w-full lg:w-1/2">
-              <CustomPostContentSkeleton />
+              <CustomPostContentLoader />
             </Card>
           </div>
           <Card className="hover:shadow-md p-4 w-full">
-            <CustomPostContentSkeleton />
+            <CustomPostContentLoader />
           </Card>
         </div>
       )}
