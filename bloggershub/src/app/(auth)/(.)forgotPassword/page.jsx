@@ -1,7 +1,12 @@
 "use client";
 
-import CustomButton from "@/components/customFormElements/customButton";
-import CustomInput from "@/components/customFormElements/customInput";
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { FaUserShield } from "react-icons/fa";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Dialog,
   DialogContent,
@@ -12,13 +17,8 @@ import { Form } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
 import forgotPasswordService from "@/services/auth/forgotPasswordService";
 import { forgotPasswordSchema } from "@/validations/forgotPasswordSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { FaUserShield } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import CustomButton from "@/components/customFormElements/customButton";
+import CustomInput from "@/components/customFormElements/customInput";
 
 const ForgotPassword = () => {
   const [open, setOpen] = useState(true);

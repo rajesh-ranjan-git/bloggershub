@@ -1,7 +1,5 @@
 "use client";
 
-import CustomButton from "@/components/customFormElements/customButton";
-import CustomInput from "@/components/customFormElements/customInput";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
@@ -11,18 +9,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { FaUserShield } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { FaUserShield } from "react-icons/fa";
 import firebaseGoogleAuth from "@/firebase/firebaseGoogleAuth";
 import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService";
+import CustomButton from "@/components/customFormElements/customButton";
+import CustomInput from "@/components/customFormElements/customInput";
 
 const SignIn = () => {
   const [open, setOpen] = useState(true);

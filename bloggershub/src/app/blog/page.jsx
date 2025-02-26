@@ -1,9 +1,9 @@
 "use client";
 
-import BlogCard from "@/components/blogCard/blogCard";
-import fetchAllPostsService from "@/services/posts/fetchAllPostsService";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import BlogCard from "@/components/blogCard/blogCard";
+import fetchAllPostsService from "@/services/posts/fetchAllPostsService";
 
 const Blog = () => {
   const dispatch = useDispatch();

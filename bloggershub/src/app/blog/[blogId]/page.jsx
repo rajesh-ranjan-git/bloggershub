@@ -1,21 +1,18 @@
 "use client";
 
-import BlogAddCommentsCard from "@/components/blogCard/blogAddCommentsCard";
-import BlogCommentsCard from "@/components/blogCard/blogCommentsCard";
+import { useEffect } from "react";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
 import fetchSinglePostService from "@/services/posts/fetchSinglePostService";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import BlogAddCommentsCard from "@/components/blogCard/blogAddCommentsCard";
+import BlogCommentsCard from "@/components/blogCard/blogCommentsCard";
 
 const BlogItem = () => {
   const { blogId } = useParams();

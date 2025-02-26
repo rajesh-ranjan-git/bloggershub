@@ -1,28 +1,28 @@
 "use client";
 
-import CustomButton from "@/components/customFormElements/customButton";
-import CustomInput from "@/components/customFormElements/customInput";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import { toast } from "@/hooks/use-toast";
-import signUpService from "@/services/auth/signUpService";
-import { signUpSchema } from "@/validations/signUpSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { useDispatch } from "react-redux";
+import { FaUserPlus } from "react-icons/fa";
+import { toast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { FaUserPlus } from "react-icons/fa";
-import firebaseGoogleAuth from "@/firebase/firebaseGoogleAuth";
+import { signUpSchema } from "@/validations/signUpSchema";
+import signUpService from "@/services/auth/signUpService";
 import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService";
+import firebaseGoogleAuth from "@/firebase/firebaseGoogleAuth";
+import CustomButton from "@/components/customFormElements/customButton";
+import CustomInput from "@/components/customFormElements/customInput";
 
 const SignUp = () => {
   const [open, setOpen] = useState(true);

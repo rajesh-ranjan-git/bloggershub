@@ -1,6 +1,8 @@
 "use client";
 
-import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,14 +21,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import fetchProfileService from "@/services/profile/fetchProfileService";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal";
 
 const UserProfile = () => {
   const [typeOfProfileData, setTypeOfProfileData] = useState("");
   const dispatch = useDispatch();
-  const { isLoading, user } = useSelector((state) => state.authReducer);
+  const { user } = useSelector((state) => state.authReducer);
   const { userProfile } = useSelector((state) => state.profileReducer);
 
   const handleUpdateProfileData = (type) => {

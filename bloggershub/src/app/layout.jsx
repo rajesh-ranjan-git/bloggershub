@@ -1,7 +1,7 @@
 import "./globals.css";
+import StoreProvider from "@/store/storeProvider/storeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header/header";
-import StoreProvider from "../store/storeProvider/storeProvider";
 import CheckAuth from "@/components/common/checkAuth";
 
 export const metadata = {
