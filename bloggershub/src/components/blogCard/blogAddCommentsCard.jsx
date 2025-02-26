@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 import CustomButton from "@/components/customFormElements/customButton";
 
 const BlogAddCommentsCard = () => {
