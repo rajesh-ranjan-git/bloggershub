@@ -1,8 +1,9 @@
 import "./globals.css";
 import StoreProvider from "@/store/storeProvider/storeProvider";
 import { Toaster } from "@/components/ui/toaster";
-import Header from "@/components/header/header";
 import CheckAuth from "@/components/common/checkAuth";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
 export const metadata = {
   title: "Blogger's Hub",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
             {children}
             <Toaster />
           </CheckAuth>
+          <Footer />
         </body>
       </StoreProvider>
     </html>
