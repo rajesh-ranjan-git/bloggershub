@@ -43,7 +43,8 @@ const NavList = () => {
           ? navListItems.map((navItem) => (
               <li key={navItem.id}>
                 <Link
-                  className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                  // className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                  className="flex items-center gap-2 hover:bg-[#d0d484] p-2 px-4 rounded-lg"
                   href={navItem.path}
                 >
                   {navItem.icon}
@@ -57,7 +58,8 @@ const NavList = () => {
           <>
             <li>
               <Link
-                className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                // className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                className="flex items-center gap-2 hover:bg-[#d0d484] p-2 px-4 rounded-lg"
                 href="/signIn"
               >
                 <FaUserShield />
@@ -66,7 +68,8 @@ const NavList = () => {
             </li>
             <li>
               <Link
-                className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                // className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                className="flex items-center gap-2 hover:bg-[#d0d484] p-2 px-4 rounded-lg"
                 href="/signUp"
               >
                 <FaUserPlus />
@@ -79,7 +82,8 @@ const NavList = () => {
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger className="outline-none">
-                  <Avatar className="border-2 border-transparent hover:border-blue-400 rounded-full active:scale-90 transition-all ease-in-out cursor-pointer">
+                  {/* <Avatar className="border-2 border-transparent hover:border-blue-400 rounded-full active:scale-90 transition-all ease-in-out cursor-pointer"> */}
+                  <Avatar className="border-2 hover:border-[#d0d484] border-transparent rounded-full active:scale-90 transition-all ease-in-out cursor-pointer">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>RR</AvatarFallback>
                   </Avatar>
