@@ -41,7 +41,7 @@ const UserProfile = () => {
     <>
       <section className="flex justify-center pt-16 w-full">
         <div className="flex flex-col justify-center px-5 md:px-10">
-          <div className="p-5 border-b-4 border-blue-400 font-semibold text-3xl text-center">
+          <div className="p-5 border-[#a3ab09] border-b-4 font-semibold text-3xl text-center">
             {userProfile?.firstName ? userProfile?.firstName : user?.email}'s
             Profile
           </div>
@@ -65,7 +65,7 @@ const UserProfile = () => {
                   <CardDescription className="hidden"></CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-center items-center">
-                  <div className="p-1 border-2 border-blue-400 rounded-full overflow-hidden">
+                  <div className="p-1 border-[#a3ab09] border-2 rounded-full overflow-hidden">
                     <Image
                       src={
                         userProfile?.profileImage || "/images/latest_pic.png"
@@ -112,7 +112,7 @@ const UserProfile = () => {
                             )
                           ) : (
                             <Button
-                              className="bg-blue-400 hover:bg-blue-600 w-full"
+                              className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
                               onClick={() => handleUpdateProfileData("name")}
                             >
                               Add Name
@@ -129,7 +129,7 @@ const UserProfile = () => {
                             userProfile?.designation
                           ) : (
                             <Button
-                              className="bg-blue-400 hover:bg-blue-600 w-full"
+                              className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
                               onClick={() =>
                                 handleUpdateProfileData("designation")
                               }
@@ -150,7 +150,7 @@ const UserProfile = () => {
                             userProfile?.dob
                           ) : (
                             <Button
-                              className="bg-blue-400 hover:bg-blue-600 w-full"
+                              className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
                               onClick={() => handleUpdateProfileData("dob")}
                             >
                               Add Date of Birth
@@ -165,7 +165,7 @@ const UserProfile = () => {
                             userProfile?.phoneNumber
                           ) : (
                             <Button
-                              className="bg-blue-400 hover:bg-blue-600 w-full"
+                              className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
                               onClick={() => handleUpdateProfileData("phone")}
                             >
                               Add Phone Number
@@ -194,7 +194,7 @@ const UserProfile = () => {
                             userProfile?.bio
                           ) : (
                             <Button
-                              className="bg-blue-400 hover:bg-blue-600 w-full"
+                              className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
                               onClick={() => handleUpdateProfileData("bio")}
                             >
                               Add Bio
@@ -217,7 +217,7 @@ const UserProfile = () => {
                 </CardContent>
                 <CardFooter className="flex md:flex-row flex-col gap-2">
                   <Button
-                    className="bg-blue-400 hover:bg-blue-600 w-full"
+                    className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
                     onClick={() => handleUpdateProfileData("updateProfile")}
                   >
                     Update Profile

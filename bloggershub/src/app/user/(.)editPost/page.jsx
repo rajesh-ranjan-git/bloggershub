@@ -54,7 +54,7 @@ const EditPost = () => {
         <DialogContent className="m-0 p-0 border-none rounded-lg md:w-auto min-w-[60vw]">
           <DialogTitle className="hidden"></DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
-          <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-h-96">
+          <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg min-h-96">
             <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
               <MdOutlinePostAdd />
               <span>Edit this Post</span>
@@ -96,7 +96,7 @@ const EditPost = () => {
                   <CustomButton
                     type="submit"
                     buttonText="Edit post"
-                    buttonStyle="w-full bg-blue-400 hover:bg-blue-600 text-white shadow-md"
+                    buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
                     disabled={false}
                   />
                 </div>

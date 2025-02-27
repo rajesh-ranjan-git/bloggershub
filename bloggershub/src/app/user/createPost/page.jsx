@@ -35,7 +35,7 @@ const CreatePost = () => {
 
   return (
     <section className="flex justify-center items-center px-10 w-screen h-screen">
-      <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg w-full md:w-[70vw] min-h-96">
+      <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg w-full md:w-[70vw] min-h-96">
         <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
           <MdOutlinePostAdd />
           <span>Create a New Post</span>
@@ -77,7 +77,7 @@ const CreatePost = () => {
               <CustomButton
                 type="submit"
                 buttonText="Save post"
-                buttonStyle="w-full bg-blue-400 hover:bg-blue-600 text-white shadow-md"
+                buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
                 disabled={false}
               />
             </div>
