@@ -95,13 +95,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(96, 165, 250, 0.8);
+  background: #bec44d;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(37, 99, 235);
+  background: #a3ab09;
 }
 
 @layer base {
