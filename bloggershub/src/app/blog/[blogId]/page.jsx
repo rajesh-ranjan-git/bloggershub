@@ -31,7 +31,7 @@ const BlogItem = () => {
     <section className="flex justify-center py-20 w-full">
       {isLoading && (
         <div className="flex flex-col justify-center md:justify-normal gap-4 px-10 w-full">
-          <div className="min-w-96">
+          <div className="w-full">
             <Card className="hover:shadow-md">
               <CustomPostTitleLoader />
             </Card>
