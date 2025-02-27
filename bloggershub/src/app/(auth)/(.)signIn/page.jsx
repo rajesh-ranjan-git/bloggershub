@@ -94,7 +94,7 @@ const SignIn = () => {
         <DialogContent className="m-0 p-0 border-none rounded-lg w-[90vw] md:w-auto">
           <DialogTitle className="hidden"></DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
-          <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-w-96 min-h-96">
+          <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg min-w-96 min-h-96">
             <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
               <FaUserShield />
               <span>Sign In</span>
@@ -121,7 +121,7 @@ const SignIn = () => {
                   <CustomButton
                     type="submit"
                     buttonText="Sign In"
-                    buttonStyle="w-full bg-blue-400 hover:bg-blue-600 text-white shadow-md"
+                    buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
                     disabled={false}
                   />
                 </div>
@@ -129,7 +129,7 @@ const SignIn = () => {
             </Form>
             <div className="p-3">
               <Button
-                className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black"
+                className="flex justify-center items-center bg-[#bec44d]/30 hover:bg-[#a3ab09]/40 shadow-md w-full text-black"
                 onClick={() => handleFirebaseGoogleAuth()}
               >
                 <FcGoogle />
@@ -138,7 +138,7 @@ const SignIn = () => {
             </div>
             <div className="p-2 text-sm text-center">
               <Link
-                className="font-semibold hover:text-blue-600 hover:underline"
+                className="font-semibold hover:text-[#a3ab09] hover:underline"
                 href="/forgotPassword"
               >
                 Forgot password?
@@ -147,7 +147,7 @@ const SignIn = () => {
             <div className="p-2 text-sm text-center">
               Don't have an account?
               <Link
-                className="ml-2 font-semibold hover:text-blue-600 hover:underline"
+                className="ml-2 font-semibold hover:text-[#a3ab09] hover:underline"
                 href="/signUp"
               >
                 Sign Up
