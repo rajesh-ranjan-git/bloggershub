@@ -22,7 +22,7 @@ const BlogCard = ({ post }) => {
         </p>
         <Link
           href={`/blog/${post?.id}`}
-          className="inline-flex items-center gap-2 bg-blue-400 hover:bg-blue-600 hover:shadow-md px-3 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-white text-sm text-center"
+          className="inline-flex items-center gap-2 bg-[#bec44d] hover:bg-[#a3ab09] hover:shadow-md px-3 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-[#bec44d] font-medium text-white text-sm text-center"
         >
           <MdOutlinePostAdd />
           <span>Read more</span>

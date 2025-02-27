@@ -20,7 +20,7 @@ const BlogAddCommentsCard = () => {
       <CardContent>
         <Textarea
           placeholder="Type your message here..."
-          className="shadow-md focus-visible:shadow-md focus-visible:ring-blue-400 w-full"
+          className="shadow-md focus-visible:shadow-md focus-visible:ring-[#bec44d] w-full"
         />
       </CardContent>
       <CardFooter className="flex justify-between gap-4">
@@ -29,7 +29,7 @@ const BlogAddCommentsCard = () => {
         </Button>
         <CustomButton
           buttonText="Add Comment"
-          buttonStyle="w-full bg-blue-400 hover:bg-blue-600 text-white shadow-md"
+          buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
           disabled={false}
         />
       </CardFooter>

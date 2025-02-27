@@ -46,7 +46,7 @@ const Header = () => {
       <HeaderRightContent />
       <Sheet open={openNavSheet} onOpenChange={setOpenNavSheet}>
         <SheetTrigger
-          className="lg:hidden left-2 absolute hover:bg-blue-400 p-2 border-1 hover:border-white rounded-md hover:text-white text-xl transition-all ease-in-out"
+          className="lg:hidden left-2 absolute hover:bg-[#bec44d] p-2 border-1 hover:border-white rounded-md hover:text-white text-xl transition-all ease-in-out"
           variant="outline"
         >
           <Menu />
@@ -67,7 +67,7 @@ const Header = () => {
                 ? navListItems.map((navItem) => (
                     <li key={navItem.id} className="w-full">
                       <Link
-                        className="flex justify-center items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                        className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 px-4 rounded-lg"
                         href={navItem.path}
                         onClick={() => setOpenNavSheet(false)}
                       >
@@ -82,7 +82,7 @@ const Header = () => {
                 <>
                   <li>
                     <Link
-                      className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                      className="flex items-center gap-2 hover:bg-[#bec44d] p-2 px-4 rounded-lg w-full"
                       href="/signIn"
                     >
                       <FaUserShield />
@@ -91,7 +91,7 @@ const Header = () => {
                   </li>
                   <li>
                     <Link
-                      className="flex items-center gap-2 hover:bg-blue-300/70 p-2 px-4 rounded-lg"
+                      className="flex items-center gap-2 hover:bg-[#bec44d] p-2 px-4 rounded-lg w-full"
                       href="/signUp"
                     >
                       <FaUserPlus />
@@ -108,9 +108,9 @@ const Header = () => {
               <SheetFooter>
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
-                    <div className="flex justify-center items-center gap-4 hover:bg-blue-300/70 rounded-md text-xl cursor-pointer">
+                    <div className="flex justify-center items-center gap-4 hover:bg-[#bec44d] rounded-md text-xl cursor-pointer">
                       <div>
-                        <Avatar className="border-2 border-transparent hover:border-blue-400 rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
+                        <Avatar className="border-2 hover:border-[#bec44d] border-transparent rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
                           <AvatarImage src="https://github.com/shadcn.png" />
                           <AvatarFallback>RR</AvatarFallback>
                         </Avatar>

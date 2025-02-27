@@ -17,7 +17,7 @@ const CustomTextarea = ({ control, name, label = null, placeholder }) => {
           <FormControl>
             <Textarea
               placeholder={placeholder}
-              className="shadow-md focus-visible:shadow-md focus-visible:ring-blue-400 w-full focus-visible:placeholder:text-muted-foreground placeholder:text-transparent customInput"
+              className="shadow-md focus-visible:shadow-md focus-visible:ring-[#bec44d] w-full focus-visible:placeholder:text-muted-foreground placeholder:text-transparent customInput"
               {...field}
             />
           </FormControl>
