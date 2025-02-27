@@ -119,7 +119,7 @@ const SignIn = () => {
         </div>
         <div className="p-2 text-sm text-center">
           <Link
-            className="font-semibold hover:text-[#a3ab09]hover:underline"
+            className="font-semibold hover:text-[#a3ab09] hover:underline"
             href="/forgotPassword"
           >
             Forgot password?

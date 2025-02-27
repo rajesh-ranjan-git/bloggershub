@@ -77,7 +77,7 @@ const SignUp = () => {
 
   return (
     <section className="flex justify-center items-center px-10 w-full h-dvh">
-      <div className="shadow-md p-4 border-t-4 border-blue-400 rounded-lg min-w-96 min-h-96">
+      <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg min-w-96 min-h-96">
         <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
           <FaUserPlus />
           <span>Sign Up</span>
@@ -112,7 +112,7 @@ const SignUp = () => {
               <CustomButton
                 type="submit"
                 buttonText="Sign Up"
-                buttonStyle="w-full bg-blue-400 hover:bg-blue-600"
+                buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09]"
                 disabled={false}
               />
             </div>
@@ -120,7 +120,7 @@ const SignUp = () => {
         </Form>
         <div className="p-3">
           <Button
-            className="flex justify-center items-center bg-blue-100 hover:bg-blue-50 shadow-md w-full text-black"
+            className="flex justify-center items-center bg-[#bec44d]/30 hover:bg-[#a3ab09]/40 shadow-md w-full text-black"
             onClick={() => handleFirebaseGoogleAuth()}
           >
             <FcGoogle />
@@ -130,7 +130,7 @@ const SignUp = () => {
         <div className="p-2 text-sm text-center">
           Already have an account?
           <Link
-            className="ml-2 font-semibold hover:text-blue-600 hover:underline"
+            className="ml-2 font-semibold hover:text-[#a3ab09] hover:underline"
             href="/signIn"
           >
             Sign In
