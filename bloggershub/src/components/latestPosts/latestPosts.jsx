@@ -17,7 +17,7 @@ const LatestPosts = () => {
   return (
     <div className="flex flex-col justify-center items-center px-10">
       {/* <div className="px-10 py-8 border-[#d0d484] border-b-4 font-semibold text-5xl"> */}
-      <div className="px-10 py-8 border-[#a3ab09] border-b-4 font-semibold text-5xl">
+      <div className="px-10 py-8 border-[#a3ab09] border-b-4 font-semibold text-4xl md:text-5xl">
         Latest Posts
       </div>
       {isLoading && (
@@ -39,7 +39,7 @@ const LatestPosts = () => {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center py-10 w-full min-h-40 text-2xl">
+          <div className="flex justify-center items-center py-10 w-full min-h-60 text-lg md:text-xl">
             No latest posts available to show...
           </div>
         ))}
