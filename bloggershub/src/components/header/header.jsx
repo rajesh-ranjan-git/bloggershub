@@ -31,6 +31,7 @@ import { Separator } from "@/components/ui/separator";
 import { navListItems } from "@/config/config";
 import HeaderRightContent from "@/components/header/headerRightContent";
 import Logo from "@/components/header/logo";
+import Image from "next/image";
 
 const Header = () => {
   const [openNavSheet, setOpenNavSheet] = useState(false);
@@ -53,21 +54,26 @@ const Header = () => {
         </SheetTrigger>
         <SheetContent side="left" className="rounded-r-lg w-64 h-screen">
           <SheetHeader>
-            <SheetTitle className="text-3xl">
-              <Link href="/" onClick={() => setOpenNavSheet(false)}>
-                Blogger's Hub
+            <SheetTitle className="text-2xl">
+              <Link
+                href="/"
+                onClick={() => setOpenNavSheet(false)}
+                className="flex items-center gap-1"
+              >
+                <Image src="/logoIcon.svg" alt="logo" width={30} height={30} />
+                <span>Blogger's Hub</span>
               </Link>
             </SheetTitle>
             <SheetDescription className="hidden"></SheetDescription>
           </SheetHeader>
           <Separator className="my-5" />
           <div className="h-[75vh]">
-            <ul className="flex flex-col items-center gap-2 w-full text-md">
+            <ul className="flex flex-col items-center gap-2 w-full">
               {navListItems && navListItems.length > 0
                 ? navListItems.map((navItem) => (
                     <li key={navItem.id} className="w-full">
                       <Link
-                        className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 px-4 rounded-lg"
+                        className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg"
                         href={navItem.path}
                         onClick={() => setOpenNavSheet(false)}
                       >
@@ -79,26 +85,26 @@ const Header = () => {
                 : null}
 
               {!user && (
-                <>
-                  <li>
+                <div className="flex flex-col justify-center items-center gap-2 w-full">
+                  <li className="w-full">
                     <Link
-                      className="flex items-center gap-2 hover:bg-[#bec44d] p-2 px-4 rounded-lg w-full"
+                      className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
                       href="/signIn"
                     >
                       <FaUserShield />
                       <span>Sign In</span>
                     </Link>
                   </li>
-                  <li>
+                  <li className="w-full">
                     <Link
-                      className="flex items-center gap-2 hover:bg-[#bec44d] p-2 px-4 rounded-lg w-full"
+                      className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
                       href="/signUp"
                     >
                       <FaUserPlus />
                       <span>Sign Up</span>
                     </Link>
                   </li>
-                </>
+                </div>
               )}
             </ul>
           </div>
