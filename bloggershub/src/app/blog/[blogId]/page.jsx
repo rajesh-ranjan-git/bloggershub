@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import fetchSinglePostService from "@/services/posts/fetchSinglePostService";
 import BlogAddCommentsCard from "@/components/blogCard/blogAddCommentsCard";
 import BlogCommentsCard from "@/components/blogCard/blogCommentsCard";
@@ -21,7 +22,7 @@ const BlogItem = () => {
   const { blogId } = useParams();
   const postId = blogId;
   const dispatch = useDispatch();
-  const { isLoading, post } = useSelector((state) => state.postReducer);
+  const { isLoading, post, author } = useSelector((state) => state.postReducer);
 
   useEffect(() => {
     dispatch(fetchSinglePostService(postId));
@@ -55,11 +56,19 @@ const BlogItem = () => {
             <div className="min-w-96">
               <Card className="hover:shadow-md">
                 <CardHeader>
-                  <CardTitle className="text-3xl">{post?.title}</CardTitle>
-                  <CardDescription>
-                    Posted By :{" "}
-                    <span className="font-bold">{post?.authorId}</span> |{" "}
-                    <span>{post?.updatedAt.split("T")[0]}</span>
+                  <CardTitle className="text-3xl line-clamp-3">
+                    {post?.title}
+                  </CardTitle>
+                  <CardDescription className="flex items-center gap-2 text-md md:text-xl">
+                    <Avatar>
+                      <AvatarImage src={author?.profileImage} />
+                      <AvatarFallback>RR</AvatarFallback>
+                    </Avatar>
+                    <span>Posted By :</span>
+                    <span className="font-bold">{author?.name}</span>
+                    <span className="hidden md:block">
+                      | {post?.updatedAt.split("T")[0]}
+                    </span>
                   </CardDescription>
                 </CardHeader>
               </Card>

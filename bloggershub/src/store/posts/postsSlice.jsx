@@ -8,6 +8,7 @@ const initialState = {
   isLoading: true,
   posts: [],
   post: null,
+  author: null,
 };
 
 const PostsSlice = createSlice({
@@ -41,10 +42,12 @@ const PostsSlice = createSlice({
       })
       .addCase(fetchSinglePostService.pending, (state) => {
         state.post = null;
+        state.author = null;
         state.isLoading = true;
       })
       .addCase(fetchSinglePostService.fulfilled, (state, action) => {
         state.post = action.payload?.post;
+        state.author = action.payload?.author;
         state.isLoading = false;
       })
       .addCase(fetchSinglePostService.rejected, (state) => {
