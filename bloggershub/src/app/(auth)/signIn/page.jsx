@@ -75,7 +75,7 @@ const SignIn = () => {
 
   return (
     <section className="flex justify-center items-center px-10 w-full h-dvh">
-      <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg min-w-80 min-h-96">
+      <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg min-w-80 md:min-w-96 min-h-96">
         <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
           <FaUserShield />
           <span>Sign In</span>

@@ -94,7 +94,7 @@ const SignUp = () => {
         <DialogContent className="m-0 p-0 border-none rounded-lg w-[90vw] md:w-auto">
           <DialogTitle className="hidden"></DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
-          <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg min-w-80 min-h-96">
+          <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg min-w-80 md:min-w-96 min-h-96">
             <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
               <FaUserPlus />
               <span>Sign Up</span>
