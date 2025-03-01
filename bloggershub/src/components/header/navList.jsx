@@ -80,7 +80,12 @@ const NavList = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger className="outline-none">
                   <Avatar className="border-2 hover:border-[#bec44d] border-transparent rounded-full active:scale-90 transition-all ease-in-out cursor-pointer">
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage
+                      src={
+                        userProfile?.profileImage ||
+                        "https://github.com/shadcn.png"
+                      }
+                    />
                     <AvatarFallback>RR</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>

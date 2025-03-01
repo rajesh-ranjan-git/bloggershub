@@ -10,8 +10,17 @@ const fetchProfile = async (req, res) => {
       where: {
         id: userId,
       },
-      include: {
-        profile: true,
+      select: {
+        id: true,
+        email: true,
+        profile: {
+          select: {
+            firstName: true,
+            middleName: true,
+            lastName: true,
+            profileImage: true,
+          },
+        },
       },
     });
 

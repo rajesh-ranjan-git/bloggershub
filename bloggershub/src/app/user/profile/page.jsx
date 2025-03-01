@@ -147,7 +147,7 @@ const UserProfile = () => {
                         <TableCell className="font-medium">DOB</TableCell>
                         <TableCell>
                           {userProfile?.dob ? (
-                            userProfile?.dob
+                            userProfile?.dob.split("T")[0]
                           ) : (
                             <Button
                               className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
