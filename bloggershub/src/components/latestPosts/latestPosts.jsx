@@ -20,19 +20,16 @@ const LatestPosts = () => {
         Latest Posts
       </div>
       {isLoading && (
-        <div className="justify-center md:justify-between gap-10 grid md:grid-cols-2 xl:grid-cols-4 py-10 w-full">
-          <>
-            <CustomSinglePostLoader />
-            <CustomSinglePostLoader />
-            <CustomSinglePostLoader />
-            <CustomSinglePostLoader />
-          </>
+        <div className="flex flex-wrap justify-center items-center gap-10 py-10 w-full">
+          <CustomSinglePostLoader />
+          <CustomSinglePostLoader />
+          <CustomSinglePostLoader />
         </div>
       )}
 
       {!isLoading &&
         (posts.length > 0 ? (
-          <div className="justify-center md:justify-between gap-10 grid md:grid-cols-2 xl:grid-cols-4 py-10 w-full">
+          <div className="flex flex-wrap justify-center items-center gap-10 py-10 w-full">
             {posts.map((post) => (
               <BlogCard post={post} key={post.id} />
             ))}
