@@ -1,4 +1,5 @@
 import prisma from "../../db/dbConfig.js";
+import { getAuthorDetails } from "../posts/getAuthorDetails.js";
 
 //Fetch all comments on post
 const fetchAllCommentsOnPost = async (req, res) => {
@@ -8,6 +9,22 @@ const fetchAllCommentsOnPost = async (req, res) => {
     const comments = await prisma.comment.findMany({
       where: {
         postId: postId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            profile: {
+              select: {
+                firstName: true,
+                middleName: true,
+                lastName: true,
+                profileImage: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -20,7 +37,7 @@ const fetchAllCommentsOnPost = async (req, res) => {
       });
     }
 
-    // If comments on post exists
+    // If comments on post exist
     return res.json({
       status: 200,
       success: true,

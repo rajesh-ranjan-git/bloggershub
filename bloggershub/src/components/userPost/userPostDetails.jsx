@@ -16,7 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
+import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPostService";
 
 const UserPostDetails = ({ post }) => {
   const router = useRouter();

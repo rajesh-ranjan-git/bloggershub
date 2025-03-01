@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
+import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPostService";
 
 const initialState = {
   isLoading: true,
@@ -20,7 +20,7 @@ const CommentsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchAllCommentsOnPostService.rejected, (state) => {
-        state.posts = [];
+        state.comments = [];
         state.isLoading = false;
       });
   },

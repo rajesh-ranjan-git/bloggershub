@@ -16,11 +16,21 @@ const CommentItem = ({
       <div>
         <div className="flex justify-start items-center gap-4">
           <Avatar>
-            <AvatarImage src="/images/latest_pic.png" />
-            <AvatarFallback>RR</AvatarFallback>
+            <AvatarImage src={comment?.user?.profile?.profileImage} />
+            <AvatarFallback>
+              {comment?.user?.profile?.firstName || comment?.user?.email || "A"}
+            </AvatarFallback>
           </Avatar>
           <div>
-            <h2 className="font-semibold text-lg">{comment?.userId}</h2>
+            <h2 className="font-semibold text-lg">
+              {comment?.user?.profile?.firstName
+                ? comment?.user?.profile?.lastName
+                  ? comment?.user?.profile?.middleName
+                    ? `${comment?.user?.profile?.firstName} ${comment?.user?.profile?.middleName} ${comment?.user?.profile?.lastName}`
+                    : `${comment?.user?.profile?.firstName} ${comment?.user?.profile?.lastName}`
+                  : `${comment?.user?.profile?.firstName}`
+                : `${user?.email}`}
+            </h2>
             <p className="text-muted-foreground text-sm">
               {comment?.updatedAt.split("T")[0]}
             </p>

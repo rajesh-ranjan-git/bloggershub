@@ -4,7 +4,7 @@ import { getFullname } from "../../helper/getFullName.js";
 export const getAuthorDetails = async (authorId) => {
   const author = { authorId: "", name: "", email: "", profileImage: null };
 
-  const authorOfPostOrComment = await prisma.profile.findUnique({
+  const authorOfPost = await prisma.profile.findUnique({
     where: {
       userId: authorId,
     },
@@ -17,13 +17,14 @@ export const getAuthorDetails = async (authorId) => {
     },
   });
 
-  if (authorOfPostOrComment) {
+  // If Author exists
+  if (authorOfPost) {
     author.authorId = authorId;
-    author.profileImage = authorOfPostOrComment.profileImage;
+    author.profileImage = authorOfPost.profileImage;
     author.name = getFullname(
-      authorOfPostOrComment.firstName,
-      authorOfPostOrComment.middleName,
-      authorOfPostOrComment.lastName
+      authorOfPost.firstName,
+      authorOfPost.middleName,
+      authorOfPost.lastName
     );
 
     const authorEmail = await prisma.user.findUnique({

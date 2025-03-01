@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPost";
+import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPostService";
 import CommentItem from "@/components/blogCard/commentItem";
 
 const BlogCommentsCard = () => {

@@ -1,5 +1,5 @@
 import prisma from "../../db/dbConfig.js";
-import { getAuthorDetails } from "../common/getAuthorDetails.js";
+import { getAuthorDetails } from "./getAuthorDetails.js";
 
 // Fetch single post
 const fetchSinglePost = async (req, res) => {
