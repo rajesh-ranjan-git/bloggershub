@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthorService";
 import checkAuthService from "@/services/auth/checkAuthService";
 import UserBlogPost from "@/components/userPost/userBlogPost";
-import UserPostDetails from "@/components/userPost/userBlogPost";
+import UserPostDetails from "@/components/userPost/userPostDetails";
 
 const UserPost = () => {
   const dispatch = useDispatch();

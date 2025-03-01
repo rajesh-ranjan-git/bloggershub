@@ -56,7 +56,14 @@ const BlogItem = () => {
             <div className="min-w-96">
               <Card className="hover:shadow-md">
                 <CardHeader>
-                  <CardTitle className="text-3xl line-clamp-3">
+                  <CardTitle
+                    className="text-3xl line-clamp-3"
+                    style={{
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 3,
+                    }}
+                  >
                     {post?.title}
                   </CardTitle>
                   <CardDescription className="flex items-center gap-2 text-md md:text-xl">

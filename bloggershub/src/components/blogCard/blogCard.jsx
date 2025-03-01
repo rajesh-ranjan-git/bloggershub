@@ -14,10 +14,24 @@ const BlogCard = ({ post }) => {
       />
 
       <div className="p-5">
-        <h5 className="mb-2 font-bold text-gray-900 text-2xl line-clamp-1 tracking-tight">
+        <h5
+          className="mb-2 font-bold text-gray-900 text-2xl line-clamp-1 tracking-tight"
+          style={{
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 1,
+          }}
+        >
           {post?.title}
         </h5>
-        <p className="mb-3 font-normal text-gray-700 line-clamp-3">
+        <p
+          className="mb-3 font-normal text-gray-700 line-clamp-3"
+          style={{
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 3,
+          }}
+        >
           {post?.content}
         </p>
         <Link
