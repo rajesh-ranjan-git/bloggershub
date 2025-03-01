@@ -1,5 +1,5 @@
 import prisma from "../../db/dbConfig.js";
-import { getAuthorDetails } from "../../helper/getAuthorDetails.js";
+import { getAuthorDetails } from "../common/getAuthorDetails.js";
 
 // Fetch single post
 const fetchSinglePost = async (req, res) => {
@@ -21,11 +21,11 @@ const fetchSinglePost = async (req, res) => {
       });
     }
 
+    // If post found
+    // Get author details
     const author = await getAuthorDetails(singlePost.authorId);
 
-    console.log("author : ", author);
-
-    // If post found
+    // Send the response even if author is not found
     return res.json({
       status: 200,
       success: true,

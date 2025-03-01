@@ -62,10 +62,16 @@ const BlogItem = () => {
                   <CardDescription className="flex items-center gap-2 text-md md:text-xl">
                     <Avatar>
                       <AvatarImage src={author?.profileImage} />
-                      <AvatarFallback>RR</AvatarFallback>
+                      <AvatarFallback>
+                        {author?.name.split()[0].toUpperCase() ||
+                          author?.email.split()[0].toUpperCase() ||
+                          "A"}
+                      </AvatarFallback>
                     </Avatar>
                     <span>Posted By :</span>
-                    <span className="font-bold">{author?.name}</span>
+                    <span className="font-bold">
+                      {author?.name || author?.email || "Anonymous"}
+                    </span>
                     <span className="hidden md:block">
                       | {post?.updatedAt.split("T")[0]}
                     </span>
