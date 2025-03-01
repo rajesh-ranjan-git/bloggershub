@@ -6,7 +6,7 @@ const BlogCard = ({ post }) => {
   return (
     <div className="bg-white shadow-sm hover:shadow-md border border-gray-200 rounded-lg max-w-sm">
       <Image
-        className="rounded-t-lg w-96 h-64 object-cover"
+        className="rounded-t-lg min-w-96 h-64 object-cover"
         src={post?.postImage}
         alt="blogImage"
         width={300}
