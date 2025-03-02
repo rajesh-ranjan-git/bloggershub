@@ -97,7 +97,7 @@ const BlogItem = () => {
             <div className="flex lg:flex-row flex-col gap-6 w-full text-md">
               <div className="rounded-lg w-full lg:w-1/2">
                 <Image
-                  className="hover:shadow-md rounded-lg w-full min-h-96 object-cover"
+                  className="hover:shadow-md rounded-lg w-full min-h-96 max-h-[60vh] object-cover"
                   src={post?.postImage || "/images/blog.jpg"}
                   alt="blogImage"
                   width={300}
