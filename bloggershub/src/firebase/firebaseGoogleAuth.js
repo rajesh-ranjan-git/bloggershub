@@ -4,12 +4,12 @@ import { firebaseAuth } from "./firebaseConfig";
 const firebaseGoogleAuth = async () => {
   const provider = new GoogleAuthProvider();
 
-  const { user } = await signInWithPopup(firebaseAuth, provider);
+  const { loggedInUser } = await signInWithPopup(firebaseAuth, provider);
 
   const formData = {
-    name: user.displayName,
-    email: user.email,
-    profileImage: user.photoURL,
+    name: loggedInUser.displayName,
+    email: loggedInUser.email,
+    profileImage: loggedInUser.photoURL,
   };
 
   return formData;

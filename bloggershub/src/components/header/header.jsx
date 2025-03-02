@@ -36,7 +36,9 @@ import Image from "next/image";
 const Header = () => {
   const [openNavSheet, setOpenNavSheet] = useState(false);
   const router = useRouter();
-  const { user } = useSelector((state) => state.authReducer);
+  const { isLoggedInUserLoading, loggedInUser } = useSelector(
+    (state) => state.authReducer
+  );
 
   return (
     <section
@@ -73,7 +75,7 @@ const Header = () => {
                 ? navListItems.map((navItem) => (
                     <li key={navItem.id} className="w-full">
                       <Link
-                        className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg"
+                        className="flex justify-start items-center gap-4 hover:bg-[#bec44d] p-3 px-5 rounded-lg font-semibold text-lg"
                         href={navItem.path}
                         onClick={() => setOpenNavSheet(false)}
                       >
@@ -83,99 +85,112 @@ const Header = () => {
                     </li>
                   ))
                 : null}
-
-              {!user && (
-                <div className="flex flex-col justify-center items-center gap-2 w-full">
-                  <li className="w-full">
-                    <Link
-                      className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
-                      href="/signIn"
-                    >
-                      <FaUserShield />
-                      <span>Sign In</span>
-                    </Link>
-                  </li>
-                  <li className="w-full">
-                    <Link
-                      className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
-                      href="/signUp"
-                    >
-                      <FaUserPlus />
-                      <span>Sign Up</span>
-                    </Link>
-                  </li>
-                </div>
-              )}
+              {isLoggedInUserLoading
+                ? null
+                : !loggedInUser && (
+                    <div className="flex flex-col justify-center items-center gap-2 w-full">
+                      <li className="w-full">
+                        <Link
+                          className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
+                          href="/signIn"
+                        >
+                          <FaUserShield />
+                          <span>Sign In</span>
+                        </Link>
+                      </li>
+                      <li className="w-full">
+                        <Link
+                          className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
+                          href="/signUp"
+                        >
+                          <FaUserPlus />
+                          <span>Sign Up</span>
+                        </Link>
+                      </li>
+                    </div>
+                  )}
             </ul>
           </div>
-          {user && (
-            <>
-              <Separator className="my-5" />
-              <SheetFooter>
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    <div className="flex justify-center items-center gap-4 hover:bg-[#bec44d] rounded-md text-xl cursor-pointer">
-                      <div>
-                        <Avatar className="border-2 hover:border-[#bec44d] border-transparent rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
-                          <AvatarImage src="https://github.com/shadcn.png" />
-                          <AvatarFallback>RR</AvatarFallback>
-                        </Avatar>
-                      </div>
-                      <div>
-                        <SheetTitle>
-                          <span>Rajesh Ranjan</span>
-                        </SheetTitle>
-                        <SheetDescription>rajesh@gmail.com</SheetDescription>
-                      </div>
-                    </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel className="flex items-center gap-2">
-                      <UserRoundIcon size={15} />
-                      <span>Rajesh Ranjan</span>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => {
-                        setOpenNavSheet(false);
-                        router.push("/user/profile");
-                      }}
-                    >
-                      <CircleUserRoundIcon />
-                      <span>Profile</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        setOpenNavSheet(false);
-                        router.push("/user/posts");
-                      }}
-                    >
-                      <BsPostcard />
-                      <span>Posts</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        setOpenNavSheet(false);
-                        router.push("/user/createPost");
-                      }}
-                    >
-                      <MdOutlinePostAdd />
-                      <span>Create Post</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        setOpenNavSheet(false);
-                        router.push("/");
-                      }}
-                    >
-                      <RiLogoutCircleRLine />
-                      <span>Sign Out</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </SheetFooter>
-            </>
-          )}
+          {isLoggedInUserLoading
+            ? null
+            : loggedInUser && (
+                <>
+                  <Separator className="my-5" />
+                  <div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="outline-none">
+                        <div className="flex justify-center items-center gap-4 rounded-md w-full text-xl cursor-pointer">
+                          <div>
+                            <Avatar className="border-2 hover:border-[#bec44d] border-transparent rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
+                              <AvatarImage src="https://github.com/shadcn.png" />
+                              <AvatarFallback>RR</AvatarFallback>
+                            </Avatar>
+                          </div>
+                          <div>
+                            <SheetTitle className="text-left">
+                              <span>{`${
+                                loggedInUser?.profile?.firstName
+                                  ? loggedInUser?.profile?.firstName
+                                  : loggedInUser?.email
+                              }`}</span>
+                            </SheetTitle>
+                            <SheetDescription>
+                              {loggedInUser?.email}
+                            </SheetDescription>
+                          </div>
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuLabel className="flex items-center gap-2">
+                          <UserRoundIcon size={15} />
+                          <span>{`${
+                            loggedInUser?.profile?.firstName
+                              ? loggedInUser?.profile?.firstName
+                              : loggedInUser?.email
+                          }`}</span>
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setOpenNavSheet(false);
+                            router.push("/user/profile");
+                          }}
+                        >
+                          <CircleUserRoundIcon />
+                          <span>Profile</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setOpenNavSheet(false);
+                            router.push("/user/posts");
+                          }}
+                        >
+                          <BsPostcard />
+                          <span>Posts</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setOpenNavSheet(false);
+                            router.push("/user/createPost");
+                          }}
+                        >
+                          <MdOutlinePostAdd />
+                          <span>Create Post</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setOpenNavSheet(false);
+                            router.push("/");
+                          }}
+                        >
+                          <RiLogoutCircleRLine />
+                          <span>Sign Out</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </>
+              )}
         </SheetContent>
       </Sheet>
     </section>

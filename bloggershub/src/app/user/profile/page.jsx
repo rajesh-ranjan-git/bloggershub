@@ -26,7 +26,7 @@ import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal"
 const UserProfile = () => {
   const [typeOfProfileData, setTypeOfProfileData] = useState("");
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.authReducer);
+  const { loggedInUser } = useSelector((state) => state.authReducer);
   const { userProfile } = useSelector((state) => state.profileReducer);
 
   const handleUpdateProfileData = (type) => {
@@ -34,8 +34,8 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchProfileService(user?.id));
-  }, [dispatch, user]);
+    dispatch(fetchProfileService(loggedInUser?.id));
+  }, [dispatch, loggedInUser]);
 
   return (
     <>
@@ -44,7 +44,7 @@ const UserProfile = () => {
           <div className="p-5 border-[#a3ab09] border-b-4 font-semibold text-3xl text-center">
             {userProfile?.profile?.firstName
               ? userProfile?.profile?.firstName
-              : user?.email}
+              : loggedIn?.email}
             's Profile
           </div>
           <div className="justify-between gap-5 lg:gap-10 grid lg:grid-cols-2 py-10">

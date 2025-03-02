@@ -9,16 +9,16 @@ import UserPostHeading from "@/components/userPost/userPostHeading";
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.authReducer);
+  const { loggedInUser } = useSelector((state) => state.authReducer);
   const { userProfile } = useSelector((state) => state.profileReducer);
 
   useEffect(() => {
-    if (user) {
-      dispatch(fetchProfileService(user?.id));
+    if (loggedInUser) {
+      dispatch(fetchProfileService(loggedInUser?.id));
     } else {
       dispatch(checkAuthService());
     }
-  }, [dispatch, user]);
+  }, [dispatch, loggedInUser]);
   return (
     <section className="flex justify-center pt-16 w-full">
       <div className="flex flex-col justify-center px-10 w-full">

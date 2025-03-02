@@ -68,7 +68,7 @@ const BlogItem = () => {
                     {post?.title}
                   </CardTitle>
                   <CardDescription className="flex items-center gap-2 text-md md:text-xl">
-                    <Link href={`/user/publicProfile/${post?.authorId}`}>
+                    <Link href={`/profile/${post?.authorId}`}>
                       <Avatar>
                         <AvatarImage src={author?.profileImage} />
                         <AvatarFallback>
@@ -81,7 +81,7 @@ const BlogItem = () => {
                     <span>Posted By :</span>
                     <span className="font-bold">
                       <Link
-                        href={`/user/publicProfile/${post?.authorId}`}
+                        href={`/profile/${post?.authorId}`}
                         className="hover:text-[#a3ab09] transition-all ease-in-out"
                       >
                         {author?.name || author?.email || "Anonymous"}

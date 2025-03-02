@@ -23,8 +23,9 @@ import signOutService from "@/services/auth/signOutService";
 const NavList = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isLoading, user } = useSelector((state) => state.authReducer);
-  const { userProfile } = useSelector((state) => state.profileReducer);
+  const { isLoggedInUserLoading, loggedInUser } = useSelector(
+    (state) => state.authReducer
+  );
 
   const handleSignOut = () => {
     dispatch(signOutService()).then((data) => {
@@ -33,8 +34,8 @@ const NavList = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchProfileService(user?.id));
-  }, []);
+    dispatch(fetchProfileService(loggedInUser?.id));
+  }, [dispatch]);
 
   return (
     <div>
@@ -53,7 +54,7 @@ const NavList = () => {
             ))
           : null}
 
-        {isLoading ? null : !user ? (
+        {isLoggedInUserLoading ? null : !loggedInUser ? (
           <>
             <li>
               <Link
@@ -82,7 +83,7 @@ const NavList = () => {
                   <Avatar className="border-2 hover:border-[#bec44d] border-transparent rounded-full active:scale-90 transition-all ease-in-out cursor-pointer">
                     <AvatarImage
                       src={
-                        userProfile?.profile?.profileImage ||
+                        loggedInUser?.profile?.profileImage ||
                         "https://github.com/shadcn.png"
                       }
                     />
@@ -93,9 +94,9 @@ const NavList = () => {
                   <DropdownMenuLabel className="flex items-center gap-2">
                     <UserRoundIcon size={15} />
                     <span>{`${
-                      userProfile?.profile?.firstName
-                        ? userProfile?.profile?.firstName
-                        : userProfile?.email
+                      loggedInUser?.profile?.firstName
+                        ? loggedInUser?.profile?.firstName
+                        : loggedInUser?.email
                     }`}</span>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />

@@ -8,9 +8,9 @@ import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService
 
 const initialState = {
   isAuthenticated: false,
-  isLoading: true,
-  token: null,
-  user: null,
+  isLoggedInUserLoading: true,
+  authToken: null,
+  loggedInUser: null,
 };
 
 const authSlice = createSlice({
@@ -20,84 +20,101 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(checkAuthService.pending, (state) => {
-        state.isLoading = true;
+        state.isLoggedInUserLoading = true;
       })
       .addCase(checkAuthService.fulfilled, (state, action) => {
-        state.user = action.payload?.success ? action.payload?.user : null;
+        state.loggedInUser = action.payload?.success
+          ? action.payload?.loggedInUser
+          : null;
         state.isAuthenticated = action.payload?.success;
-        state.isLoading = false;
+        state.isLoggedInUserLoading = false;
       })
       .addCase(checkAuthService.rejected, (state) => {
-        state.user = null;
+        state.loggedInUser = null;
         state.isAuthenticated = false;
-        state.isLoading = false;
+        state.isLoggedInUserLoading = false;
       })
       .addCase(signUpService.pending, (state) => {
-        state.isLoading = true;
+        state.isLoggedInUserLoading = true;
       })
       .addCase(signUpService.fulfilled, (state, action) => {
-        state.user = action.payload?.success ? action.payload?.user : null;
+        state.loggedInUser = action.payload?.success
+          ? action.payload?.loggedInUser
+          : null;
         state.isAuthenticated = action.payload?.success;
-        state.token = action.payload?.token;
-        state.isLoading = false;
-        localStorage.setItem("token", JSON.stringify(action.payload?.token));
+        state.authToken = action.payload?.authToken;
+        state.isLoggedInUserLoading = false;
+        localStorage.setItem(
+          "authToken",
+          JSON.stringify(action.payload?.authToken)
+        );
       })
       .addCase(signUpService.rejected, (state) => {
-        state.user = null;
+        state.loggedInUser = null;
         state.isAuthenticated = false;
-        state.isLoading = false;
-        state.token = null;
+        state.isLoggedInUserLoading = false;
+        state.authToken = null;
       })
       .addCase(signInService.pending, (state) => {
-        state.isLoading = true;
+        state.isLoggedInUserLoading = true;
       })
       .addCase(signInService.fulfilled, (state, action) => {
-        state.user = action.payload?.success ? action.payload?.user : null;
+        state.loggedInUser = action.payload?.success
+          ? action.payload?.loggedInUser
+          : null;
         state.isAuthenticated = action.payload?.success;
-        state.token = action.payload?.token;
-        state.isLoading = false;
-        localStorage.setItem("token", JSON.stringify(action.payload?.token));
+        state.authToken = action.payload?.authToken;
+        state.isLoggedInUserLoading = false;
+        localStorage.setItem(
+          "authToken",
+          JSON.stringify(action.payload?.authToken)
+        );
       })
       .addCase(signInService.rejected, (state) => {
-        state.user = null;
+        state.loggedInUser = null;
         state.isAuthenticated = false;
-        state.isLoading = false;
-        state.token = null;
+        state.isLoggedInUserLoading = false;
+        state.authToken = null;
       })
       .addCase(forgotPasswordService.pending, (state) => {
-        state.isLoading = true;
+        state.isLoggedInUserLoading = true;
       })
       .addCase(forgotPasswordService.fulfilled, (state) => {
-        state.isLoading = false;
+        state.isLoggedInUserLoading = false;
       })
       .addCase(forgotPasswordService.rejected, (state) => {
-        state.isLoading = false;
+        state.isLoggedInUserLoading = false;
       })
       .addCase(signOutService.fulfilled, (state, action) => {
-        state.user = null;
+        state.loggedInUser = null;
         state.isAuthenticated = false;
-        state.token = null;
-        state.isLoading = false;
+        state.authToken = null;
+        state.isLoggedInUserLoading = false;
         localStorage.clear();
       })
       .addCase(firebaseGoogleAuthService.pending, (state) => {
-        state.isLoading = true;
+        state.isLoggedInUserLoading = true;
       })
       .addCase(firebaseGoogleAuthService.fulfilled, (state) => {
-        state.user = action.payload?.success ? action.payload?.user : null;
+        state.loggedInUser = action.payload?.success
+          ? action.payload?.loggedInUser
+          : null;
         state.isAuthenticated = action.payload?.success;
-        state.token = action.payload?.token;
-        state.isLoading = false;
-        localStorage.setItem("token", JSON.stringify(action.payload?.token));
+        state.authToken = action.payload?.authToken;
+        state.isLoggedInUserLoading = false;
+        localStorage.setItem(
+          "authToken",
+          JSON.stringify(action.payload?.authToken)
+        );
       })
       .addCase(firebaseGoogleAuthService.rejected, (state) => {
-        state.user = null;
+        state.loggedInUser = null;
         state.isAuthenticated = false;
-        state.isLoading = false;
-        state.token = null;
+        state.isLoggedInUserLoading = false;
+        state.authToken = null;
       });
   },
 });
 
-export const { setUser, resetTokenAndCredentials } = authSlice.actions;
+// export const { setUser, clearUser } = authSlice.actions;
 export default authSlice.reducer;

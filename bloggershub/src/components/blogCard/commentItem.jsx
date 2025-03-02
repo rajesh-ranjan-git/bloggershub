@@ -11,7 +11,7 @@ const CommentItem = ({ comment }) => {
     <>
       <div>
         <div className="flex justify-start items-center gap-4">
-          <Link href={`/user/publicProfile/${comment?.userId}`}>
+          <Link href={`/profile/${comment?.userId}`}>
             <Avatar>
               <AvatarImage src={comment?.user?.profile?.profileImage} />
               <AvatarFallback>
@@ -24,7 +24,7 @@ const CommentItem = ({ comment }) => {
           <div>
             <h2 className="font-semibold text-lg">
               <Link
-                href={`/user/publicProfile/${comment?.userId}`}
+                href={`/profile/${comment?.userId}`}
                 className="hover:text-[#a3ab09] transition-all ease-in-out"
               >
                 {comment?.user?.profile?.firstName

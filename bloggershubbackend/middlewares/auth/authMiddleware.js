@@ -3,13 +3,13 @@ import jwt from "jsonwebtoken";
 // Auth middleware
 const authMiddleware = async (req, res, next) => {
   // Get token from cookies
-  const token = req.cookies.token;
+  const authToken = req.cookies.authToken;
 
   // For setting header for localStorage
   // const authHeader = req.headers["authorization"];
   // const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token)
+  if (!authToken)
     return res.json({
       status: 401,
       success: false,
@@ -18,9 +18,9 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     // Decoding token to get user
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET);
 
-    req.user = decodedToken;
+    req.loggedInUser = decodedToken;
     next();
   } catch (error) {
     console.log("error in middleware : ", error);

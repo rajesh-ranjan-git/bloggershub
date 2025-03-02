@@ -43,8 +43,6 @@ const fetchProfile = async (req, res) => {
       });
     }
 
-    console.log("user : ", user);
-
     // If user profile found
     return res.json({
       status: 200,

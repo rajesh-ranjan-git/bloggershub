@@ -1,42 +1,47 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
 import { checkAuthServiceApi } from "@/services/apiUrls";
 
 export async function middleware(request) {
-  const cookies = request.headers.get("cookie");
+  // Get auth token from cookies
+  const authToken = request.cookies.get("authToken")?.value;
 
-  let checkAuthServiceResponse;
-
-  try {
-    checkAuthServiceResponse = await axios.get(checkAuthServiceApi, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: cookies || "", // Forward cookies
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Expires: "0",
-      },
-    });
-  } catch (error) {
-    console.log("Error during authorization : ", error);
+  // If no token exists and trying to access protected route, redirect to login
+  if (!authToken && request.nextUrl.pathname.startsWith("/user")) {
     return NextResponse.redirect(new URL("/blog", request.url));
   }
 
-  if (!checkAuthServiceResponse.data.success) {
-    return NextResponse.redirect(new URL("/", request.url));
+  // For protected routes, verify token with backend
+  if (request.nextUrl.pathname.startsWith("/user")) {
+    try {
+      const response = await fetch(checkAuthServiceApi, {
+        headers: {
+          Cookie: `authToken=${authToken}`,
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+
+      return NextResponse.next();
+    } catch (error) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
 
-  console.log(
-    "checkAuthServiceResponse.data : ",
-    checkAuthServiceResponse.data
-  );
-
-  // return NextResponse.next();
-  return checkAuthServiceResponse.data;
+  // Allow access to public routes
+  return NextResponse.next();
 }
 
-// Apply middleware only to specific paths
 export const config = {
-  matcher: ["/user/:path*"],
+  matcher: [
+    "/user/:path*", // Protected routes
+    "/blog", // Public routes
+    "/about",
+    "/contact",
+  ],
 };

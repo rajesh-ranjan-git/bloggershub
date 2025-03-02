@@ -56,24 +56,37 @@ const signIn = async (req, res) => {
       });
     }
 
+    const loggedInUser = await prisma.user.findUnique({
+      where: {
+        id: user.id,
+      },
+      select: {
+        id: true,
+        email: true,
+        profile: true,
+      },
+    });
+
     const payloadData = {
-      id: user.id,
-      email: user.email,
+      id: loggedInUser.id,
+      email: loggedInUser.email,
     };
 
     // Issue token to login
-    const token = jwt.sign(payloadData, process.env.JWT_SECRET, {
+    const authToken = jwt.sign(payloadData, process.env.JWT_SECRET, {
       expiresIn: "365d",
     });
 
     // Create cookie
-    return res.cookie("token", token, { httpOnly: true, secure: false }).json({
-      status: 200,
-      success: true,
-      token: token,
-      message: "User logged in successfully!",
-      user: user,
-    });
+    return res
+      .cookie("authToken", authToken, { httpOnly: true, secure: false })
+      .json({
+        status: 200,
+        success: true,
+        authToken: authToken,
+        message: "User logged in successfully!",
+        loggedInUser: loggedInUser,
+      });
   } catch (error) {
     console.log("error during sign in : ", error);
     // Check for validation error

@@ -10,16 +10,16 @@ import UserPostDetails from "@/components/userPost/userPostDetails";
 
 const UserPost = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.authReducer);
+  const { loggedInUser } = useSelector((state) => state.authReducer);
   const { isLoading, posts } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
-    if (user) {
-      dispatch(fetchAllPostsByAuthorService({ authorId: user?.id }));
+    if (loggedInUser) {
+      dispatch(fetchAllPostsByAuthorService({ authorId: loggedInUser?.id }));
     } else {
       dispatch(checkAuthService());
     }
-  }, [dispatch, user]);
+  }, [dispatch, loggedInUser]);
 
   return (
     <>
