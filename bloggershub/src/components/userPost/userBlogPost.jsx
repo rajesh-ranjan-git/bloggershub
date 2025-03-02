@@ -26,7 +26,7 @@ const UserBlogPost = ({ post }) => {
         >
           <Link
             href={`/blog/${post?.id}`}
-            className="hover:text-[#a3ab09] hover:underline transition-all ease-in-out"
+            className="hover:text-[#a3ab09] transition-all ease-in-out"
           >
             {post?.title ||
               "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order."}

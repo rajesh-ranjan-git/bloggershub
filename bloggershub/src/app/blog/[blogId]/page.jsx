@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
@@ -67,17 +68,24 @@ const BlogItem = () => {
                     {post?.title}
                   </CardTitle>
                   <CardDescription className="flex items-center gap-2 text-md md:text-xl">
-                    <Avatar>
-                      <AvatarImage src={author?.profileImage} />
-                      <AvatarFallback>
-                        {author?.name.split()[0].toUpperCase() ||
-                          author?.email.split()[0].toUpperCase() ||
-                          "A"}
-                      </AvatarFallback>
-                    </Avatar>
+                    <Link href={`/user/publicProfile/${post?.authorId}`}>
+                      <Avatar>
+                        <AvatarImage src={author?.profileImage} />
+                        <AvatarFallback>
+                          {author?.name.split()[0].toUpperCase() ||
+                            author?.email.split()[0].toUpperCase() ||
+                            "A"}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Link>
                     <span>Posted By :</span>
                     <span className="font-bold">
-                      {author?.name || author?.email || "Anonymous"}
+                      <Link
+                        href={`/user/publicProfile/${post?.authorId}`}
+                        className="hover:text-[#a3ab09] transition-all ease-in-out"
+                      >
+                        {author?.name || author?.email || "Anonymous"}
+                      </Link>
                     </span>
                     <span className="hidden md:block">
                       | {post?.updatedAt.split("T")[0]}

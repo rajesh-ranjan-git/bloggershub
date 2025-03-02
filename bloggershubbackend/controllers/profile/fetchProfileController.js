@@ -13,14 +13,7 @@ const fetchProfile = async (req, res) => {
       select: {
         id: true,
         email: true,
-        profile: {
-          select: {
-            firstName: true,
-            middleName: true,
-            lastName: true,
-            profileImage: true,
-          },
-        },
+        profile: true,
       },
     });
 
@@ -49,6 +42,8 @@ const fetchProfile = async (req, res) => {
         message: "User profile does not exist!",
       });
     }
+
+    console.log("user : ", user);
 
     // If user profile found
     return res.json({

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,20 +15,10 @@ import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsO
 import CommentItem from "@/components/blogCard/commentItem";
 
 const BlogCommentsCard = () => {
-  const [commentButtonsBackground, setCommentButtonsBackground] =
-    useState(null);
   const dispatch = useDispatch();
   const { blogId } = useParams();
   const postId = blogId;
   const { comments } = useSelector((state) => state.commentsReducer);
-
-  const handleCommentButtonHover = (e) => {
-    if (commentButtonsBackground !== e.target.id) {
-      setCommentButtonsBackground(e.target.id);
-    } else {
-      setCommentButtonsBackground(null);
-    }
-  };
 
   useEffect(() => {
     dispatch(fetchAllCommentsOnPostService(postId));
@@ -44,13 +34,7 @@ const BlogCommentsCard = () => {
         <ScrollArea className="hover:shadow-md p-4 border rounded-md w-full h-[50vh]">
           {comments && comments.length > 0
             ? comments.map((comment) => (
-                <CommentItem
-                  handleCommentButtonHover={handleCommentButtonHover}
-                  commentButtonsBackground={commentButtonsBackground}
-                  setCommentButtonsBackground={setCommentButtonsBackground}
-                  comment={comment}
-                  key={comment.id}
-                />
+                <CommentItem comment={comment} key={comment.id} />
               ))
             : null}
         </ScrollArea>

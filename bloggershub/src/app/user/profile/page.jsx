@@ -42,25 +42,27 @@ const UserProfile = () => {
       <section className="flex justify-center pt-16 w-full">
         <div className="flex flex-col justify-center px-5 md:px-10">
           <div className="p-5 border-[#a3ab09] border-b-4 font-semibold text-3xl text-center">
-            {userProfile?.firstName ? userProfile?.firstName : user?.email}'s
-            Profile
+            {userProfile?.profile?.firstName
+              ? userProfile?.profile?.firstName
+              : user?.email}
+            's Profile
           </div>
           <div className="justify-between gap-5 lg:gap-10 grid lg:grid-cols-2 py-10">
             <div className="text-center">
               <Card className="hover:shadow-md w-full">
                 <CardHeader>
-                  {userProfile?.firstName ? (
-                    userProfile?.lastName ? (
-                      userProfile?.middleName ? (
-                        <CardTitle className="text-3xl">{`${userProfile?.firstName} ${userProfile?.middleName} ${userProfile?.lastName}`}</CardTitle>
+                  {userProfile?.profile?.firstName ? (
+                    userProfile?.profile?.lastName ? (
+                      userProfile?.profile?.middleName ? (
+                        <CardTitle className="text-3xl">{`${userProfile?.profile?.firstName} ${userProfile?.profile?.middleName} ${userProfile?.profile?.lastName}`}</CardTitle>
                       ) : (
-                        <CardTitle className="text-3xl">{`${userProfile?.firstName} ${userProfile?.lastName}`}</CardTitle>
+                        <CardTitle className="text-3xl">{`${userProfile?.profile?.firstName} ${userProfile?.profile?.lastName}`}</CardTitle>
                       )
                     ) : (
-                      <CardTitle className="text-3xl">{`${userProfile?.firstName}`}</CardTitle>
+                      <CardTitle className="text-3xl">{`${userProfile?.profile?.firstName}`}</CardTitle>
                     )
                   ) : (
-                    <CardTitle className="text-3xl">{`${user?.email}`}</CardTitle>
+                    <CardTitle className="text-3xl">{`${userProfile?.email}`}</CardTitle>
                   )}
                   <CardDescription className="hidden"></CardDescription>
                 </CardHeader>
@@ -68,7 +70,8 @@ const UserProfile = () => {
                   <div className="p-1 border-[#a3ab09] border-2 rounded-full overflow-hidden">
                     <Image
                       src={
-                        userProfile?.profileImage || "/images/latest_pic.png"
+                        userProfile?.profile?.profileImage ||
+                        "/images/latest_pic.png"
                       }
                       width={300}
                       height={300}
@@ -79,7 +82,7 @@ const UserProfile = () => {
                 </CardContent>
                 <CardFooter className="flex justify-center items-center pb-5">
                   <p className="text-lg text-center">
-                    {userProfile?.designation}
+                    {userProfile?.profile?.designation}
                   </p>
                 </CardFooter>
               </Card>
@@ -89,7 +92,7 @@ const UserProfile = () => {
                 <CardHeader className="text-center">
                   <CardTitle>Profile Details</CardTitle>
                   <CardDescription className="text-md">
-                    {userProfile?.designation}
+                    {userProfile?.profile?.designation}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -100,15 +103,15 @@ const UserProfile = () => {
                       <TableRow>
                         <TableCell className="font-medium">Name</TableCell>
                         <TableCell>
-                          {userProfile?.firstName ? (
-                            userProfile?.lastName ? (
-                              userProfile?.middleName ? (
-                                `${userProfile?.firstName} ${userProfile?.middleName} ${userProfile?.lastName}`
+                          {userProfile?.profile?.firstName ? (
+                            userProfile?.profile?.lastName ? (
+                              userProfile?.profile?.middleName ? (
+                                `${userProfile?.profile?.firstName} ${userProfile?.profile?.middleName} ${userProfile?.profile?.lastName}`
                               ) : (
-                                `${userProfile?.firstName} ${userProfile?.lastName}`
+                                `${userProfile?.profile?.firstName} ${userProfile?.profile?.lastName}`
                               )
                             ) : (
-                              `${userProfile?.firstName}`
+                              `${userProfile?.profile?.firstName}`
                             )
                           ) : (
                             <Button
@@ -125,8 +128,8 @@ const UserProfile = () => {
                           Designation
                         </TableCell>
                         <TableCell>
-                          {userProfile?.designation ? (
-                            userProfile?.designation
+                          {userProfile?.profile?.designation ? (
+                            userProfile?.profile?.designation
                           ) : (
                             <Button
                               className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
@@ -146,8 +149,8 @@ const UserProfile = () => {
                       <TableRow>
                         <TableCell className="font-medium">DOB</TableCell>
                         <TableCell>
-                          {userProfile?.dob ? (
-                            userProfile?.dob.split("T")[0]
+                          {userProfile?.profile?.dob ? (
+                            userProfile?.profile?.dob.split("T")[0]
                           ) : (
                             <Button
                               className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
@@ -161,8 +164,8 @@ const UserProfile = () => {
                       <TableRow>
                         <TableCell className="font-medium">Ph No.</TableCell>
                         <TableCell>
-                          {userProfile?.phoneNumber ? (
-                            userProfile?.phoneNumber
+                          {userProfile?.profile?.phoneNumber ? (
+                            userProfile?.profile?.phoneNumber
                           ) : (
                             <Button
                               className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
@@ -190,8 +193,8 @@ const UserProfile = () => {
                       <TableRow>
                         <TableCell className="font-medium">Bio</TableCell>
                         <TableCell>
-                          {userProfile?.bio ? (
-                            userProfile?.bio
+                          {userProfile?.profile?.bio ? (
+                            userProfile?.profile?.bio
                           ) : (
                             <Button
                               className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
