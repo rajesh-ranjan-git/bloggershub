@@ -23,6 +23,7 @@ const BlogItem = () => {
   const { blogId } = useParams();
   const postId = blogId;
   const dispatch = useDispatch();
+  const { loggedInUser } = useSelector((state) => state.authReducer);
   const { isPostLoading, post, author } = useSelector(
     (state) => state.postReducer
   );
@@ -110,9 +111,11 @@ const BlogItem = () => {
                 <p>{post?.content}</p>
               </Card>
             </div>
-            <div className="min-w-96">
-              <BlogAddCommentsCard />
-            </div>
+            {loggedInUser && (
+              <div className="min-w-96">
+                <BlogAddCommentsCard />
+              </div>
+            )}
             <div className="min-w-96">
               <BlogCommentsCard />
             </div>

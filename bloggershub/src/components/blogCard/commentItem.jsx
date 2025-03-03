@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdDelete, MdModeEdit } from "react-icons/md";
@@ -7,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 
 const CommentItem = ({ comment }) => {
+  const { loggedInUser } = useSelector((state) => state.authReducer);
+
   return (
     <>
       <div>
@@ -14,10 +17,10 @@ const CommentItem = ({ comment }) => {
           <Link href={`/profile/${comment?.userId}`}>
             <Avatar>
               <AvatarImage src={comment?.user?.profile?.profileImage} />
-              <AvatarFallback>
-                {comment?.user?.profile?.firstName ||
-                  comment?.user?.email ||
-                  "A"}
+              <AvatarFallback className="bg-slate-300">
+                {loggedInUser?.profile?.firstName
+                  ? loggedInUser?.profile?.firstName?.[0].toUpperCase()
+                  : loggedInUser?.email?.[0].toUpperCase()}
               </AvatarFallback>
             </Avatar>
           </Link>
@@ -61,22 +64,24 @@ const CommentItem = ({ comment }) => {
               <BiDislike />
             </Button>
           </div>
-          <div className="flex justify-between items-center gap-4">
-            <Button
-              variant="outline"
-              className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
-              onClick={() => console.log("edit")}
-            >
-              <MdModeEdit />
-            </Button>
-            <Button
-              variant="outline"
-              className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
-              onClick={() => console.log("delete")}
-            >
-              <MdDelete />
-            </Button>
-          </div>
+          {loggedInUser && loggedInUser?.id === comment?.userId && (
+            <div className="flex justify-between items-center gap-4">
+              <Button
+                variant="outline"
+                className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
+                onClick={() => console.log("edit")}
+              >
+                <MdModeEdit />
+              </Button>
+              <Button
+                variant="outline"
+                className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
+                onClick={() => console.log("delete")}
+              >
+                <MdDelete />
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       <Separator className="my-5" />
