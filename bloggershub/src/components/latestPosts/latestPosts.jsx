@@ -8,7 +8,7 @@ import CustomSinglePostLoader from "../customLoaderComponents/customSinglePostLo
 
 const LatestPosts = () => {
   const dispatch = useDispatch();
-  const { isLoading, posts } = useSelector((state) => state.postsReducer);
+  const { isPostLoading, posts } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
     dispatch(fetchLatestPostsService());
@@ -19,7 +19,7 @@ const LatestPosts = () => {
       <div className="px-10 py-8 border-[#a3ab09] border-b-4 font-semibold text-4xl md:text-5xl">
         Latest Posts
       </div>
-      {isLoading && (
+      {isPostLoading && (
         <div className="flex flex-wrap justify-center items-center gap-10 py-10 w-full">
           <CustomSinglePostLoader />
           <CustomSinglePostLoader />
@@ -27,7 +27,7 @@ const LatestPosts = () => {
         </div>
       )}
 
-      {!isLoading &&
+      {!isPostLoading &&
         (posts.length > 0 ? (
           <div className="flex flex-wrap justify-center items-center gap-10 py-10 w-full">
             {posts.map((post) => (

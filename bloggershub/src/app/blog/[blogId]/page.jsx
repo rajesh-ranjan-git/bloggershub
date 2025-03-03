@@ -23,7 +23,9 @@ const BlogItem = () => {
   const { blogId } = useParams();
   const postId = blogId;
   const dispatch = useDispatch();
-  const { isLoading, post, author } = useSelector((state) => state.postReducer);
+  const { isPostLoading, post, author } = useSelector(
+    (state) => state.postReducer
+  );
 
   useEffect(() => {
     dispatch(fetchSinglePostService(postId));
@@ -31,7 +33,7 @@ const BlogItem = () => {
 
   return (
     <section className="flex justify-center py-20 w-full">
-      {isLoading && (
+      {isPostLoading && (
         <div className="flex flex-col justify-center md:justify-normal gap-4 px-10 w-full">
           <div className="w-full">
             <Card className="hover:shadow-md">
@@ -51,7 +53,7 @@ const BlogItem = () => {
           </Card>
         </div>
       )}
-      {!isLoading &&
+      {!isPostLoading &&
         (post ? (
           <div className="flex flex-col justify-center md:justify-normal gap-4 px-10 w-full">
             <div className="min-w-96">

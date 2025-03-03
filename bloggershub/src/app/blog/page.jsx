@@ -8,7 +8,7 @@ import CustomSinglePostLoader from "@/components/customLoaderComponents/customSi
 
 const Blog = () => {
   const dispatch = useDispatch();
-  const { isLoading, posts } = useSelector((state) => state.postsReducer);
+  const { isPostLoading, posts } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
     dispatch(fetchAllPostsService());
@@ -20,7 +20,7 @@ const Blog = () => {
         <div className="p-5 border-[#a3ab09] border-b-4 w-full xl:w-1/6 font-semibold text-3xl xl:text-left text-center">
           All Posts
         </div>
-        {isLoading && (
+        {isPostLoading && (
           <div className="flex flex-wrap justify-center xl:justify-between items-center gap-10 py-10 w-full">
             <>
               <CustomSinglePostLoader />
@@ -35,7 +35,7 @@ const Blog = () => {
           </div>
         )}
 
-        {!isLoading &&
+        {!isPostLoading &&
           (posts.length > 0 ? (
             <div className="flex flex-wrap justify-center xl:justify-between items-center gap-10 py-10 w-full">
               {posts.map((post) => (
