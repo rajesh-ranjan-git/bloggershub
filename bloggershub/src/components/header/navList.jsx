@@ -80,8 +80,10 @@ const NavList = ({ handleSignOut }) => {
                         "https://github.com/shadcn.png"
                       }
                     />
-                    <AvatarFallback>
-                      {loggedInUser?.profile?.firstName[0].toUpperCase()}
+                    <AvatarFallback className="bg-slate-300">
+                      {loggedInUser?.profile?.firstName
+                        ? loggedInUser?.profile?.firstName?.[0].toUpperCase()
+                        : loggedInUser?.email?.[0].toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>

@@ -7,6 +7,7 @@ const signUpService = createAsyncThunk("/auth/signUp", async (formData) => {
     const signUpResponse = await axios.post(signUpServiceApi, formData, {
       withCredentials: true,
     });
+
     return signUpResponse.data;
   } catch (error) {
     return error.response.data;

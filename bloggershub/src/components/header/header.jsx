@@ -43,7 +43,6 @@ const Header = () => {
 
   const handleSignOut = () => {
     setOpenNavSheet(false);
-    console.log("in handleSignOut");
     dispatch(signOutService()).then((data) => {
       redirect("/");
     });
@@ -137,8 +136,10 @@ const Header = () => {
                                   "https://github.com/shadcn.png"
                                 }
                               />
-                              <AvatarFallback>
-                                {loggedInUser?.profile?.firstName[0].toUpperCase()}
+                              <AvatarFallback className="bg-slate-300">
+                                {loggedInUser?.profile?.firstName
+                                  ? loggedInUser?.profile?.firstName?.[0].toUpperCase()
+                                  : loggedInUser?.email?.[0].toUpperCase()}
                               </AvatarFallback>
                             </Avatar>
                           </div>
@@ -150,7 +151,7 @@ const Header = () => {
                                   : loggedInUser?.email
                               }`}</span>
                             </SheetTitle>
-                            <SheetDescription>
+                            <SheetDescription className="text-left">
                               {loggedInUser?.email}
                             </SheetDescription>
                           </div>
