@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import Image from "next/image";
+import { redirect, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import { FaUserPlus, FaUserShield } from "react-icons/fa";
 import { BsPostcard } from "react-icons/bs";
 import { MdOutlinePostAdd } from "react-icons/md";
@@ -13,7 +14,6 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -29,16 +29,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { navListItems } from "@/config/config";
+import signOutService from "@/services/auth/signOutService";
 import HeaderRightContent from "@/components/header/headerRightContent";
 import Logo from "@/components/header/logo";
-import Image from "next/image";
 
 const Header = () => {
   const [openNavSheet, setOpenNavSheet] = useState(false);
+  const dispatch = useDispatch();
   const router = useRouter();
   const { isLoggedInUserLoading, loggedInUser } = useSelector(
     (state) => state.authReducer
   );
+
+  const handleSignOut = () => {
+    setOpenNavSheet(false);
+    console.log("in handleSignOut");
+    dispatch(signOutService()).then((data) => {
+      redirect("/");
+    });
+  };
 
   return (
     <section
@@ -46,7 +55,7 @@ const Header = () => {
         bg-white text-black"
     >
       <Logo />
-      <HeaderRightContent />
+      <HeaderRightContent handleSignOut={handleSignOut} />
       <Sheet open={openNavSheet} onOpenChange={setOpenNavSheet}>
         <SheetTrigger
           className="lg:hidden left-2 absolute hover:bg-[#bec44d] p-2 border-1 hover:border-white rounded-md hover:text-white text-xl transition-all ease-in-out"
@@ -91,7 +100,7 @@ const Header = () => {
                     <div className="flex flex-col justify-center items-center gap-2 w-full">
                       <li className="w-full">
                         <Link
-                          className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
+                          className="flex justify-start items-center gap-4 hover:bg-[#bec44d] p-3 px-5 rounded-lg font-semibold text-lg"
                           href="/signIn"
                         >
                           <FaUserShield />
@@ -100,7 +109,7 @@ const Header = () => {
                       </li>
                       <li className="w-full">
                         <Link
-                          className="flex justify-center items-center gap-2 hover:bg-[#bec44d] p-2 rounded-lg w-full"
+                          className="flex justify-start items-center gap-4 hover:bg-[#bec44d] p-3 px-5 rounded-lg font-semibold text-lg"
                           href="/signUp"
                         >
                           <FaUserPlus />
@@ -122,8 +131,15 @@ const Header = () => {
                         <div className="flex justify-center items-center gap-4 rounded-md w-full text-xl cursor-pointer">
                           <div>
                             <Avatar className="border-2 hover:border-[#bec44d] border-transparent rounded-full w-12 h-12 active:scale-90 transition-all ease-in-out">
-                              <AvatarImage src="https://github.com/shadcn.png" />
-                              <AvatarFallback>RR</AvatarFallback>
+                              <AvatarImage
+                                src={
+                                  loggedInUser?.profile?.profileImage ||
+                                  "https://github.com/shadcn.png"
+                                }
+                              />
+                              <AvatarFallback>
+                                {loggedInUser?.profile?.firstName[0].toUpperCase()}
+                              </AvatarFallback>
                             </Avatar>
                           </div>
                           <div>
@@ -179,8 +195,7 @@ const Header = () => {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => {
-                            setOpenNavSheet(false);
-                            router.push("/");
+                            handleSignOut();
                           }}
                         >
                           <RiLogoutCircleRLine />

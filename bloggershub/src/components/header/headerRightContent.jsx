@@ -1,9 +1,9 @@
 import NavList from "@/components/header/navList";
 
-const HeaderRightContent = () => {
+const HeaderRightContent = ({ handleSignOut }) => {
   return (
     <div className="hidden lg:flex">
-      <NavList />
+      <NavList handleSignOut={handleSignOut} />
     </div>
   );
 };

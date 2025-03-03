@@ -18,20 +18,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { navListItems } from "@/config/config";
 import fetchProfileService from "@/services/profile/fetchProfileService";
-import signOutService from "@/services/auth/signOutService";
 
-const NavList = () => {
+const NavList = ({ handleSignOut }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoggedInUserLoading, loggedInUser } = useSelector(
     (state) => state.authReducer
   );
-
-  const handleSignOut = () => {
-    dispatch(signOutService()).then((data) => {
-      redirect("/");
-    });
-  };
 
   useEffect(() => {
     dispatch(fetchProfileService(loggedInUser?.id));
@@ -87,7 +80,9 @@ const NavList = () => {
                         "https://github.com/shadcn.png"
                       }
                     />
-                    <AvatarFallback>RR</AvatarFallback>
+                    <AvatarFallback>
+                      {loggedInUser?.profile?.firstName[0].toUpperCase()}
+                    </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>

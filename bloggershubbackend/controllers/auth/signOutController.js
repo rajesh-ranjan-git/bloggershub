@@ -2,7 +2,7 @@
 const signOut = async (req, res) => {
   // Remove cookie to sign out
   return res
-    .clearCookie("token")
+    .clearCookie("authToken")
     .status(200)
     .json({ status: 200, success: true, message: "Signed out successfully!" });
 };
