@@ -9,6 +9,11 @@ const fetchAllCommentsOnPost = async (req, res) => {
       where: {
         postId: postId,
       },
+      orderBy: [
+        {
+          updatedAt: "desc",
+        },
+      ],
       include: {
         user: {
           select: {

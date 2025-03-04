@@ -12,10 +12,39 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import CustomButton from "@/components/customFormElements/customButton";
+import { useDispatch } from "react-redux";
+import addCommentService from "@/services/comments/addCommentService";
+import { toast } from "@/hooks/use-toast";
 
-const BlogAddCommentsCard = () => {
+const BlogAddCommentsCard = ({ postId }) => {
+  const { loggedInUser } = useSelector((state) => state.authReducer);
+  const dispatch = useDispatch();
   const commentInput = useRef(null);
-  const [comment, setComment] = useState("");
+  const [commentContent, setCommentContent] = useState("");
+
+  const handleAddComment = () => {
+    console.log("commentContent : ", commentContent);
+    console.log("loggedInUser?.id : ", loggedInUser?.id);
+    console.log("postId : ", postId);
+    dispatch(
+      addCommentService({
+        content: commentContent,
+        postId: postId,
+        userId: loggedInUser?.id,
+      })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+      } else {
+        toast({
+          title: data?.payload?.message,
+          variant: "destructive",
+        });
+      }
+    });
+  };
 
   const clearComment = () => {
     setComment("");
@@ -55,9 +84,7 @@ const BlogAddCommentsCard = () => {
         <CustomButton
           buttonText="Add Comment"
           buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
-          customButtonAction={() => {
-            console.log("comment : ", comment);
-          }}
+          customButtonAction={() => handleAddComment()}
           disabled={false}
         />
       </CardFooter>

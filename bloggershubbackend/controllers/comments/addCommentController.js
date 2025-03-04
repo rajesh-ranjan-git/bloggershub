@@ -1,58 +1,54 @@
+import vine, { errors } from "@vinejs/vine";
 import prisma from "../../db/dbConfig.js";
-import { getAuthorDetails } from "../posts/getAuthorDetails.js";
+import commentSchema from "../../validations/comments/commentSchema.js";
 
 //Fetch all comments on post
-const addCommentController = async (req, res) => {
+const addComment = async (req, res) => {
   try {
-    const { postId } = req.params;
+    const body = req.body;
 
-    const comments = await prisma.comment.findMany({
-      where: {
-        postId: postId,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            email: true,
-            profile: {
-              select: {
-                firstName: true,
-                middleName: true,
-                lastName: true,
-                profileImage: true,
-              },
-            },
-          },
-        },
-      },
+    const validator = vine.compile(commentSchema);
+    const payload = await validator.validate(body);
+
+    const newComment = await prisma.comment.create({
+      data: payload,
     });
 
-    // If comments on post does not exist
-    if (!comments) {
+    // If comment was not added
+    if (!newComment) {
       return res.json({
         status: 400,
         success: false,
-        message: "No comments on this post!",
+        message: "Unable to add comment!",
       });
     }
 
-    // If comments on post exist
+    // If comment was added
     return res.json({
       status: 200,
       success: true,
-      comments: comments,
-      message: "Comments fetched successfully!",
+      comment: newComment,
+      message: "Comment added successfully!",
     });
   } catch (error) {
-    console.log("error while fetching all posts by selected author : ", error);
-    // Check for other errors
-    return res.json({
-      status: 500,
-      success: false,
-      message: "Something went wrong!",
-    });
+    console.log("error while adding comment : ", error);
+    // Check for validation error
+    if (error instanceof errors.E_VALIDATION_ERROR) {
+      return res.json({
+        status: 400,
+        success: false,
+        message: "Validation Filed!",
+        error: error.messages,
+      });
+    } else {
+      // Check for other errors
+      return res.json({
+        status: 500,
+        success: false,
+        message: "Something went wrong!",
+      });
+    }
   }
 };
 
-export default addCommentController;
+export default addComment;

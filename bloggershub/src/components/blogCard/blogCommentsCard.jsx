@@ -18,7 +18,9 @@ const BlogCommentsCard = () => {
   const dispatch = useDispatch();
   const { blogId } = useParams();
   const postId = blogId;
-  const { comments } = useSelector((state) => state.commentsReducer);
+  const { isCommentsLoading, comments } = useSelector(
+    (state) => state.commentsReducer
+  );
 
   useEffect(() => {
     dispatch(fetchAllCommentsOnPostService(postId));
@@ -32,11 +34,20 @@ const BlogCommentsCard = () => {
       </CardHeader>
       <CardContent>
         <ScrollArea className="hover:shadow-md p-4 border rounded-md w-full h-[50vh]">
-          {comments && comments.length > 0
+          {!isCommentsLoading ? (
+            comments && comments.length > 0 ? (
+              comments.map((comment) => (
+                <CommentItem comment={comment} key={comment.id} />
+              ))
+            ) : null
+          ) : (
+            <div>Comments are loading...</div>
+          )}
+          {/* {comments && comments.length > 0
             ? comments.map((comment) => (
                 <CommentItem comment={comment} key={comment.id} />
               ))
-            : null}
+            : null} */}
         </ScrollArea>
       </CardContent>
     </Card>
