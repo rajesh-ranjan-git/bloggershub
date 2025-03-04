@@ -9,10 +9,25 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import editCommentService from "@/services/comments/editCommentService";
 import deleteCommentService from "@/services/comments/deleteCommentService";
+import likeCommentService from "@/services/comments/likeCommentService";
 
 const CommentItem = ({ comment }) => {
   const dispatch = useDispatch();
   const { loggedInUser } = useSelector((state) => state.authReducer);
+
+  const handleCommentLike = (type) => {
+    const liked = type === "like" ? true : type === "dislike" ? false : null;
+
+    if (liked !== null) {
+      dispatch(
+        likeCommentService({
+          liked: liked,
+          commentId: comment?.id,
+          userId: loggedInUser?.id,
+        })
+      );
+    }
+  };
 
   const handleEditComment = () => {
     dispatch(
@@ -94,14 +109,14 @@ const CommentItem = ({ comment }) => {
             <Button
               variant="outline"
               className="hover:bg-blue-600 p-0 border-blue-600 w-10 text-blue-600 hover:text-white"
-              onClick={() => console.log("like")}
+              onClick={() => handleCommentLike("like")}
             >
               <AiOutlineLike />
             </Button>
             <Button
               variant="outline"
               className="hover:bg-red-500 p-0 border-red-500 w-10 text-red-500 hover:text-white"
-              onClick={() => console.log("dislike")}
+              onClick={() => handleCommentLike("dislike")}
             >
               <BiDislike />
             </Button>

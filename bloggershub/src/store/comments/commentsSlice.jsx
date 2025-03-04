@@ -3,6 +3,7 @@ import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsO
 import addCommentService from "@/services/comments/addCommentService";
 import editCommentService from "@/services/comments/editCommentService";
 import deleteCommentService from "@/services/comments/deleteCommentService";
+import likeCommentService from "@/services/comments/likeCommentService";
 
 const initialState = {
   isCommentsLoading: true,
@@ -30,7 +31,7 @@ const CommentsSlice = createSlice({
       .addCase(addCommentService.pending, (state) => {
         state.isCommentsLoading = true;
       })
-      .addCase(addCommentService.fulfilled, (state) => {
+      .addCase(addCommentService.fulfilled, (state, action) => {
         state.comment = action.payload?.comment;
         state.isCommentsLoading = false;
       })
@@ -40,7 +41,7 @@ const CommentsSlice = createSlice({
       .addCase(editCommentService.pending, (state) => {
         state.isCommentsLoading = true;
       })
-      .addCase(editCommentService.fulfilled, (state) => {
+      .addCase(editCommentService.fulfilled, (state, action) => {
         state.comment = action.payload?.comment;
         state.isCommentsLoading = true;
       })
@@ -54,6 +55,15 @@ const CommentsSlice = createSlice({
         state.isCommentsLoading = false;
       })
       .addCase(deleteCommentService.rejected, (state) => {
+        state.isCommentsLoading = false;
+      })
+      .addCase(likeCommentService.pending, (state) => {
+        state.isCommentsLoading = true;
+      })
+      .addCase(likeCommentService.fulfilled, (state) => {
+        state.isCommentsLoading = false;
+      })
+      .addCase(likeCommentService.rejected, (state) => {
         state.isCommentsLoading = false;
       });
   },

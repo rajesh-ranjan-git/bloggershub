@@ -20,6 +20,7 @@ export const fetchAllCommentsOnPostServiceApi = `${baseApiUrl}/comments/fetchAll
 export const addCommentServiceApi = `${baseApiUrl}/comments/addComment`;
 export const editCommentServiceApi = `${baseApiUrl}/comments/editComment`;
 export const deleteCommentServiceApi = `${baseApiUrl}/comments/deleteComment`;
+export const likeCommentServiceApi = `${baseApiUrl}/comments/likeComment`;
 
 // Profile APIs
 export const fetchProfileServiceApi = `${baseApiUrl}/profile/fetchProfile`;
