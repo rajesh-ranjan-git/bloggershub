@@ -4,10 +4,16 @@ const CustomButton = ({
   type = null,
   buttonText = "Submit",
   buttonStyle,
+  customButtonAction = () => {},
   disabled = false,
 }) => {
   return (
-    <Button type={type} disabled={disabled} className={buttonStyle}>
+    <Button
+      type={type}
+      disabled={disabled}
+      className={buttonStyle}
+      onClick={customButtonAction}
+    >
       {buttonText}
     </Button>
   );

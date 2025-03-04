@@ -1,7 +1,8 @@
 import prisma from "../../db/dbConfig.js";
+import { getAuthorDetails } from "../posts/getAuthorDetails.js";
 
 //Fetch all comments on post
-const fetchAllCommentsOnPost = async (req, res) => {
+const addCommentController = async (req, res) => {
   try {
     const { postId } = req.params;
 
@@ -54,4 +55,4 @@ const fetchAllCommentsOnPost = async (req, res) => {
   }
 };
 
-export default fetchAllCommentsOnPost;
+export default addCommentController;

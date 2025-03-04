@@ -5,5 +5,6 @@ const postsRouter = Router();
 
 // Posts router
 postsRouter.get("/fetchAllCommentsOnPost/:postId", fetchAllCommentsOnPost);
+postsRouter.post("/addComment/:postId", addComment);
 
 export default postsRouter;
