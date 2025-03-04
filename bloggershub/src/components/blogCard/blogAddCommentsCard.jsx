@@ -67,7 +67,7 @@ const BlogAddCommentsCard = ({ postId }) => {
           className="shadow-md focus-visible:shadow-md focus-visible:ring-[#bec44d] w-full"
           ref={commentInput}
           onChange={(e) => {
-            setComment(e.target.value);
+            setCommentContent(e.target.value);
           }}
         />
       </CardContent>

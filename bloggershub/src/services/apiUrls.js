@@ -18,6 +18,8 @@ export const fetchAllPostsByAuthorServiceApi = `${baseApiUrl}/posts/fetchAllPost
 // Comments APIs
 export const fetchAllCommentsOnPostServiceApi = `${baseApiUrl}/comments/fetchAllCommentsOnPost`;
 export const addCommentServiceApi = `${baseApiUrl}/comments/addComment`;
+export const editCommentServiceApi = `${baseApiUrl}/comments/editComment`;
+export const deleteCommentServiceApi = `${baseApiUrl}/comments/deleteComment`;
 
 // Profile APIs
 export const fetchProfileServiceApi = `${baseApiUrl}/profile/fetchProfile`;

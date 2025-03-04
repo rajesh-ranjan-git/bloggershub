@@ -6,7 +6,7 @@ const addCommentService = createAsyncThunk(
   "/posts/addCommentService",
   async ({ content, postId, userId }) => {
     try {
-      const addCommentServiceResponse = await axios.get(addCommentServiceApi, {
+      const addCommentServiceResponse = await axios.post(addCommentServiceApi, {
         content,
         postId,
         userId,

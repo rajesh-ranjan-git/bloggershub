@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdDelete, MdModeEdit } from "react-icons/md";
@@ -6,9 +6,51 @@ import { BiDislike } from "react-icons/bi";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
+import editCommentService from "@/services/comments/editCommentService";
+import deleteCommentService from "@/services/comments/deleteCommentService";
 
 const CommentItem = ({ comment }) => {
+  const dispatch = useDispatch();
   const { loggedInUser } = useSelector((state) => state.authReducer);
+
+  const handleEditComment = () => {
+    dispatch(
+      editCommentService({
+        id: comment?.id,
+        content: comment?.content,
+        userId: loggedInUser?.id,
+      })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+      } else {
+        toast({
+          title: data?.payload?.message,
+          variant: "destructive",
+        });
+      }
+    });
+  };
+
+  const handleDeleteComment = () => {
+    dispatch(
+      deleteCommentService({ id: comment?.id, userId: loggedInUser?.id })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+      } else {
+        toast({
+          title: data?.payload?.message,
+          variant: "destructive",
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -69,14 +111,14 @@ const CommentItem = ({ comment }) => {
               <Button
                 variant="outline"
                 className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
-                onClick={() => console.log("edit")}
+                onClick={() => handleEditComment()}
               >
                 <MdModeEdit />
               </Button>
               <Button
                 variant="outline"
                 className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
-                onClick={() => console.log("delete")}
+                onClick={() => handleDeleteComment()}
               >
                 <MdDelete />
               </Button>

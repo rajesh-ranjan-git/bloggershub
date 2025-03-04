@@ -3,10 +3,9 @@ import CustomErrorReporter from "../errorReporter/errorReporter.js";
 
 vine.errorReporter = () => new CustomErrorReporter();
 
-export const commentSchema = vine.object({
-  content: vine.string().trim().minLength(2),
-  postId: vine.string().uuid(),
+export const deleteCommentSchema = vine.object({
+  id: vine.string().uuid(),
   userId: vine.string().uuid(),
 });
 
-export default commentSchema;
+export default deleteCommentSchema;

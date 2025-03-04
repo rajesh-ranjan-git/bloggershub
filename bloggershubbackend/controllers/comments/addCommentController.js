@@ -1,13 +1,13 @@
 import vine, { errors } from "@vinejs/vine";
 import prisma from "../../db/dbConfig.js";
-import commentSchema from "../../validations/comments/commentSchema.js";
+import addCommentSchema from "../../validations/comments/addCommentSchema.js";
 
 //Fetch all comments on post
 const addComment = async (req, res) => {
   try {
     const body = req.body;
 
-    const validator = vine.compile(commentSchema);
+    const validator = vine.compile(addCommentSchema);
     const payload = await validator.validate(body);
 
     const newComment = await prisma.comment.create({
