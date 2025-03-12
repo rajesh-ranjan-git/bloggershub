@@ -65,7 +65,7 @@ const deleteComment = async (req, res) => {
       return res.json({
         status: 400,
         success: false,
-        message: "Validation Filed!",
+        message: "Validation Failed!",
         error: error.messages,
       });
     } else {

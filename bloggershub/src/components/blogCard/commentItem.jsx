@@ -8,10 +8,9 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import editCommentService from "@/services/comments/editCommentService";
-import deleteCommentService from "@/services/comments/deleteCommentService";
 import likeCommentService from "@/services/comments/likeCommentService";
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ comment, handleDeleteComment }) => {
   const dispatch = useDispatch();
   const { loggedInUser } = useSelector((state) => state.authReducer);
 
@@ -36,23 +35,6 @@ const CommentItem = ({ comment }) => {
         content: comment?.content,
         userId: loggedInUser?.id,
       })
-    ).then((data) => {
-      if (data?.payload?.success) {
-        toast({
-          title: data?.payload?.message,
-        });
-      } else {
-        toast({
-          title: data?.payload?.message,
-          variant: "destructive",
-        });
-      }
-    });
-  };
-
-  const handleDeleteComment = () => {
-    dispatch(
-      deleteCommentService({ id: comment?.id, userId: loggedInUser?.id })
     ).then((data) => {
       if (data?.payload?.success) {
         toast({
@@ -133,7 +115,7 @@ const CommentItem = ({ comment }) => {
               <Button
                 variant="outline"
                 className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
-                onClick={() => handleDeleteComment()}
+                onClick={() => handleDeleteComment(comment?.id)}
               >
                 <MdDelete />
               </Button>

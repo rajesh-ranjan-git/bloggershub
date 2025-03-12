@@ -113,7 +113,11 @@ const BlogItem = () => {
             </div>
             {loggedInUser && (
               <div className="min-w-96">
-                <BlogAddCommentsCard postId={postId} />
+                <BlogAddCommentsCard
+                  postId={postId}
+                  // handleAddComment={handleAddComment}
+                  // setCommentContent={setCommentContent}
+                />
               </div>
             )}
             <div className="min-w-96">

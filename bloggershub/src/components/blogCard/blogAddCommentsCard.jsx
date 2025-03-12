@@ -1,6 +1,6 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,20 +12,16 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import CustomButton from "@/components/customFormElements/customButton";
-import { useDispatch } from "react-redux";
 import addCommentService from "@/services/comments/addCommentService";
-import { toast } from "@/hooks/use-toast";
+import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPostService";
 
 const BlogAddCommentsCard = ({ postId }) => {
-  const { loggedInUser } = useSelector((state) => state.authReducer);
-  const dispatch = useDispatch();
   const commentInput = useRef(null);
   const [commentContent, setCommentContent] = useState("");
+  const dispatch = useDispatch();
+  const { loggedInUser } = useSelector((state) => state.authReducer);
 
-  const handleAddComment = () => {
-    console.log("commentContent : ", commentContent);
-    console.log("loggedInUser?.id : ", loggedInUser?.id);
-    console.log("postId : ", postId);
+  const handleAddComment = (postId) => {
     dispatch(
       addCommentService({
         content: commentContent,
@@ -33,10 +29,12 @@ const BlogAddCommentsCard = ({ postId }) => {
         userId: loggedInUser?.id,
       })
     ).then((data) => {
+      dispatch(fetchAllCommentsOnPostService(postId));
       if (data?.payload?.success) {
         toast({
           title: data?.payload?.message,
         });
+        clearComment();
       } else {
         toast({
           title: data?.payload?.message,
@@ -47,13 +45,9 @@ const BlogAddCommentsCard = ({ postId }) => {
   };
 
   const clearComment = () => {
-    setComment("");
+    setCommentContent("");
     commentInput.current.value = "";
   };
-
-  // useEffect(() => {
-  //   console.log(comment);
-  // }, [comment]);
 
   return (
     <Card className="hover:shadow-md w-full">
@@ -84,7 +78,7 @@ const BlogAddCommentsCard = ({ postId }) => {
         <CustomButton
           buttonText="Add Comment"
           buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
-          customButtonAction={() => handleAddComment()}
+          customButtonAction={() => handleAddComment(postId)}
           disabled={false}
         />
       </CardFooter>

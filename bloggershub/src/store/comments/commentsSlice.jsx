@@ -33,6 +33,7 @@ const CommentsSlice = createSlice({
       })
       .addCase(addCommentService.fulfilled, (state, action) => {
         state.comment = action.payload?.comment;
+        console.log("New comment : ", action.payload?.comment);
         state.isCommentsLoading = false;
       })
       .addCase(addCommentService.rejected, (state) => {

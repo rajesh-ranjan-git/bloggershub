@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "@/hooks/use-toast";
 import {
   Card,
   CardContent,
@@ -12,15 +13,35 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPostService";
+import deleteCommentService from "@/services/comments/deleteCommentService";
 import CommentItem from "@/components/blogCard/commentItem";
 
 const BlogCommentsCard = () => {
   const dispatch = useDispatch();
   const { blogId } = useParams();
   const postId = blogId;
+  const { loggedInUser } = useSelector((state) => state.authReducer);
   const { isCommentsLoading, comments } = useSelector(
     (state) => state.commentsReducer
   );
+
+  const handleDeleteComment = (commentId) => {
+    dispatch(
+      deleteCommentService({ id: commentId, userId: loggedInUser?.id })
+    ).then((data) => {
+      dispatch(fetchAllCommentsOnPostService(postId));
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+      } else {
+        toast({
+          title: data?.payload?.message,
+          variant: "destructive",
+        });
+      }
+    });
+  };
 
   useEffect(() => {
     dispatch(fetchAllCommentsOnPostService(postId));
@@ -37,7 +58,11 @@ const BlogCommentsCard = () => {
           {!isCommentsLoading ? (
             comments && comments.length > 0 ? (
               comments.map((comment) => (
-                <CommentItem comment={comment} key={comment.id} />
+                <CommentItem
+                  comment={comment}
+                  key={comment.id}
+                  handleDeleteComment={handleDeleteComment}
+                />
               ))
             ) : null
           ) : (
