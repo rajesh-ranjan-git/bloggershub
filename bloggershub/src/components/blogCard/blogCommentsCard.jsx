@@ -15,6 +15,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPostService";
 import deleteCommentService from "@/services/comments/deleteCommentService";
 import CommentItem from "@/components/blogCard/commentItem";
+import likeCommentService from "@/services/comments/likeCommentService";
 
 const BlogCommentsCard = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,22 @@ const BlogCommentsCard = () => {
   const { isCommentsLoading, comments } = useSelector(
     (state) => state.commentsReducer
   );
+
+  const handleCommentLike = (type, commentId) => {
+    const liked = type === "like" ? true : type === "dislike" ? false : null;
+
+    if (liked !== null) {
+      dispatch(
+        likeCommentService({
+          liked: liked,
+          commentId: commentId,
+          userId: loggedInUser?.id,
+        })
+      ).then((data) => {
+        dispatch(fetchAllCommentsOnPostService(postId));
+      });
+    }
+  };
 
   const handleDeleteComment = (commentId) => {
     dispatch(
@@ -61,6 +78,7 @@ const BlogCommentsCard = () => {
                 <CommentItem
                   comment={comment}
                   key={comment.id}
+                  handleCommentLike={handleCommentLike}
                   handleDeleteComment={handleDeleteComment}
                 />
               ))

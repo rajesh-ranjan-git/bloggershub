@@ -10,6 +10,10 @@ const fetchAllCommentsOnPostService = createAsyncThunk(
         `${fetchAllCommentsOnPostServiceApi}/${postId}`
       );
 
+      console.log(
+        "fetchAllCommentsOnPostServiceResponse.data : ",
+        fetchAllCommentsOnPostServiceResponse.data
+      );
       return fetchAllCommentsOnPostServiceResponse.data;
     } catch (error) {
       return error.response.data;

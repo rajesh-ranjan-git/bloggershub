@@ -10,23 +10,9 @@ import { toast } from "@/hooks/use-toast";
 import editCommentService from "@/services/comments/editCommentService";
 import likeCommentService from "@/services/comments/likeCommentService";
 
-const CommentItem = ({ comment, handleDeleteComment }) => {
+const CommentItem = ({ comment, handleCommentLike, handleDeleteComment }) => {
   const dispatch = useDispatch();
   const { loggedInUser } = useSelector((state) => state.authReducer);
-
-  const handleCommentLike = (type) => {
-    const liked = type === "like" ? true : type === "dislike" ? false : null;
-
-    if (liked !== null) {
-      dispatch(
-        likeCommentService({
-          liked: liked,
-          commentId: comment?.id,
-          userId: loggedInUser?.id,
-        })
-      );
-    }
-  };
 
   const handleEditComment = () => {
     dispatch(
@@ -86,42 +72,64 @@ const CommentItem = ({ comment, handleDeleteComment }) => {
         <div className="my-2 p-2 border rounded-md">
           <p>{comment?.content}</p>
         </div>
-        <div className="flex justify-between items-center text-xl">
-          <div className="flex justify-between items-center gap-4">
-            <Button
-              variant="outline"
-              className="hover:bg-blue-600 p-0 border-blue-600 w-10 text-blue-600 hover:text-white"
-              onClick={() => handleCommentLike("like")}
-            >
-              <AiOutlineLike />
-            </Button>
-            <Button
-              variant="outline"
-              className="hover:bg-red-500 p-0 border-red-500 w-10 text-red-500 hover:text-white"
-              onClick={() => handleCommentLike("dislike")}
-            >
-              <BiDislike />
-            </Button>
-          </div>
-          {loggedInUser && loggedInUser?.id === comment?.userId && (
+        {loggedInUser && (
+          <div className="flex justify-between items-center text-xl">
             <div className="flex justify-between items-center gap-4">
               <Button
                 variant="outline"
-                className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
-                onClick={() => handleEditComment()}
+                className={`${
+                  comment?.CommentLikes &&
+                  comment?.CommentLikes.filter(
+                    (item) => item.liked && item.userId === loggedInUser?.id
+                  ).length > 0
+                    ? "bg-blue-600 text-white hover:text-blue-600"
+                    : "hover:bg-blue-600 text-blue-600 hover:text-white"
+                } p-2 border-blue-600 min-w-10 `}
+                onClick={() => handleCommentLike("like", comment?.id)}
               >
-                <MdModeEdit />
+                <AiOutlineLike />
+                {comment?.likesCount > 0 ? (
+                  <span className="text-sm">{comment?.likesCount}</span>
+                ) : null}
               </Button>
               <Button
                 variant="outline"
-                className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
-                onClick={() => handleDeleteComment(comment?.id)}
+                className={`${
+                  comment?.CommentLikes &&
+                  comment?.CommentLikes.filter(
+                    (item) => !item.liked && item.userId === loggedInUser?.id
+                  ).length > 0
+                    ? "bg-red-600 text-white hover:text-red-600"
+                    : "hover:bg-red-600 text-red-600 hover:text-white"
+                }  p-2 border-red-500 min-w-10 `}
+                onClick={() => handleCommentLike("dislike", comment?.id)}
               >
-                <MdDelete />
+                <BiDislike />
+                {comment?.dislikesCount > 0 ? (
+                  <span className="text-sm">{comment?.dislikesCount}</span>
+                ) : null}
               </Button>
             </div>
-          )}
-        </div>
+            {loggedInUser?.id === comment?.userId ? (
+              <div className="flex justify-between items-center gap-4">
+                <Button
+                  variant="outline"
+                  className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
+                  onClick={() => handleEditComment()}
+                >
+                  <MdModeEdit />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
+                  onClick={() => handleDeleteComment(comment?.id)}
+                >
+                  <MdDelete />
+                </Button>
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
       <Separator className="my-5" />
     </>

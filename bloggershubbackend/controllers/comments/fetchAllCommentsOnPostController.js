@@ -29,6 +29,12 @@ const fetchAllCommentsOnPost = async (req, res) => {
             },
           },
         },
+        CommentLikes: {
+          select: {
+            liked: true,
+            userId: true,
+          },
+        },
       },
     });
 
@@ -42,10 +48,36 @@ const fetchAllCommentsOnPost = async (req, res) => {
     }
 
     // If comments on post exist
+    // Map comments to include likes count and dislikes count
+    const commentsWithLikes = comments.map((comment) => {
+      const likesCount = comment.CommentLikes.filter(
+        (like) => like.liked
+      ).length;
+      const dislikesCount = comment.CommentLikes.filter(
+        (like) => !like.liked
+      ).length;
+
+      return {
+        ...comment,
+        likesCount,
+        dislikesCount,
+      };
+    });
+
+    // If comments with likes on post does not exist
+    if (!commentsWithLikes) {
+      return res.json({
+        status: 200,
+        success: true,
+        comments: comments,
+        message: "No comments on this post!",
+      });
+    }
+
     return res.json({
       status: 200,
       success: true,
-      comments: comments,
+      comments: commentsWithLikes,
       message: "Comments fetched successfully!",
     });
   } catch (error) {
