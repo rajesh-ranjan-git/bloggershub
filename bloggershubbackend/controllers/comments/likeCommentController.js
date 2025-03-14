@@ -66,7 +66,6 @@ const likeComment = async (req, res) => {
           },
         },
       });
-      console.log("if likedComment : ", likedComment);
     } else if (likedComment.liked !== payload.liked) {
       likedComment = await prisma.commentLikes.update({
         where: {
