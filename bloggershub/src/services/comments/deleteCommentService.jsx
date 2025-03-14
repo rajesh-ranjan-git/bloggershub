@@ -5,8 +5,6 @@ import { deleteCommentServiceApi } from "@/services/apiUrls";
 const deleteCommentService = createAsyncThunk(
   "/posts/deleteCommentService",
   async ({ id, userId }) => {
-    console.log("id : ", id);
-    console.log("userId : ", userId);
     try {
       const deleteCommentServiceResponse = await axios.delete(
         deleteCommentServiceApi,

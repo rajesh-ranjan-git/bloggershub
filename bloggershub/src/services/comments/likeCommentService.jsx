@@ -6,6 +6,9 @@ const likeCommentService = createAsyncThunk(
   "/posts/likeCommentService",
   async ({ liked, commentId, userId }) => {
     try {
+      console.log("liked : ", liked);
+      console.log("commentId : ", commentId);
+      console.log("userId : ", userId);
       const likeCommentServiceResponse = await axios.post(
         likeCommentServiceApi,
         {
@@ -15,6 +18,10 @@ const likeCommentService = createAsyncThunk(
         }
       );
 
+      console.log(
+        "likeCommentServiceResponse.data : ",
+        likeCommentServiceResponse.data
+      );
       return likeCommentServiceResponse.data;
     } catch (error) {
       return error.response.data;

@@ -68,11 +68,6 @@ const BlogCommentsCard = () => {
           ) : (
             <div>Comments are loading...</div>
           )}
-          {/* {comments && comments.length > 0
-            ? comments.map((comment) => (
-                <CommentItem comment={comment} key={comment.id} />
-              ))
-            : null} */}
         </ScrollArea>
       </CardContent>
     </Card>

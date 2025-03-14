@@ -26,24 +26,54 @@ const likeComment = async (req, res) => {
       });
     }
 
-    // Check if comment exists in CommentLikes
+    // Check if comment is liked by user previously
     let likedComment = await prisma.commentLikes.findUnique({
       where: {
-        commentId: payload.commentId,
+        userId_commentId: {
+          userId: payload.userId,
+          commentId: payload.commentId,
+        },
       },
     });
 
-    // If comment exists in CommentLikes, update like record
-    if (likedComment && likedComment.liked === payload.liked) {
-      return res.json({
-        status: 400,
-        success: false,
-        message: "Invalid like operation!",
+    // If comment is not liked by user previously, create like record
+    if (!likedComment) {
+      const createLikedComment = await prisma.commentLikes.create({
+        data: payload,
       });
-    } else if (likedComment && likedComment.liked !== payload.liked) {
+
+      if (!createLikedComment) {
+        return res.json({
+          status: 400,
+          success: false,
+          message: "Like operation failed!",
+        });
+      }
+      return res.json({
+        status: 200,
+        success: true,
+        message: "Like operation successful!",
+      });
+    }
+
+    // If comment is liked by user previously, update like record
+    if (likedComment.liked === payload.liked) {
+      likedComment = await prisma.commentLikes.delete({
+        where: {
+          userId_commentId: {
+            userId: payload.userId,
+            commentId: payload.commentId,
+          },
+        },
+      });
+      console.log("if likedComment : ", likedComment);
+    } else if (likedComment.liked !== payload.liked) {
       likedComment = await prisma.commentLikes.update({
         where: {
-          commentId: payload.commentId,
+          userId_commentId: {
+            userId: payload.userId,
+            commentId: payload.commentId,
+          },
         },
         data: {
           liked: payload.liked,
@@ -51,23 +81,18 @@ const likeComment = async (req, res) => {
       });
     }
 
-    // If comment does not exist in CommentLikes, create like record
-    likedComment = await prisma.commentLikes.create({
-      data: payload,
-    });
-
-    // If unable to create like record
-    if (!likedComment) {
+    if (likeComment) {
       return res.json({
-        status: 400,
-        success: false,
-        message: "Unable to perform like operation!",
+        status: 200,
+        success: true,
+        message: "Like operation successful!",
       });
     }
+
     return res.json({
-      status: 200,
-      success: true,
-      message: "Like operation successful!",
+      status: 400,
+      success: false,
+      message: "Unable to perform like operation!",
     });
   } catch (error) {
     console.log("error while adding comment : ", error);
