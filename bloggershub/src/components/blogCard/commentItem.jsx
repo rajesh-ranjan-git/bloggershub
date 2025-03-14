@@ -72,64 +72,80 @@ const CommentItem = ({ comment, handleCommentLike, handleDeleteComment }) => {
         <div className="my-2 p-2 border rounded-md">
           <p>{comment?.content}</p>
         </div>
-        {loggedInUser && (
-          <div className="flex justify-between items-center text-xl">
+        <div className="flex justify-between items-center text-xl">
+          <div className="flex justify-between items-center gap-4">
+            <Button
+              variant="outline"
+              className={`${
+                comment?.CommentLikes &&
+                comment?.CommentLikes.filter(
+                  (item) => item.liked && item.userId === loggedInUser?.id
+                ).length > 0
+                  ? "bg-blue-600 text-white hover:text-blue-600"
+                  : "hover:bg-blue-600 text-blue-600 hover:text-white"
+              } p-2 border-blue-600 min-w-10 `}
+              onClick={
+                loggedInUser
+                  ? () => handleCommentLike("like", comment?.id)
+                  : () =>
+                      toast({
+                        title: "Invalid request!",
+                        description: "Please sign in to like comments!",
+                        variant: "destructive",
+                      })
+              }
+            >
+              <AiOutlineLike />
+              {comment?.likesCount > 0 ? (
+                <span className="text-sm">{comment?.likesCount}</span>
+              ) : null}
+            </Button>
+            <Button
+              variant="outline"
+              className={`${
+                comment?.CommentLikes &&
+                comment?.CommentLikes.filter(
+                  (item) => !item.liked && item.userId === loggedInUser?.id
+                ).length > 0
+                  ? "bg-red-600 text-white hover:text-red-600"
+                  : "hover:bg-red-600 text-red-600 hover:text-white"
+              }  p-2 border-red-500 min-w-10 `}
+              onClick={
+                loggedInUser
+                  ? () => handleCommentLike("dislike", comment?.id)
+                  : () =>
+                      toast({
+                        title: "Invalid request!",
+                        description: "Please sign in to dislike comments!",
+                        variant: "destructive",
+                      })
+              }
+            >
+              <BiDislike />
+              {comment?.dislikesCount > 0 ? (
+                <span className="text-sm">{comment?.dislikesCount}</span>
+              ) : null}
+            </Button>
+          </div>
+          {loggedInUser && loggedInUser?.id === comment?.userId ? (
             <div className="flex justify-between items-center gap-4">
               <Button
                 variant="outline"
-                className={`${
-                  comment?.CommentLikes &&
-                  comment?.CommentLikes.filter(
-                    (item) => item.liked && item.userId === loggedInUser?.id
-                  ).length > 0
-                    ? "bg-blue-600 text-white hover:text-blue-600"
-                    : "hover:bg-blue-600 text-blue-600 hover:text-white"
-                } p-2 border-blue-600 min-w-10 `}
-                onClick={() => handleCommentLike("like", comment?.id)}
+                className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
+                onClick={() => handleEditComment()}
               >
-                <AiOutlineLike />
-                {comment?.likesCount > 0 ? (
-                  <span className="text-sm">{comment?.likesCount}</span>
-                ) : null}
+                <MdModeEdit />
               </Button>
               <Button
                 variant="outline"
-                className={`${
-                  comment?.CommentLikes &&
-                  comment?.CommentLikes.filter(
-                    (item) => !item.liked && item.userId === loggedInUser?.id
-                  ).length > 0
-                    ? "bg-red-600 text-white hover:text-red-600"
-                    : "hover:bg-red-600 text-red-600 hover:text-white"
-                }  p-2 border-red-500 min-w-10 `}
-                onClick={() => handleCommentLike("dislike", comment?.id)}
+                className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
+                onClick={() => handleDeleteComment(comment?.id)}
               >
-                <BiDislike />
-                {comment?.dislikesCount > 0 ? (
-                  <span className="text-sm">{comment?.dislikesCount}</span>
-                ) : null}
+                <MdDelete />
               </Button>
             </div>
-            {loggedInUser?.id === comment?.userId ? (
-              <div className="flex justify-between items-center gap-4">
-                <Button
-                  variant="outline"
-                  className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
-                  onClick={() => handleEditComment()}
-                >
-                  <MdModeEdit />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
-                  onClick={() => handleDeleteComment(comment?.id)}
-                >
-                  <MdDelete />
-                </Button>
-              </div>
-            ) : null}
-          </div>
-        )}
+          ) : null}
+        </div>
       </div>
       <Separator className="my-5" />
     </>
