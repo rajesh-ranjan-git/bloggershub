@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsOnPostService";
 import addCommentService from "@/services/comments/addCommentService";
-import editCommentService from "@/services/comments/editCommentService";
+import updateCommentService from "@/services/comments/updateCommentService";
 import deleteCommentService from "@/services/comments/deleteCommentService";
 import likeCommentService from "@/services/comments/likeCommentService";
 
@@ -38,15 +38,15 @@ const CommentsSlice = createSlice({
       .addCase(addCommentService.rejected, (state) => {
         state.isCommentsLoading = false;
       })
-      .addCase(editCommentService.pending, (state) => {
+      .addCase(updateCommentService.pending, (state) => {
         state.isCommentsLoading = true;
       })
-      .addCase(editCommentService.fulfilled, (state, action) => {
+      .addCase(updateCommentService.fulfilled, (state, action) => {
         state.comment = action.payload?.comment;
-        state.isCommentsLoading = true;
+        state.isCommentsLoading = false;
       })
-      .addCase(editCommentService.rejected, (state) => {
-        state.isCommentsLoading = true;
+      .addCase(updateCommentService.rejected, (state) => {
+        state.isCommentsLoading = false;
       })
       .addCase(deleteCommentService.pending, (state) => {
         state.isCommentsLoading = true;

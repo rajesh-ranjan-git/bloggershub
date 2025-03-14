@@ -79,7 +79,7 @@ const BlogAddCommentsCard = ({ postId }) => {
           buttonText="Add Comment"
           buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
           customButtonAction={() => handleAddComment(postId)}
-          disabled={false}
+          disabled={commentContent.length < 2}
         />
       </CardFooter>
     </Card>

@@ -16,6 +16,7 @@ import fetchAllCommentsOnPostService from "@/services/comments/fetchAllCommentsO
 import deleteCommentService from "@/services/comments/deleteCommentService";
 import CommentItem from "@/components/blogCard/commentItem";
 import likeCommentService from "@/services/comments/likeCommentService";
+import updateCommentService from "@/services/comments/updateCommentService";
 
 const BlogCommentsCard = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,28 @@ const BlogCommentsCard = () => {
         dispatch(fetchAllCommentsOnPostService(postId));
       });
     }
+  };
+
+  const handleUpdateComment = (commentId, updatedCommentContent) => {
+    dispatch(
+      updateCommentService({
+        id: commentId,
+        content: updatedCommentContent,
+        userId: loggedInUser?.id,
+      })
+    ).then((data) => {
+      dispatch(fetchAllCommentsOnPostService(postId));
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+      } else {
+        toast({
+          title: data?.payload?.message,
+          variant: "destructive",
+        });
+      }
+    });
   };
 
   const handleDeleteComment = (commentId) => {
@@ -79,6 +102,7 @@ const BlogCommentsCard = () => {
                   comment={comment}
                   key={comment.id}
                   handleCommentLike={handleCommentLike}
+                  handleUpdateComment={handleUpdateComment}
                   handleDeleteComment={handleDeleteComment}
                 />
               ))

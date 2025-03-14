@@ -1,38 +1,50 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import { BiDislike } from "react-icons/bi";
+import { toast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
-import editCommentService from "@/services/comments/editCommentService";
-import likeCommentService from "@/services/comments/likeCommentService";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Textarea } from "@/components/ui/textarea";
+import CustomButton from "@/components/customFormElements/customButton";
 
-const CommentItem = ({ comment, handleCommentLike, handleDeleteComment }) => {
-  const dispatch = useDispatch();
+const CommentItem = ({
+  comment,
+  handleCommentLike,
+  handleUpdateComment,
+  handleDeleteComment,
+}) => {
+  const commentInput = useRef(null);
+  const [updatedCommentContent, setUpdatedCommentContent] = useState("");
   const { loggedInUser } = useSelector((state) => state.authReducer);
 
-  const handleEditComment = () => {
-    dispatch(
-      editCommentService({
-        id: comment?.id,
-        content: comment?.content,
-        userId: loggedInUser?.id,
-      })
-    ).then((data) => {
-      if (data?.payload?.success) {
-        toast({
-          title: data?.payload?.message,
-        });
-      } else {
-        toast({
-          title: data?.payload?.message,
-          variant: "destructive",
-        });
-      }
-    });
+  const clearComment = () => {
+    setUpdatedCommentContent("");
+    commentInput.current.value = "";
   };
 
   return (
@@ -129,20 +141,82 @@ const CommentItem = ({ comment, handleCommentLike, handleDeleteComment }) => {
           </div>
           {loggedInUser && loggedInUser?.id === comment?.userId ? (
             <div className="flex justify-between items-center gap-4">
-              <Button
-                variant="outline"
-                className="hover:bg-green-600 p-0 border-green-600 w-10 text-green-600 hover:text-white"
-                onClick={() => handleEditComment()}
-              >
-                <MdModeEdit />
-              </Button>
-              <Button
-                variant="outline"
-                className="hover:bg-red-600 p-0 border-red-600 w-10 text-red-600 hover:text-white"
-                onClick={() => handleDeleteComment(comment?.id)}
-              >
-                <MdDelete />
-              </Button>
+              <Drawer>
+                <DrawerTrigger
+                  className="flex justify-center items-center hover:bg-green-600 p-2 border border-green-600 rounded-md w-10 text-green-600 hover:text-white transition-all ease-in-out"
+                  onClick={() => {
+                    setUpdatedCommentContent(comment?.content);
+                  }}
+                >
+                  <MdModeEdit />
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle>Update your comment</DrawerTitle>
+                    <DrawerDescription className="p-2">
+                      <Textarea
+                        placeholder="Type your message here..."
+                        className="shadow-md focus-visible:shadow-md focus-visible:ring-[#bec44d] w-full text-black"
+                        value={updatedCommentContent}
+                        ref={commentInput}
+                        onChange={(e) => {
+                          setUpdatedCommentContent(e.target.value);
+                        }}
+                      />
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <DrawerFooter>
+                    <div className="flex justify-between items-center gap-4 w-full">
+                      <DrawerClose
+                        className="hover:bg-neutral-200 shadow-md p-2 border border-neutral-200 rounded-md w-full md:w-28 font-semibold transition-all ease-in-out"
+                        onClick={() => {
+                          clearComment();
+                        }}
+                      >
+                        Cancel
+                      </DrawerClose>
+                      <CustomButton
+                        buttonText="Update Comment"
+                        buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
+                        customButtonAction={() =>
+                          handleUpdateComment(
+                            comment?.id,
+                            updatedCommentContent
+                          )
+                        }
+                        disabled={updatedCommentContent.length < 2}
+                      />
+                    </div>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
+              <AlertDialog>
+                <AlertDialogTrigger className="flex justify-center items-center hover:bg-red-600 p-2 border border-red-600 rounded-md w-10 text-red-600 hover:text-white transition-all ease-in-out">
+                  <MdDelete />
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Permanently delete this comment?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your comment.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="shadow-md">
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-red-600 hover:bg-red-800 shadow-md"
+                      onClick={() => handleDeleteComment(comment?.id)}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           ) : null}
         </div>
