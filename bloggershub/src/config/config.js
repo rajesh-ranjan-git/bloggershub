@@ -26,8 +26,6 @@ export const updateProfileItems = [
   {
     id: "name",
     label: "Name",
-    placeholder: "Enter your name...",
-    buttonText: "Update Name",
   },
   {
     id: "designation",
@@ -36,19 +34,13 @@ export const updateProfileItems = [
     buttonText: "Update Designation",
   },
   {
-    id: "email",
-    label: "Email",
-    placeholder: "Enter your email...",
-    buttonText: "Update Email",
-  },
-  {
     id: "dob",
     label: "Date of Birth",
     placeholder: "Enter your date of birth...",
     buttonText: "Update Date of Birth",
   },
   {
-    id: "phone",
+    id: "phoneNumber",
     label: "Phone Number",
     placeholder: "Enter your phone number...",
     buttonText: "Update Phone Number",
@@ -58,5 +50,23 @@ export const updateProfileItems = [
     label: "Bio",
     placeholder: "Enter your bio...",
     buttonText: "Update Bio",
+  },
+];
+
+export const updateProfileName = [
+  {
+    id: "firstName",
+    label: "First Name",
+    placeholder: "Enter your first Name...",
+  },
+  {
+    id: "middleName",
+    label: "Middle Name",
+    placeholder: "Enter your middle name...",
+  },
+  {
+    id: "lastName",
+    label: "Last Name",
+    placeholder: "Enter your last name...",
   },
 ];

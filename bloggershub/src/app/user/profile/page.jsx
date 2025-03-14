@@ -26,10 +26,6 @@ const Profile = () => {
   const [typeOfProfileData, setTypeOfProfileData] = useState("");
   const { loggedInUser } = useSelector((state) => state.authReducer);
 
-  const handleUpdateProfileData = (type) => {
-    setTypeOfProfileData(type);
-  };
-
   return (
     <>
       <section className="flex justify-center pt-16 w-full">
@@ -111,7 +107,7 @@ const Profile = () => {
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
-                                onClick={() => handleUpdateProfileData("name")}
+                                onClick={() => setTypeOfProfileData("name")}
                               >
                                 Add Name
                               </Button>
@@ -129,7 +125,7 @@ const Profile = () => {
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
                                 onClick={() =>
-                                  handleUpdateProfileData("designation")
+                                  setTypeOfProfileData("designation")
                                 }
                               >
                                 Add Designation
@@ -149,7 +145,7 @@ const Profile = () => {
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
-                                onClick={() => handleUpdateProfileData("dob")}
+                                onClick={() => setTypeOfProfileData("dob")}
                               >
                                 Add Date of Birth
                               </Button>
@@ -164,7 +160,9 @@ const Profile = () => {
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
-                                onClick={() => handleUpdateProfileData("phone")}
+                                onClick={() =>
+                                  setTypeOfProfileData("phoneNumber")
+                                }
                               >
                                 Add Phone Number
                               </Button>
@@ -195,7 +193,7 @@ const Profile = () => {
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
-                                onClick={() => handleUpdateProfileData("bio")}
+                                onClick={() => setTypeOfProfileData("bio")}
                               >
                                 Add Bio
                               </Button>
@@ -218,7 +216,7 @@ const Profile = () => {
                   <CardFooter className="flex md:flex-row flex-col gap-2">
                     <Button
                       className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
-                      onClick={() => handleUpdateProfileData("updateProfile")}
+                      onClick={() => setTypeOfProfileData("updateProfile")}
                     >
                       Update Profile
                     </Button>
@@ -239,7 +237,7 @@ const Profile = () => {
       {typeOfProfileData !== "" ? (
         <AddProfileDetailsModal
           typeOfProfileData={typeOfProfileData}
-          handleUpdateProfileData={handleUpdateProfileData}
+          setTypeOfProfileData={setTypeOfProfileData}
         />
       ) : null}
     </>

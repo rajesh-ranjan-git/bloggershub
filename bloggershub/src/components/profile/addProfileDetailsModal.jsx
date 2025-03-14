@@ -14,51 +14,59 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { signInSchema } from "@/validations/signInSchema";
-import signInService from "@/services/auth/signInService";
+import { updateProfileItems, updateProfileName } from "@/config/config";
+import { updateProfileSchema } from "@/validations/updateProfileSchema";
 import CustomButton from "@/components/customFormElements/customButton";
 import CustomInput from "@/components/customFormElements/customInput";
-import { updateProfileItems } from "@/config/config";
 
 const AddProfileDetailsModal = ({
   typeOfProfileData,
-  handleUpdateProfileData,
+  setTypeOfProfileData,
 }) => {
   const [open, setOpen] = useState(true);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
+  console.log("typeOfProfileData : ", typeOfProfileData);
+
   const form = useForm({
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(updateProfileSchema),
     defaultValues: {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      designation: "",
       email: "",
-      password: "",
+      dob: "",
+      phoneNumber: "",
+      bio: "",
     },
   });
 
   const onSubmit = (formData) => {
-    dispatch(signInService(formData)).then((data) => {
-      if (data?.payload?.success) {
-        router.push("/");
-        toast({
-          title: "Sign In successful!",
-          description: data.payload.message,
-        });
-      } else {
-        toast({
-          title: "Sign In failed!",
-          variant: "destructive",
-          description: data.payload.message,
-        });
-      }
-    });
-    // router.push("/");
+    console.log("formData : ", formData);
+    // dispatch(signInService(formData)).then((data) => {
+    //   if (data?.payload?.success) {
+    //     router.push("/");
+    //     toast({
+    //       title: "Sign In successful!",
+    //       description: data.payload.message,
+    //     });
+    //   } else {
+    //     toast({
+    //       title: "Sign In failed!",
+    //       variant: "destructive",
+    //       description: data.payload.message,
+    //     });
+    //   }
+    // });
+    handleDialogClose();
   };
 
   const handleDialogClose = () => {
     setOpen(false);
-    handleUpdateProfileData("");
+    setTypeOfProfileData("");
   };
 
   return (
@@ -86,7 +94,51 @@ const AddProfileDetailsModal = ({
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 {typeOfProfileData && typeOfProfileData === "updateProfile" ? (
                   <>
-                    {updateProfileItems.map((profileItem) => (
+                    {updateProfileItems.map((profileItem) => {
+                      if (profileItem.id === "name") {
+                        return updateProfileName.map((nameItem) => {
+                          return (
+                            <div
+                              className="relative p-3 emailBox"
+                              key={nameItem.id}
+                            >
+                              <CustomInput
+                                control={form.control}
+                                label={nameItem.label}
+                                name={nameItem.id}
+                                placeholder={nameItem.placeholder}
+                              />
+                            </div>
+                          );
+                        });
+                      } else {
+                        return (
+                          <div
+                            className="relative p-3 emailBox"
+                            key={profileItem.id}
+                          >
+                            <CustomInput
+                              control={form.control}
+                              label={profileItem.label}
+                              name={profileItem.id}
+                              placeholder={profileItem.placeholder}
+                            />
+                          </div>
+                        );
+                      }
+                    })}
+                    <div className="p-3">
+                      <CustomButton
+                        type="submit"
+                        buttonText="Update Profile"
+                        buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
+                        disabled={false}
+                      />
+                    </div>
+                  </>
+                ) : typeOfProfileData === "name" ? (
+                  <>
+                    {updateProfileName.map((profileItem) => (
                       <div
                         className="relative p-3 emailBox"
                         key={profileItem.id}
@@ -102,7 +154,7 @@ const AddProfileDetailsModal = ({
                     <div className="p-3">
                       <CustomButton
                         type="submit"
-                        buttonText="Update Profile"
+                        buttonText="Update Name"
                         buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
                         disabled={false}
                       />
