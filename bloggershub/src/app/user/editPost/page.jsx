@@ -2,23 +2,21 @@
 
 import { useForm } from "react-hook-form";
 import { MdOutlinePostAdd } from "react-icons/md";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
-import { signInSchema } from "@/validations/signInSchema";
+import { updatePostSchema } from "@/validations/updatePostSchema";
 import CustomButton from "@/components/customFormElements/customButton";
 import CustomFileInput from "@/components/customFormElements/customFileInput";
 import CustomInput from "@/components/customFormElements/customInput";
 import CustomTextarea from "@/components/customFormElements/customTextarea";
 
 const EditPost = () => {
-  const { toast } = useToast();
-
   const form = useForm({
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(updatePostSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      title: "",
+      content: "",
     },
   });
 
@@ -58,7 +56,7 @@ const EditPost = () => {
                 placeholder="Write your post content here..."
               />
             </div>
-            <div className="relative p-3 emailBox">
+            {/* <div className="relative p-3 emailBox">
               <CustomFileInput
                 control={form.control}
                 label="Thumbnail"
@@ -72,7 +70,7 @@ const EditPost = () => {
                 name="tags"
                 placeholder="Tags (comma-separated)"
               />
-            </div>
+            </div> */}
             <div className="p-3">
               <CustomButton
                 type="submit"

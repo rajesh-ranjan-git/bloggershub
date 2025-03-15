@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import {
   FormControl,
   FormField,
@@ -13,10 +16,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 const CustomInput = ({ control, name, label = null, placeholder }) => {
   const [inputVal, setInputVal] = useState("");

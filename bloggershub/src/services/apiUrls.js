@@ -14,6 +14,8 @@ export const fetchAllPostsServiceApi = `${baseApiUrl}/posts/fetchAllPosts`;
 export const fetchLatestPostsServiceApi = `${baseApiUrl}/posts/fetchLatestPosts`;
 export const fetchSinglePostServiceApi = `${baseApiUrl}/posts/fetchSinglePost`;
 export const fetchAllPostsByAuthorServiceApi = `${baseApiUrl}/posts/fetchAllPostsByAuthor`;
+export const deletePostServiceApi = `${baseApiUrl}/posts/deletePost`;
+export const updatePostServiceApi = `${baseApiUrl}/posts/updatePost`;
 
 // Comments APIs
 export const fetchAllCommentsOnPostServiceApi = `${baseApiUrl}/comments/fetchAllCommentsOnPost`;

@@ -134,20 +134,6 @@ const ViewProfile = ({ userId }) => {
                           </TableCell>
                         </TableRow>
                       ) : null}
-                      <TableRow>
-                        <TableCell className="font-medium">Languages</TableCell>
-                        <TableCell>Hindi & English</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">
-                          Nationality
-                        </TableCell>
-                        <TableCell>Indian</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">Hobbies</TableCell>
-                        <TableCell>Movies, Songs & Coding</TableCell>
-                      </TableRow>
                       {userProfile?.profile?.bio ? (
                         <TableRow>
                           <TableCell className="font-medium">Bio</TableCell>

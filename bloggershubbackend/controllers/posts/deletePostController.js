@@ -66,45 +66,10 @@ const deletePostController = async (req, res) => {
     }
 
     // If post deleted successfully
-    // Fetch all posts by author
-    const posts = await prisma.post.findMany({
-      where: {
-        authorId: authorId,
-      },
-      orderBy: [
-        {
-          updatedAt: "desc",
-        },
-      ],
-    });
-
-    // If fetching posts failed
-    if (!posts) {
-      return res.json({
-        status: 200,
-        success: true,
-        deletedPost: deletedPost,
-        message:
-          "Post deleted successfully but something went wrong while fetching posts!",
-      });
-    }
-
-    // If no posts available
-    if (posts.length <= 0) {
-      return res.json({
-        status: 200,
-        success: true,
-        deletedPost: deletedPost,
-        message: "Post deleted successfully and no further posts found!",
-      });
-    }
-
-    // Return all posts by author
     return res.json({
       status: 200,
       success: true,
       deletedPost: deletedPost,
-      posts: posts,
       message: "Post deleted successfully!",
     });
   } catch (error) {

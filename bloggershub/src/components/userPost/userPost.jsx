@@ -2,15 +2,39 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthorService";
 import UserBlogPost from "@/components/userPost/userBlogPost";
 import UserPostDetails from "@/components/userPost/userPostDetails";
+import deletePostService from "@/services/posts/deletePostService";
 
 const UserPost = () => {
   const dispatch = useDispatch();
   const { loggedInUser } = useSelector((state) => state.authReducer);
   const { isPostLoading, posts } = useSelector((state) => state.postsReducer);
+
+  const handleDeletePost = (postId) => {
+    if (loggedInUser) {
+      dispatch(deletePostService({ postId, authorId: loggedInUser?.id })).then(
+        (data) => {
+          dispatch(
+            fetchAllPostsByAuthorService({ authorId: loggedInUser?.id })
+          );
+          if (data?.payload?.success) {
+            toast({
+              title: data?.payload?.message,
+            });
+          } else {
+            toast({
+              title: data?.payload?.message,
+              variant: "destructive",
+            });
+          }
+        }
+      );
+    }
+  };
 
   useEffect(() => {
     if (loggedInUser) {
@@ -28,7 +52,7 @@ const UserPost = () => {
           >
             <UserBlogPost post={post} />
             <Separator orientation="vertical" className="hidden md:block" />
-            <UserPostDetails post={post} />
+            <UserPostDetails post={post} handleDeletePost={handleDeletePost} />
           </div>
         ))
       ) : (

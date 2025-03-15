@@ -12,10 +12,10 @@ const postsRouter = Router();
 // Posts router
 postsRouter.post("/createPost", createPost);
 postsRouter.post("/editPost/:postId", editPost);
-postsRouter.post("/deletePost/:postId", deletePostController);
 postsRouter.get("/fetchAllPostsByAuthor/:authorId", fetchAllPostsByAuthor);
 postsRouter.get("/fetchAllPosts", fetchAllPosts);
 postsRouter.get("/fetchLatestPosts", fetchLatestPosts);
 postsRouter.get("/fetchSinglePost/:postId", fetchSinglePost);
+postsRouter.post("/deletePost/:postId", deletePostController);
 
 export default postsRouter;

@@ -3,6 +3,7 @@ import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthor
 import fetchAllPostsService from "@/services/posts/fetchAllPostsService";
 import fetchLatestPostsService from "@/services/posts/fetchLatestPostsService";
 import fetchSinglePostService from "@/services/posts/fetchSinglePostService";
+import deletePostService from "@/services/posts/deletePostService";
 
 const initialState = {
   isPostLoading: true,
@@ -64,6 +65,18 @@ const PostsSlice = createSlice({
       })
       .addCase(fetchAllPostsByAuthorService.rejected, (state) => {
         state.posts = [];
+        state.isPostLoading = false;
+      })
+      .addCase(deletePostService.pending, (state) => {
+        state.post = null;
+        state.isPostLoading = true;
+      })
+      .addCase(deletePostService.fulfilled, (state, action) => {
+        state.post = action.payload?.post;
+        state.isPostLoading = false;
+      })
+      .addCase(deletePostService.rejected, (state) => {
+        state.post = null;
         state.isPostLoading = false;
       });
   },

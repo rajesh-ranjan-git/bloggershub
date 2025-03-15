@@ -223,22 +223,6 @@ const Profile = () => {
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell className="font-medium">
-                            Languages
-                          </TableCell>
-                          <TableCell>Hindi & English</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">
-                            Nationality
-                          </TableCell>
-                          <TableCell>Indian</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Hobbies</TableCell>
-                          <TableCell>Movies, Songs & Coding</TableCell>
-                        </TableRow>
-                        <TableRow>
                           <TableCell className="font-medium">Bio</TableCell>
                           <TableCell>
                             {(userProfile || loggedInUser)?.profile?.bio ? (
