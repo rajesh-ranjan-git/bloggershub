@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
+import { Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,10 +21,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
 import fetchProfileService from "@/services/profile/fetchProfileService";
+import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal";
+import CaptureCamera from "@/components/captureCamera/captureCamera";
 
 const Profile = () => {
+  const [showCamera, setShowCamera] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
   const [isProfileUpdated, setIsProfileUpdated] = useState(false);
   const [typeOfProfileData, setTypeOfProfileData] = useState("");
   const { loggedInUser } = useSelector((state) => state.authReducer);
@@ -35,6 +55,12 @@ const Profile = () => {
     dispatch(fetchProfileService(loggedInUser?.id));
     setIsProfileUpdated(false);
   }, [dispatch, isProfileUpdated]);
+
+  useEffect(() => {
+    if (!showCamera) {
+      setProfileImage(false);
+    }
+  }, [showCamera]);
 
   return (
     <>
@@ -82,7 +108,7 @@ const Profile = () => {
                     <CardDescription className="hidden"></CardDescription>
                   </CardHeader>
                   <CardContent className="flex justify-center items-center">
-                    <div className="p-1 border-[#a3ab09] border-2 rounded-full overflow-hidden">
+                    <div className="group relative p-1 border-[#a3ab09] border-2 rounded-full overflow-hidden cursor-pointer">
                       <Image
                         src={
                           (userProfile || loggedInUser)?.profile
@@ -91,8 +117,45 @@ const Profile = () => {
                         width={300}
                         height={300}
                         alt="profileImage"
-                        className="rounded-full max-w-72 max-h-72 object-cover"
+                        className="z-0 rounded-full max-w-72 max-h-72 object-cover"
                       />
+                      <div className="bottom-0 left-0 z-40 absolute flex flex-col justify-center items-center bg-neutral-600 opacity-0 group-hover:opacity-80 w-full h-24 transition-opacity duration-300" />
+                      <DropdownMenu>
+                        <DropdownMenuTrigger className="bottom-0 left-0 z-50 absolute flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 w-full h-24 font-semibold text-white text-sm transition-opacity duration-300">
+                          <Camera size={30} />
+                          <span>Update</span>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel>
+                            Choose an option
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={() => setShowCamera(true)}
+                          >
+                            Take a photo
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            Choose from photos
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+
+                      <Dialog open={showCamera} onOpenChange={setShowCamera}>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle className="pb-4 text-center">
+                              {profileImage ? "Save photo" : "Capture photo"}
+                            </DialogTitle>
+                            <DialogDescription className="hidden"></DialogDescription>
+                            <CaptureCamera
+                              image={profileImage}
+                              setImage={setProfileImage}
+                            />
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </CardContent>
                   <CardFooter className="flex justify-center items-center pb-5">
