@@ -4,13 +4,11 @@ import { updatePostServiceApi } from "@/services/apiUrls";
 
 const updatePostService = createAsyncThunk(
   "/posts/updatePostService",
-  async ({ postId, authorId }) => {
-    console.log("postId : ", postId);
-    console.log("authorId : ", authorId);
+  async ({ postId, authorId, formData }) => {
     try {
       const updatePostServiceResponse = await axios.post(
         `${updatePostServiceApi}/${postId}`,
-        { authorId }
+        { authorId, ...formData }
       );
 
       return updatePostServiceResponse.data;

@@ -52,6 +52,8 @@ const fetchAllPostsByAuthor = async (req, res) => {
       ],
     });
 
+    console.log("allPostsByAuthor : ", allPostsByAuthor);
+
     // If posts by selected author not found
     if (!allPostsByAuthor) {
       return res.json({

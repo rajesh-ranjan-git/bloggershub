@@ -25,7 +25,7 @@ const BlogItem = () => {
   const dispatch = useDispatch();
   const { loggedInUser } = useSelector((state) => state.authReducer);
   const { isPostLoading, post, author } = useSelector(
-    (state) => state.postReducer
+    (state) => state.postsReducer
   );
 
   useEffect(() => {

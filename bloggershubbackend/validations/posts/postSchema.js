@@ -7,9 +7,9 @@ export const postSchema = vine.object({
   title: vine.string().trim().minLength(2),
   content: vine.string().trim().minLength(2),
   postImage: vine.string().optional(),
-  published: vine.boolean(),
+  published: vine.boolean().optional(),
   authorId: vine.string().uuid(),
-  tags: vine.array(vine.string().trim().minLength(2)),
+  tags: vine.array(vine.string().trim().minLength(2)).optional(),
 });
 
 export default postSchema;

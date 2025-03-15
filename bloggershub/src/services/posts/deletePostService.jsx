@@ -5,8 +5,6 @@ import { deletePostServiceApi } from "@/services/apiUrls";
 const deletePostService = createAsyncThunk(
   "/posts/deletePostService",
   async ({ postId, authorId }) => {
-    console.log("postId : ", postId);
-    console.log("authorId : ", authorId);
     try {
       const deletePostServiceResponse = await axios.post(
         `${deletePostServiceApi}/${postId}`,

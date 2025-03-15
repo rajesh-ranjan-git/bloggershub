@@ -1,5 +1,7 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { toast } from "@/hooks/use-toast";
@@ -10,8 +12,15 @@ import CustomButton from "@/components/customFormElements/customButton";
 import CustomFileInput from "@/components/customFormElements/customFileInput";
 import CustomInput from "@/components/customFormElements/customInput";
 import CustomTextarea from "@/components/customFormElements/customTextarea";
+import updatePostService from "@/services/posts/updatePostService";
 
-const EditPost = () => {
+const UpdatePost = () => {
+  const { postId } = useParams();
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { loggedInUser } = useSelector((state) => state.authReducer);
+
   const form = useForm({
     resolver: zodResolver(updatePostSchema),
     defaultValues: {
@@ -20,14 +29,21 @@ const EditPost = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="bg-slate-950 mt-2 p-4 rounded-md w-[340px]">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+  const onSubmit = (formData) => {
+    dispatch(
+      updatePostService({ postId, authorId: loggedInUser?.id, formData })
+    ).then((data) => {
+      router.back();
+      if (data?.payload?.success) {
+        toast({
+          title: data?.payload?.message,
+        });
+      } else {
+        toast({
+          title: data?.payload?.message,
+          variant: "destructive",
+        });
+      }
     });
   };
 
@@ -36,7 +52,7 @@ const EditPost = () => {
       <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg w-full md:w-[70vw] min-h-96">
         <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
           <MdOutlinePostAdd />
-          <span>Edit this Post</span>
+          <span>Update this Post</span>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -74,7 +90,7 @@ const EditPost = () => {
             <div className="p-3">
               <CustomButton
                 type="submit"
-                buttonText="Edit post"
+                buttonText="Update post"
                 buttonStyle="w-full bg-[#bec44d] hover:bg-[#a3ab09] text-white shadow-md"
                 disabled={false}
               />
@@ -86,4 +102,4 @@ const EditPost = () => {
   );
 };
 
-export default EditPost;
+export default UpdatePost;
