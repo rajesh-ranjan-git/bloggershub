@@ -24,3 +24,4 @@ export const updateCommentServiceApi = `${baseApiUrl}/comments/updateComment`;
 
 // Profile APIs
 export const fetchProfileServiceApi = `${baseApiUrl}/profile/fetchProfile`;
+export const updateProfileServiceApi = `${baseApiUrl}/profile/updateProfile`;

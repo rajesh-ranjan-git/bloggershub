@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "@/hooks/use-toast";
 import { UserRoundPen } from "lucide-react";
@@ -16,19 +15,18 @@ import {
 } from "@/components/ui/dialog";
 import { updateProfileItems, updateProfileName } from "@/config/config";
 import { updateProfileSchema } from "@/validations/updateProfileSchema";
+import updateProfileService from "@/services/profile/updateProfileService";
 import CustomButton from "@/components/customFormElements/customButton";
 import CustomInput from "@/components/customFormElements/customInput";
 
 const AddProfileDetailsModal = ({
   typeOfProfileData,
+  setIsProfileUpdated,
   setTypeOfProfileData,
 }) => {
   const [open, setOpen] = useState(true);
-
+  const { loggedInUser } = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
-  const router = useRouter();
-
-  console.log("typeOfProfileData : ", typeOfProfileData);
 
   const form = useForm({
     resolver: zodResolver(updateProfileSchema),
@@ -45,22 +43,23 @@ const AddProfileDetailsModal = ({
   });
 
   const onSubmit = (formData) => {
-    console.log("formData : ", formData);
-    // dispatch(signInService(formData)).then((data) => {
-    //   if (data?.payload?.success) {
-    //     router.push("/");
-    //     toast({
-    //       title: "Sign In successful!",
-    //       description: data.payload.message,
-    //     });
-    //   } else {
-    //     toast({
-    //       title: "Sign In failed!",
-    //       variant: "destructive",
-    //       description: data.payload.message,
-    //     });
-    //   }
-    // });
+    dispatch(
+      updateProfileService({ formData: formData, userId: loggedInUser?.id })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        setIsProfileUpdated(true);
+        toast({
+          title: "Profile updated successfully!",
+          description: data.payload.message,
+        });
+      } else {
+        toast({
+          title: "Profile update failed!",
+          variant: "destructive",
+          description: data.payload.message,
+        });
+      }
+    });
     handleDialogClose();
   };
 

@@ -1,6 +1,7 @@
 import vine, { errors } from "@vinejs/vine";
 import prisma from "../../db/dbConfig.js";
 import profileSchema from "../../validations/profile/profileSchema.js";
+import updateProfileSchema from "../../validations/profile/updateProfileSchema.js";
 
 // Update user profile
 const updateProfile = async (req, res) => {
@@ -8,9 +9,18 @@ const updateProfile = async (req, res) => {
     const body = req.body;
     const { userId } = req.params;
 
+    console.log("body : ", body);
+    console.log("userId : ", userId);
+
+    body.userId = userId;
+
+    console.log("body : ", body);
+
     // Validate request body
-    const validator = vine.compile(profileSchema);
+    const validator = vine.compile(updateProfileSchema);
     const payload = await validator.validate(body);
+
+    console.log("payload : ", payload);
 
     // If user is updating someone else's profile
     if (userId !== payload.userId) {
@@ -56,10 +66,19 @@ const updateProfile = async (req, res) => {
 
     // If user profile found
     // Update user profile
-    userProfile.firstName = payload.firstName || userProfile.firstName;
-    userProfile.middleName = payload.middleName || userProfile.middleName;
-    userProfile.lastName = payload.lastName || userProfile.lastName;
-    userProfile.bio = payload.bio || userProfile.bio;
+    userProfile.firstName =
+      payload.firstName.length > 2 ? payload.firstName : userProfile.firstName;
+    userProfile.middleName =
+      payload.middleName.length > 2
+        ? payload.middleName
+        : userProfile.middleName;
+    userProfile.lastName =
+      payload.lastName.length > 2 ? payload.lastName : userProfile.lastName;
+    userProfile.designation =
+      payload.designation.length > 2
+        ? payload.designation
+        : userProfile.designation;
+    userProfile.bio = payload.bio.length > 2 ? payload.bio : userProfile.bio;
     userProfile.profileImage = payload.profileImage || userProfile.profileImage;
 
     userProfile = await prisma.profile.update({
@@ -70,6 +89,7 @@ const updateProfile = async (req, res) => {
         firstName: userProfile.firstName,
         middleName: userProfile.middleName,
         lastName: userProfile.lastName,
+        designation: userProfile.designation,
         bio: userProfile.bio,
         profileImage: userProfile.profileImage,
       },
@@ -89,7 +109,9 @@ const updateProfile = async (req, res) => {
       where: {
         id: payload.userId,
       },
-      include: {
+      select: {
+        id: true,
+        email: true,
         profile: true,
       },
     });

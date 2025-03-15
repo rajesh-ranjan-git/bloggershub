@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
@@ -21,10 +21,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal";
+import fetchProfileService from "@/services/profile/fetchProfileService";
 
 const Profile = () => {
+  const [isProfileUpdated, setIsProfileUpdated] = useState(false);
   const [typeOfProfileData, setTypeOfProfileData] = useState("");
   const { loggedInUser } = useSelector((state) => state.authReducer);
+  const { userProfile } = useSelector((state) => state.profileReducer);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProfileService(loggedInUser?.id));
+    setIsProfileUpdated(false);
+  }, [dispatch, isProfileUpdated]);
 
   return (
     <>
@@ -32,9 +42,9 @@ const Profile = () => {
         {loggedInUser ? (
           <div className="flex flex-col justify-center px-5 md:px-10">
             <div className="p-5 border-[#a3ab09] border-b-4 font-semibold text-3xl text-center">
-              {loggedInUser?.profile?.firstName
-                ? loggedInUser?.profile?.firstName
-                : loggedInUser?.email}
+              {(userProfile || loggedInUser)?.profile?.firstName
+                ? (userProfile || loggedInUser)?.profile?.firstName
+                : (userProfile || loggedInUser)?.email}
               's Profile
             </div>
 
@@ -42,18 +52,32 @@ const Profile = () => {
               <div className="text-center">
                 <Card className="hover:shadow-md w-full">
                   <CardHeader>
-                    {loggedInUser?.profile?.firstName ? (
-                      loggedInUser?.profile?.lastName ? (
-                        loggedInUser?.profile?.middleName ? (
-                          <CardTitle className="text-3xl">{`${loggedInUser?.profile?.firstName} ${loggedInUser?.profile?.middleName} ${loggedInUser?.profile?.lastName}`}</CardTitle>
+                    {(userProfile || loggedInUser)?.profile?.firstName ? (
+                      (userProfile || loggedInUser)?.profile?.lastName ? (
+                        (userProfile || loggedInUser)?.profile?.middleName ? (
+                          <CardTitle className="text-3xl">{`${
+                            (userProfile || loggedInUser)?.profile?.firstName
+                          } ${
+                            (userProfile || loggedInUser)?.profile?.middleName
+                          } ${
+                            (userProfile || loggedInUser)?.profile?.lastName
+                          }`}</CardTitle>
                         ) : (
-                          <CardTitle className="text-3xl">{`${loggedInUser?.profile?.firstName} ${loggedInUser?.profile?.lastName}`}</CardTitle>
+                          <CardTitle className="text-3xl">{`${
+                            (userProfile || loggedInUser)?.profile?.firstName
+                          } ${
+                            (userProfile || loggedInUser)?.profile?.lastName
+                          }`}</CardTitle>
                         )
                       ) : (
-                        <CardTitle className="text-3xl">{`${loggedInUser?.profile?.firstName}`}</CardTitle>
+                        <CardTitle className="text-3xl">{`${
+                          (userProfile || loggedInUser)?.profile?.firstName
+                        }`}</CardTitle>
                       )
                     ) : (
-                      <CardTitle className="text-3xl">{`${loggedInUser?.email}`}</CardTitle>
+                      <CardTitle className="text-3xl">{`${
+                        (userProfile || loggedInUser)?.email
+                      }`}</CardTitle>
                     )}
                     <CardDescription className="hidden"></CardDescription>
                   </CardHeader>
@@ -61,8 +85,8 @@ const Profile = () => {
                     <div className="p-1 border-[#a3ab09] border-2 rounded-full overflow-hidden">
                       <Image
                         src={
-                          loggedInUser?.profile?.profileImage ||
-                          "/images/latest_pic.png"
+                          (userProfile || loggedInUser)?.profile
+                            ?.profileImage || "/images/latest_pic.png"
                         }
                         width={300}
                         height={300}
@@ -73,7 +97,7 @@ const Profile = () => {
                   </CardContent>
                   <CardFooter className="flex justify-center items-center pb-5">
                     <p className="text-lg text-center">
-                      {loggedInUser?.profile?.designation}
+                      {(userProfile || loggedInUser)?.profile?.designation}
                     </p>
                   </CardFooter>
                 </Card>
@@ -83,7 +107,7 @@ const Profile = () => {
                   <CardHeader className="text-center">
                     <CardTitle>Profile Details</CardTitle>
                     <CardDescription className="text-md">
-                      {loggedInUser?.profile?.designation}
+                      {(userProfile || loggedInUser)?.profile?.designation}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -94,15 +118,36 @@ const Profile = () => {
                         <TableRow>
                           <TableCell className="font-medium">Name</TableCell>
                           <TableCell>
-                            {loggedInUser?.profile?.firstName ? (
-                              loggedInUser?.profile?.lastName ? (
-                                loggedInUser?.profile?.middleName ? (
-                                  `${loggedInUser?.profile?.firstName} ${loggedInUser?.profile?.middleName} ${loggedInUser?.profile?.lastName}`
+                            {(userProfile || loggedInUser)?.profile
+                              ?.firstName ? (
+                              (userProfile || loggedInUser)?.profile
+                                ?.lastName ? (
+                                (userProfile || loggedInUser)?.profile
+                                  ?.middleName ? (
+                                  `${
+                                    (userProfile || loggedInUser)?.profile
+                                      ?.firstName
+                                  } ${
+                                    (userProfile || loggedInUser)?.profile
+                                      ?.middleName
+                                  } ${
+                                    (userProfile || loggedInUser)?.profile
+                                      ?.lastName
+                                  }`
                                 ) : (
-                                  `${loggedInUser?.profile?.firstName} ${loggedInUser?.profile?.lastName}`
+                                  `${
+                                    (userProfile || loggedInUser)?.profile
+                                      ?.firstName
+                                  } ${
+                                    (userProfile || loggedInUser)?.profile
+                                      ?.lastName
+                                  }`
                                 )
                               ) : (
-                                `${loggedInUser?.profile?.firstName}`
+                                `${
+                                  (userProfile || loggedInUser)?.profile
+                                    ?.firstName
+                                }`
                               )
                             ) : (
                               <Button
@@ -119,8 +164,10 @@ const Profile = () => {
                             Designation
                           </TableCell>
                           <TableCell>
-                            {loggedInUser?.profile?.designation ? (
-                              loggedInUser?.profile?.designation
+                            {(userProfile || loggedInUser)?.profile
+                              ?.designation ? (
+                              (userProfile || loggedInUser)?.profile
+                                ?.designation
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
@@ -135,13 +182,17 @@ const Profile = () => {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">Email</TableCell>
-                          <TableCell>{loggedInUser?.email}</TableCell>
+                          <TableCell>
+                            {(userProfile || loggedInUser)?.email}
+                          </TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">DOB</TableCell>
                           <TableCell>
-                            {loggedInUser?.profile?.dob ? (
-                              loggedInUser?.profile?.dob.split("T")[0]
+                            {(userProfile || loggedInUser)?.profile?.dob ? (
+                              (userProfile || loggedInUser)?.profile?.dob.split(
+                                "T"
+                              )[0]
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
@@ -155,8 +206,10 @@ const Profile = () => {
                         <TableRow>
                           <TableCell className="font-medium">Ph No.</TableCell>
                           <TableCell>
-                            {loggedInUser?.profile?.phoneNumber ? (
-                              loggedInUser?.profile?.phoneNumber
+                            {(userProfile || loggedInUser)?.profile
+                              ?.phoneNumber ? (
+                              (userProfile || loggedInUser)?.profile
+                                ?.phoneNumber
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
@@ -188,8 +241,8 @@ const Profile = () => {
                         <TableRow>
                           <TableCell className="font-medium">Bio</TableCell>
                           <TableCell>
-                            {loggedInUser?.profile?.bio ? (
-                              loggedInUser?.profile?.bio
+                            {(userProfile || loggedInUser)?.profile?.bio ? (
+                              (userProfile || loggedInUser)?.profile?.bio
                             ) : (
                               <Button
                                 className="bg-[#bec44d] hover:bg-[#a3ab09] w-full"
@@ -237,6 +290,7 @@ const Profile = () => {
       {typeOfProfileData !== "" ? (
         <AddProfileDetailsModal
           typeOfProfileData={typeOfProfileData}
+          setIsProfileUpdated={setIsProfileUpdated}
           setTypeOfProfileData={setTypeOfProfileData}
         />
       ) : null}
