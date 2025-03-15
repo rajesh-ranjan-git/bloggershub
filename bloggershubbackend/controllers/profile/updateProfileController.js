@@ -1,6 +1,5 @@
 import vine, { errors } from "@vinejs/vine";
 import prisma from "../../db/dbConfig.js";
-import profileSchema from "../../validations/profile/profileSchema.js";
 import updateProfileSchema from "../../validations/profile/updateProfileSchema.js";
 
 // Update user profile
@@ -9,18 +8,11 @@ const updateProfile = async (req, res) => {
     const body = req.body;
     const { userId } = req.params;
 
-    console.log("body : ", body);
-    console.log("userId : ", userId);
-
     body.userId = userId;
-
-    console.log("body : ", body);
 
     // Validate request body
     const validator = vine.compile(updateProfileSchema);
     const payload = await validator.validate(body);
-
-    console.log("payload : ", payload);
 
     // If user is updating someone else's profile
     if (userId !== payload.userId) {
@@ -64,8 +56,7 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    // If user profile found
-    // Update user profile
+    // If user profile found, update user profile
     userProfile.firstName =
       payload.firstName.length > 2 ? payload.firstName : userProfile.firstName;
     userProfile.middleName =
@@ -78,6 +69,10 @@ const updateProfile = async (req, res) => {
       payload.designation.length > 2
         ? payload.designation
         : userProfile.designation;
+    userProfile.dob = payload.dob ? payload.dob : userProfile.dob;
+    userProfile.phoneNumber = payload.phoneNumber
+      ? payload.phoneNumber
+      : userProfile.phoneNumber;
     userProfile.bio = payload.bio.length > 2 ? payload.bio : userProfile.bio;
     userProfile.profileImage = payload.profileImage || userProfile.profileImage;
 
@@ -90,6 +85,8 @@ const updateProfile = async (req, res) => {
         middleName: userProfile.middleName,
         lastName: userProfile.lastName,
         designation: userProfile.designation,
+        dob: userProfile.dob,
+        phoneNumber: userProfile.phoneNumber,
         bio: userProfile.bio,
         profileImage: userProfile.profileImage,
       },

@@ -104,6 +104,30 @@
   background: #a3ab09;
 }
 
+/* For WebKit browsers (Chrome, Safari, Edge) */
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
+/* To make text visible when user selects a date */
+input[type="date"]:focus::-webkit-datetime-edit-text,
+input[type="date"]:focus::-webkit-datetime-edit-month-field,
+input[type="date"]:focus::-webkit-datetime-edit-day-field,
+input[type="date"]:focus::-webkit-datetime-edit-year-field {
+  color: black;
+}
+
+/* Show text when a date is selected */
+input[type="date"].date::-webkit-datetime-edit-text,
+input[type="date"].date::-webkit-datetime-edit-month-field,
+input[type="date"].date::-webkit-datetime-edit-day-field,
+input[type="date"].date::-webkit-datetime-edit-year-field {
+  color: black;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
