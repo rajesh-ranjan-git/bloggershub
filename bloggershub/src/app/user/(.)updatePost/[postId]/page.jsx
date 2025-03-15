@@ -20,6 +20,8 @@ import CustomFileInput from "@/components/customFormElements/customFileInput";
 import CustomInput from "@/components/customFormElements/customInput";
 import CustomTextarea from "@/components/customFormElements/customTextarea";
 import updatePostService from "@/services/posts/updatePostService";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const UpdatePost = () => {
   const { postId } = useParams();
@@ -34,6 +36,7 @@ const UpdatePost = () => {
     defaultValues: {
       title: "",
       content: "",
+      tags: "",
     },
   });
 
@@ -90,12 +93,12 @@ const UpdatePost = () => {
                   />
                 </div>
                 {/* <div className="relative p-3 emailBox">
-                  <CustomFileInput
-                    control={form.control}
-                    label="Thumbnail"
-                    name="thumbnail"
-                  />
-                </div>
+              <CustomFileInput
+                control={form.control}
+                label="Thumbnail"
+                name="thumbnail"
+              />
+            </div> */}
                 <div className="relative p-3 emailBox">
                   <CustomInput
                     control={form.control}
@@ -103,6 +106,12 @@ const UpdatePost = () => {
                     name="tags"
                     placeholder="Tags (comma-separated)"
                   />
+                </div>
+                {/* <div className="relative p-3 emailBox">
+                  <div className="items-center gap-1.5 grid w-full max-w-sm">
+                    <Label htmlFor="picture">Picture</Label>
+                    <Input id="picture" type="file" />
+                  </div>
                 </div> */}
                 <div className="p-3">
                   <CustomButton

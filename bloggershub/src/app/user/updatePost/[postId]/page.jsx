@@ -26,6 +26,7 @@ const UpdatePost = () => {
     defaultValues: {
       title: "",
       content: "",
+      tags: "",
     },
   });
 
@@ -78,7 +79,7 @@ const UpdatePost = () => {
                 label="Thumbnail"
                 name="thumbnail"
               />
-            </div>
+            </div> */}
             <div className="relative p-3 emailBox">
               <CustomInput
                 control={form.control}
@@ -86,6 +87,12 @@ const UpdatePost = () => {
                 name="tags"
                 placeholder="Tags (comma-separated)"
               />
+            </div>
+            {/* <div className="relative p-3 emailBox">
+              <div className="items-center gap-1.5 grid w-full max-w-sm">
+                <Label htmlFor="picture">Picture</Label>
+                <Input id="picture" type="file" />
+              </div>
             </div> */}
             <div className="p-3">
               <CustomButton
