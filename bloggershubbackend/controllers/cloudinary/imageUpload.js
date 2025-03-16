@@ -1,7 +1,7 @@
 import { imageUploadHelper } from "../../helpers/cloudinary.js";
 
 // Image upload to cloudinary using multer
-const ImageUpload = async (req, res) => {
+const imageUpload = async (req, res) => {
   try {
     const base64 = Buffer.from(req.file.buffer).toString("base64");
     const url = "data:" + req.file.mimetype + ";base64," + base64;
@@ -35,4 +35,4 @@ const ImageUpload = async (req, res) => {
   }
 };
 
-export default ImageUpload;
+export default imageUpload;

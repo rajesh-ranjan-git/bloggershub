@@ -7,6 +7,7 @@ const nextConfig = {
       "loremflickr.com",
       "avatars.githubusercontent.com",
       "cdn.jsdelivr.net",
+      "res.cloudinary.com",
     ],
   },
 };

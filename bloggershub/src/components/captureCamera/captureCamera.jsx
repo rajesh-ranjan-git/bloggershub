@@ -27,7 +27,6 @@ const CaptureCamera = ({
     setImageUploading(true);
 
     if (image !== null) {
-      console.log("I am here");
       const blob = await axios
         .get(image, { responseType: "blob" })
         .then((res) => res.data);
@@ -36,7 +35,6 @@ const CaptureCamera = ({
       const imageFile = new File([blob], "captured.jpg", {
         type: "image/jpeg",
       });
-      console.log("imageFile : ", imageFile);
       const imageUploadFormData = new FormData();
       imageUploadFormData.append("myFile", imageFile);
       const imageUploadResponse = await axios.post(
@@ -44,7 +42,6 @@ const CaptureCamera = ({
         imageUploadFormData
       );
       if (imageUploadResponse) {
-        console.log("imageUploadResponse : ", imageUploadResponse);
         setUploadedImageUrl(imageUploadResponse?.data?.result?.url);
       }
     }

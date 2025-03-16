@@ -27,6 +27,7 @@ export const updateCommentServiceApi = `${baseApiUrl}/comments/updateComment`;
 // Profile APIs
 export const fetchProfileServiceApi = `${baseApiUrl}/profile/fetchProfile`;
 export const updateProfileServiceApi = `${baseApiUrl}/profile/updateProfile`;
+export const updateProfileImageServiceApi = `${baseApiUrl}/profile/updateProfileImage`;
 
 // Image Upload APIs
 export const imageUploadApi = `${baseApiUrl}/cloudinary/uploadImage`;

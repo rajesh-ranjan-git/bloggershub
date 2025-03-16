@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { updateProfileServiceApi } from "@/services/apiUrls";
 
 const updateProfileService = createAsyncThunk(
-  "/posts/fetchSinglePostService",
+  "/posts/updateProfileService",
   async ({ formData, userId }) => {
     try {
       const updateProfileServiceResponse = await axios.post(

@@ -36,10 +36,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
 import fetchProfileService from "@/services/profile/fetchProfileService";
 import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal";
 import CaptureCamera from "@/components/captureCamera/captureCamera";
+import updateProfileService from "@/services/profile/updateProfileService";
+import updateProfileImageService from "@/services/profile/updateProfileImageService";
+import { toast } from "@/hooks/use-toast";
 
 const Profile = () => {
   const [showCamera, setShowCamera] = useState(false);
@@ -68,11 +70,30 @@ const Profile = () => {
     if (!profileImageUploading) {
       setShowCamera(false);
     }
-  }, [profileImageUploading]);
 
-  useEffect(() => {
-    console.log("uploadedProfileImageUrl : ", uploadedProfileImageUrl);
-  }, [uploadedProfileImageUrl]);
+    if (uploadedProfileImageUrl && uploadedProfileImageUrl !== "") {
+      dispatch(
+        updateProfileImageService({
+          profileImage: uploadedProfileImageUrl,
+          userId: loggedInUser?.id,
+        })
+      ).then((data) => {
+        if (data?.payload?.success) {
+          setIsProfileUpdated(true);
+          toast({
+            title: "Profile updated successfully!",
+            description: data.payload.message,
+          });
+        } else {
+          toast({
+            title: "Profile update failed!",
+            variant: "destructive",
+            description: data.payload.message,
+          });
+        }
+      });
+    }
+  }, [profileImageUploading]);
 
   return (
     <>

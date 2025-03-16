@@ -74,7 +74,6 @@ const updateProfile = async (req, res) => {
       ? payload.phoneNumber
       : userProfile.phoneNumber;
     userProfile.bio = payload.bio.length > 2 ? payload.bio : userProfile.bio;
-    userProfile.profileImage = payload.profileImage || userProfile.profileImage;
 
     userProfile = await prisma.profile.update({
       where: {
@@ -88,7 +87,6 @@ const updateProfile = async (req, res) => {
         dob: userProfile.dob,
         phoneNumber: userProfile.phoneNumber,
         bio: userProfile.bio,
-        profileImage: userProfile.profileImage,
       },
     });
 
