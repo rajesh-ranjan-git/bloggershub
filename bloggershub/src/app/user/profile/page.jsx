@@ -39,9 +39,9 @@ import {
 import fetchProfileService from "@/services/profile/fetchProfileService";
 import AddProfileDetailsModal from "@/components/profile/addProfileDetailsModal";
 import CaptureCamera from "@/components/captureCamera/captureCamera";
-import updateProfileService from "@/services/profile/updateProfileService";
 import updateProfileImageService from "@/services/profile/updateProfileImageService";
 import { toast } from "@/hooks/use-toast";
+import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthorService";
 
 const Profile = () => {
   const [showCamera, setShowCamera] = useState(false);
@@ -50,6 +50,7 @@ const Profile = () => {
   const [uploadedProfileImageUrl, setUploadedProfileImageUrl] = useState("");
   const [isProfileUpdated, setIsProfileUpdated] = useState(false);
   const [typeOfProfileData, setTypeOfProfileData] = useState("");
+  const [postsCount, setPostsCount] = useState(0);
   const { loggedInUser } = useSelector((state) => state.authReducer);
   const { userProfile } = useSelector((state) => state.profileReducer);
 
@@ -94,6 +95,14 @@ const Profile = () => {
       });
     }
   }, [profileImageUploading]);
+
+  useEffect(() => {
+    if (loggedInUser) {
+      dispatch(
+        fetchAllPostsByAuthorService({ authorId: loggedInUser?.id })
+      ).then((data) => setPostsCount(data?.payload?.posts?.length));
+    }
+  }, []);
 
   return (
     <>
@@ -150,7 +159,7 @@ const Profile = () => {
                         width={300}
                         height={300}
                         alt="profileImage"
-                        className="z-0 rounded-full max-w-72 max-h-72 object-cover"
+                        className="rounded-full w-72 h-72 object-cover"
                       />
                       <div className="bottom-0 left-0 z-40 absolute flex flex-col justify-center items-center bg-neutral-600 opacity-0 group-hover:opacity-80 w-full h-24 transition-opacity duration-300" />
                       <DropdownMenu>
@@ -339,7 +348,7 @@ const Profile = () => {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">Posts</TableCell>
-                          <TableCell>15</TableCell>
+                          <TableCell>{postsCount}</TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">
