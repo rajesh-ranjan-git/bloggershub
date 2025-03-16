@@ -1,5 +1,5 @@
 import prisma from "../../db/dbConfig.js";
-import { getFullname } from "../../helper/getFullName.js";
+import { getFullname } from "../../helpers/getFullName.js";
 
 export const getAuthorDetails = async (authorId) => {
   const author = { authorId: "", name: "", email: "", profileImage: null };

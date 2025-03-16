@@ -44,6 +44,8 @@ import CaptureCamera from "@/components/captureCamera/captureCamera";
 const Profile = () => {
   const [showCamera, setShowCamera] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
+  const [profileImageUploading, setProfileImageUploading] = useState(false);
+  const [uploadedProfileImageUrl, setUploadedProfileImageUrl] = useState("");
   const [isProfileUpdated, setIsProfileUpdated] = useState(false);
   const [typeOfProfileData, setTypeOfProfileData] = useState("");
   const { loggedInUser } = useSelector((state) => state.authReducer);
@@ -58,9 +60,19 @@ const Profile = () => {
 
   useEffect(() => {
     if (!showCamera) {
-      setProfileImage(false);
+      setProfileImage(null);
     }
   }, [showCamera]);
+
+  useEffect(() => {
+    if (!profileImageUploading) {
+      setShowCamera(false);
+    }
+  }, [profileImageUploading]);
+
+  useEffect(() => {
+    console.log("uploadedProfileImageUrl : ", uploadedProfileImageUrl);
+  }, [uploadedProfileImageUrl]);
 
   return (
     <>
@@ -152,6 +164,10 @@ const Profile = () => {
                             <CaptureCamera
                               image={profileImage}
                               setImage={setProfileImage}
+                              imageUploading={profileImageUploading}
+                              setImageUploading={setProfileImageUploading}
+                              uploadedImageUrl={uploadedProfileImageUrl}
+                              setUploadedImageUrl={setUploadedProfileImageUrl}
                             />
                           </DialogHeader>
                         </DialogContent>
