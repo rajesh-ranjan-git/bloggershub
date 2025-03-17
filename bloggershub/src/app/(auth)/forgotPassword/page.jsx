@@ -32,13 +32,13 @@ const ForgotPassword = () => {
         router.push("/signIn");
         toast({
           title: "Password update successful!",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       } else {
         toast({
           title: "Password update failed!",
           variant: "destructive",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       }
     });

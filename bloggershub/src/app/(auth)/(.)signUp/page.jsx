@@ -44,22 +44,21 @@ const SignUp = () => {
         router.push("/");
         toast({
           title: "Sign Up successful!",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       } else {
         toast({
           title: "Sign Up failed!",
           variant: "destructive",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       }
     });
-    // router.push("/");
   };
 
   const handleDialogClose = () => {
     setOpen(false);
-    router.back();
+    router.push("/");
   };
 
   const handleFirebaseGoogleAuth = async () => {

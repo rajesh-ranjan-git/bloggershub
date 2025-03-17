@@ -35,13 +35,13 @@ const SignIn = () => {
         router.push("/");
         toast({
           title: "Sign In successful!",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       } else {
         toast({
           title: "Sign In failed!",
           variant: "destructive",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       }
     });

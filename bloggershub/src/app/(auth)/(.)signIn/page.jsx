@@ -1,32 +1,31 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import { toast } from "@/hooks/use-toast";
-import signInService from "@/services/auth/signInService";
-import { signInSchema } from "@/validations/signInSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { FaUserShield } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import firebaseGoogleAuth from "@/firebase/firebaseGoogleAuth";
+import { signInSchema } from "@/validations/signInSchema";
+import signInService from "@/services/auth/signInService";
 import firebaseGoogleAuthService from "@/services/auth/firebaseGoogleAuthService";
+import firebaseGoogleAuth from "@/firebase/firebaseGoogleAuth";
 import CustomButton from "@/components/customFormElements/customButton";
 import CustomInput from "@/components/customFormElements/customInput";
 
 const SignIn = () => {
   const [open, setOpen] = useState(true);
-
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -44,22 +43,22 @@ const SignIn = () => {
         router.push("/");
         toast({
           title: "Sign In successful!",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       } else {
         toast({
           title: "Sign In failed!",
           variant: "destructive",
-          description: data.payload.message,
+          description: data?.payload?.message,
         });
       }
     });
-    // router.push("/");
   };
 
   const handleDialogClose = () => {
     setOpen(false);
-    router.back();
+    console.log("I am here");
+    router.push("/");
   };
 
   const handleFirebaseGoogleAuth = async () => {
