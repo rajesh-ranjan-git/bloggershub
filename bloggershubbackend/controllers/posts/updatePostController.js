@@ -25,9 +25,9 @@ const updatePost = async (req, res) => {
       where: {
         id: postId,
       },
-      include: {
-        tags: true,
-      },
+      // include: {
+      //   tags: true,
+      // },
     });
 
     // If post not found
@@ -58,11 +58,12 @@ const updatePost = async (req, res) => {
       ? payload.postImage
       : findPost.postImage;
     findPost.published = payload.published || findPost.published;
-    findPost.tags =
-      payload.tags.length > 0
-        ? payload.tags.split(",").map((tag) => tag.trim())
-        : findPost.tags;
+    // findPost.tags =
+    //   payload.tags.length > 0
+    //     ? payload.tags.split(",").map((tag) => tag.trim())
+    //     : findPost.tags;
 
+    console.log("findPost : ", findPost);
     // Update post
     const updatedPost = await prisma.post.update({
       where: {
@@ -73,16 +74,16 @@ const updatePost = async (req, res) => {
         content: findPost.content,
         postImage: findPost.postImage,
         published: findPost.published,
-        tags: {
-          deleteMany: {},
-          create: findPost.tags.map((tag) => ({
-            tag: {
-              connectOrCreate: { where: { name: tag }, create: { name: tag } },
-            },
-          })),
-        },
+        // tags: {
+        //   deleteMany: {},
+        //   create: findPost.tags.map((tag) => ({
+        //     tag: {
+        //       connectOrCreate: { where: { name: tag }, create: { name: tag } },
+        //     },
+        //   })),
+        // },
       },
-      include: { tags: { select: { tag: { select: { name: true } } } } },
+      // include: { tags: { select: { tag: { select: { name: true } } } } },
     });
 
     // If updating post was not successful

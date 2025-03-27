@@ -57,7 +57,7 @@ const ViewProfile = ({ userId }) => {
                   <CardDescription className="hidden"></CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-center items-center">
-                  <div className="p-1 border-[#a3ab09] border-2 rounded-full overflow-hidden">
+                  <div className="p-1 border-[#a3ab09] border-2 rounded-full overflow-hidden cursor-pointer">
                     <Image
                       src={
                         userProfile?.profile?.profileImage ||
@@ -66,7 +66,7 @@ const ViewProfile = ({ userId }) => {
                       width={300}
                       height={300}
                       alt="profileImage"
-                      className="rounded-full max-w-72 max-h-72 object-cover"
+                      className="rounded-full w-72 h-72 object-cover"
                     />
                   </div>
                 </CardContent>

@@ -35,15 +35,15 @@ const createPost = async (req, res) => {
         postImage: payload.postImage,
         published: payload.published,
         authorId: payload.authorId,
-        tags: {
-          create: payload.tags.map((tag) => ({
-            tag: {
-              connectOrCreate: { where: { name: tag }, create: { name: tag } },
-            },
-          })),
-        },
+        // tags: {
+        //   create: payload.tags.map((tag) => ({
+        //     tag: {
+        //       connectOrCreate: { where: { name: tag }, create: { name: tag } },
+        //     },
+        //   })),
+        // },
       },
-      include: { tags: { select: { tag: { select: { name: true } } } } },
+      // include: { tags: { select: { tag: { select: { name: true } } } } },
     });
 
     // If post did not get created
@@ -58,7 +58,7 @@ const createPost = async (req, res) => {
     // If post created successfully
     // Fetch all posts by author
     const posts = await prisma.post.findMany({
-      include: { tags: { select: { tag: { select: { name: true } } } } },
+      // include: { tags: { select: { tag: { select: { name: true } } } } },
       orderBy: [
         {
           updatedAt: "desc",
