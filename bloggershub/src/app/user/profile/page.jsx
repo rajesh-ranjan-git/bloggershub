@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { Camera } from "lucide-react";
@@ -42,6 +42,8 @@ import CaptureCamera from "@/components/captureCamera/captureCamera";
 import updateProfileImageService from "@/services/profile/updateProfileImageService";
 import { toast } from "@/hooks/use-toast";
 import fetchAllPostsByAuthorService from "@/services/posts/fetchAllPostsByAuthorService";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const Profile = () => {
   const [showCamera, setShowCamera] = useState(false);
@@ -55,6 +57,14 @@ const Profile = () => {
   const { userProfile } = useSelector((state) => state.profileReducer);
 
   const dispatch = useDispatch();
+
+  const handleChoosePhoto = (e) => {
+    const photo = e.target.files?.[0];
+    if (photo) {
+      console.log("Selected file:", photo.name);
+      e.target.value = "";
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchProfileService(loggedInUser?.id));
@@ -178,9 +188,12 @@ const Profile = () => {
                           >
                             Take a photo
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer">
-                            Choose from photos
-                          </DropdownMenuItem>
+                          <Input
+                            accept="image/*"
+                            type="file"
+                            className="w-52"
+                            onChange={handleChoosePhoto}
+                          />
                         </DropdownMenuContent>
                       </DropdownMenu>
 

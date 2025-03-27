@@ -34,7 +34,7 @@ const CreatePost = () => {
   };
 
   return (
-    <section className="flex justify-center items-center px-10 w-screen h-screen">
+    <section className="flex justify-center items-center px-10 w-full h-screen">
       <div className="shadow-md p-4 border-[#a3ab09] border-t-4 rounded-lg w-full md:w-[70vw] min-h-96">
         <div className="flex justify-center items-center gap-2 p-4 font-semibold text-2xl">
           <MdOutlinePostAdd />
@@ -65,14 +65,14 @@ const CreatePost = () => {
                 name="thumbnail"
               />
             </div>
-            <div className="relative p-3 emailBox">
+            {/* <div className="relative p-3 emailBox">
               <CustomInput
                 control={form.control}
                 label="Tags (comma-separated)"
                 name="tags"
                 placeholder="Tags (comma-separated)"
               />
-            </div>
+            </div> */}
             <div className="p-3">
               <CustomButton
                 type="submit"
